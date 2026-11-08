@@ -111,12 +111,6 @@ export default function Navigation() {
     }, 80);
   }, []);
 
-  /* ── Scroll to top ── */
-  const scrollToTop = useCallback(() => {
-    setIsOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
   const formatNum = (i) => String(i + 1).padStart(2, '0');
 
   return (
@@ -153,6 +147,15 @@ export default function Navigation() {
 
           {/* CTA + Mobile Toggle */}
           <div className="nav-actions">
+            <a
+              href="/Shahariyar_Khan_Rashad_CV.pdf"
+              download="Shahariyar_Khan_Rashad_CV.pdf"
+              className="nav-cv-btn"
+              aria-label="Download CV"
+            >
+              CV
+            </a>
+
             <button
               className="nav-cta-btn"
               onClick={() => scrollTo('contact')}

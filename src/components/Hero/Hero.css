@@ -152,6 +152,20 @@
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
+.btn-accent {
+  background: rgba(34, 211, 238, 0.08);
+  color: var(--color-accent-cyan);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+}
+
+.btn-accent:hover {
+  background: var(--color-accent-cyan);
+  color: #070B18;
+  border-color: var(--color-accent-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(34, 211, 238, 0.35);
+}
+
 .btn-secondary {
   background: var(--color-bg-card);
   color: var(--color-text-heading);

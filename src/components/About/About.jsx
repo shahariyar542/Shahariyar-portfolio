@@ -110,6 +110,27 @@ function About() {
             >
               {aboutData.mindset}
             </motion.p>
+            <motion.div
+              className="about-cv-wrapper"
+              initial="hidden"
+              animate={isInView ? 'visible' : 'hidden'}
+              variants={fadeUp}
+              custom={5}
+            >
+              <a
+                href="/Shahariyar_Khan_Rashad_CV.pdf"
+                download="Shahariyar_Khan_Rashad_CV.pdf"
+                className="about-cv-btn"
+                aria-label="Download Professional Curriculum Vitae"
+              >
+                <span>Download Verified CV (PDF)</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              </a>
+            </motion.div>
           </div>
         </div>
 

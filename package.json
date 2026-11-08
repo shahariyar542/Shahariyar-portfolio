@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-cv.js",
     "build": "vite build",
+    "generate-cv": "node scripts/generate-cv.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -22,6 +24,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "oxlint": "^1.90.0",
+    "pdfkit": "^0.20.2",
     "vite": "^8.3.6"
   }
 }

@@ -1,41 +1,167 @@
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { skills } from '../../data/portfolio.js';
 import './Skills.css';
 
 const categoryKeys = Object.keys(skills);
 
-const proficiencyColors = {
-  'Daily Driver': 'var(--color-accent-cyan)',
-  'Comfortable': 'var(--color-accent-cyan)',
-  'Working Knowledge': 'var(--color-accent-blue)',
-  'Learning & Building': '#93C5FD',
-  'Academic Foundation': 'var(--color-text-secondary)',
-  'Exploring & Learning': 'var(--color-accent-cyan)',
+const proficiencyColorMap = {
+  'Daily Driver': {
+    color: '#3B82F6',
+    bg: 'rgba(59, 130, 246, 0.12)',
+    border: 'rgba(59, 130, 246, 0.35)',
+  },
+  'Learning & Building': {
+    color: '#22D3EE',
+    bg: 'rgba(34, 211, 238, 0.12)',
+    border: 'rgba(34, 211, 238, 0.35)',
+  },
+  'Exploring & Learning': {
+    color: '#60A5FA',
+    bg: 'rgba(96, 165, 250, 0.12)',
+    border: 'rgba(96, 165, 250, 0.35)',
+  },
+  'Comfortable': {
+    color: '#38BDF8',
+    bg: 'rgba(56, 189, 248, 0.12)',
+    border: 'rgba(56, 189, 248, 0.35)',
+  },
+  'Working Knowledge': {
+    color: '#A5B4FC',
+    bg: 'rgba(165, 180, 252, 0.12)',
+    border: 'rgba(165, 180, 252, 0.35)',
+  },
+  'Academic Foundation': {
+    color: '#CBD5E1',
+    bg: 'rgba(203, 213, 225, 0.08)',
+    border: 'rgba(203, 213, 225, 0.22)',
+  },
 };
 
-/* Decorative background dots */
-const bgDots = Array.from({ length: 24 }, (_, i) => ({
-  id: i,
-  left: `${(i * 37 + 11) % 100}%`,
-  top: `${(i * 53 + 7) % 100}%`,
-  size: i % 3 === 0 ? 4 : 2,
-  delay: i * 0.1,
-}));
+/* ── Interactive 3D Skill Category Card ── */
+function SkillCategoryCard3D({ data, index }) {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, margin: '-40px' });
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current || window.innerWidth < 1024) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xPct = (x / rect.width) * 100;
+    const yPct = (y / rect.height) * 100;
+    setMousePos({ x: xPct, y: yPct });
+
+    const tiltX = ((y / rect.height) - 0.5) * -12;
+    const tiltY = ((x / rect.width) - 0.5) * 12;
+    setTilt({ x: tiltX, y: tiltY });
+  };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTilt({ x: 0, y: 0 });
+  };
+
+  return (
+    <motion.article
+      ref={cardRef}
+      className={`skills-3d-card ${isHovered ? 'skills-3d-card--hovered' : ''}`}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 35 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+      }}
+    >
+      {/* Dynamic Specular Light Flare */}
+      <div
+        className="skills-3d-sheen"
+        style={{
+          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(96, 165, 250, 0.18) 0%, rgba(34, 211, 238, 0.04) 45%, transparent 70%)`,
+          opacity: isHovered ? 1 : 0,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Layer 1: Ambient Lighting Border */}
+      <div className="skills-3d-glow-border" aria-hidden="true" />
+
+      {/* Layer 2: Elevated 3D Content Surface */}
+      <div className="skills-3d-content">
+        <header className="skills-card-header">
+          <div className="skills-icon-wrap">
+            <span className="skills-icon-glyph">{data.icon}</span>
+          </div>
+          <div className="skills-header-meta">
+            <div className="skills-header-top">
+              <span className="skills-category-index">0{index + 1}</span>
+              <span className="skills-count-tag">
+                {data.items.length} {data.items.length === 1 ? 'Tech' : 'Techs'}
+              </span>
+            </div>
+            <h3 className="skills-card-title">{data.label}</h3>
+          </div>
+        </header>
+
+        {data.description && (
+          <p className="skills-card-desc">{data.description}</p>
+        )}
+
+        <div className="skills-badge-grid">
+          {data.items.map((skill) => {
+            const levelStyle = proficiencyColorMap[skill.level] || {
+              color: '#CBD5E1',
+              bg: 'rgba(203, 213, 225, 0.08)',
+              border: 'rgba(203, 213, 225, 0.2)',
+            };
+
+            return (
+              <div
+                key={skill.name}
+                className={`skill-tech-badge ${skill.highlight ? 'skill-tech-badge--highlight' : ''}`}
+              >
+                <div className="skill-tech-main">
+                  <span className="skill-tech-dot" aria-hidden="true" />
+                  <span className="skill-tech-name">{skill.name}</span>
+                  {skill.highlight && (
+                    <span className="skill-tech-star" title="Core Focus" aria-label="Core Focus">
+                      ★
+                    </span>
+                  )}
+                </div>
+                <span
+                  className="skill-tech-level"
+                  style={{
+                    color: levelStyle.color,
+                    backgroundColor: levelStyle.bg,
+                    borderColor: levelStyle.border,
+                  }}
+                >
+                  {skill.level}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState(categoryKeys[0]);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
-  const activeSkills = skills[activeCategory];
-
   return (
-    <section
-      id="skills"
-      className="skills section section-dark"
-      ref={sectionRef}
-    >
+    <section id="skills" className="skills section section-dark" ref={sectionRef}>
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -56,132 +182,26 @@ export default function Skills() {
           Skills & <em>Competencies</em>
         </motion.h2>
 
-        {/* Main Layout: Tabs + Display */}
-        <motion.div
-          className="skills-layout"
-          initial={{ opacity: 0, y: 30 }}
+        <motion.p
+          className="skills-intro"
+          initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Category Tabs */}
-          <nav className="skills-tabs" aria-label="Skill categories">
-            {categoryKeys.map((key) => {
-              const category = skills[key];
-              const isActive = activeCategory === key;
-              return (
-                <button
-                  key={key}
-                  className={`skills-tab ${isActive ? 'skills-tab--active' : ''}`}
-                  onClick={() => setActiveCategory(key)}
-                  aria-pressed={isActive}
-                >
-                  <span className="skills-tab-icon" aria-hidden="true">
-                    {category.icon}
-                  </span>
-                  <span className="skills-tab-label">{category.label}</span>
-                  {isActive && (
-                    <motion.span
-                      className="skills-tab-glow"
-                      layoutId="activeTabGlow"
-                      transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </nav>
+          Curated across five fundamental engineering domains with focus on machine intelligence, robust backend systems, and modern interactive technologies.
+        </motion.p>
 
-          {/* Skill Display Area */}
-          <div className="skills-display">
-            {/* Cyber Grid & Constellation Points */}
-            <div className="skills-constellation" aria-hidden="true">
-              {bgDots.map((dot) => (
-                <motion.span
-                  key={dot.id}
-                  className="skills-bg-dot"
-                  style={{
-                    left: dot.left,
-                    top: dot.top,
-                    width: dot.size,
-                    height: dot.size,
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 0.4 } : {}}
-                  transition={{ duration: 1, delay: dot.delay }}
-                />
-              ))}
-            </div>
-
-            {/* Category Header */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeCategory}
-                className="skills-display-header"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div className="skills-category-badge">
-                  <span className="skills-display-icon" aria-hidden="true">
-                    {activeSkills.icon}
-                  </span>
-                  <h3 className="skills-display-title">{activeSkills.label}</h3>
-                </div>
-                <span className="skills-count-pill">
-                  {activeSkills.items.length} {activeSkills.items.length === 1 ? 'Skill' : 'Skills'}
-                </span>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Skill Nodes */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeCategory}
-                className="skills-nodes"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                {activeSkills.items.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    className="skills-node"
-                    layoutId={skill.name}
-                    initial={{ opacity: 0, scale: 0.88, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.88, y: -10 }}
-                    transition={{
-                      duration: 0.45,
-                      delay: index * 0.08,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                  >
-                    <div className="skills-node-inner">
-                      <div className="skills-node-icon-wrapper">
-                        <span className="skills-node-glyph">✦</span>
-                      </div>
-                      <div className="skills-node-info">
-                        <span className="skills-node-name">{skill.name}</span>
-                        <span
-                          className="skills-node-level"
-                          style={{
-                            color:
-                              proficiencyColors[skill.level] ||
-                              'var(--color-accent-cyan)',
-                          }}
-                        >
-                          {skill.level}
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </motion.div>
+        {/* 5-Category Interactive 3D Grid */}
+        <div className="skills-3d-grid">
+          {categoryKeys.map((key, index) => (
+            <SkillCategoryCard3D
+              key={key}
+              categoryKey={key}
+              data={skills[key]}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

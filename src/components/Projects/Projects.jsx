@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { projects } from '../../data/portfolio';
 import './Projects.css';
 
@@ -11,33 +11,29 @@ const statusClassMap = {
 
 const formatNumber = (num) => String(num).padStart(2, '0');
 
-/* ── Single Project Card with 3D Tilt ── */
-function ProjectCard({ project, index }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+/* ── Premium Interactive 3D Project Card ── */
+function ProjectCard3D({ project, index }) {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, margin: '-40px' });
+
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
 
-  const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true, margin: '-60px' });
-
-  const toggleExpand = useCallback(() => {
-    setIsExpanded((prev) => !prev);
-  }, []);
-
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setIsExpanded((prev) => !prev);
-    }
-  }, []);
-
-  /* 3D Tilt Mouse Interaction */
+  /* Mouse-responsive 3D tilt */
   const handleMouseMove = (e) => {
-    if (window.innerWidth < 1024 || !cardRef.current) return;
+    if (!cardRef.current || window.innerWidth < 1024) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: -y * 8, y: x * 8 });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xPct = (x / rect.width) * 100;
+    const yPct = (y / rect.height) * 100;
+    setMousePos({ x: xPct, y: yPct });
+
+    const tiltX = ((y / rect.height) - 0.5) * -14;
+    const tiltY = ((x / rect.width) - 0.5) * 14;
+    setTilt({ x: tiltX, y: tiltY });
   };
 
   const handleMouseEnter = () => setIsHovered(true);
@@ -52,97 +48,108 @@ function ProjectCard({ project, index }) {
   return (
     <motion.article
       ref={cardRef}
-      className={`projects-card${isExpanded ? ' projects-card--expanded' : ''}`}
-      onClick={toggleExpand}
-      onKeyDown={handleKeyDown}
+      className={`project-3d-card ${isHovered ? 'project-3d-card--hovered' : ''}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      tabIndex={0}
-      role="button"
-      aria-expanded={isExpanded}
-      aria-label={`${project.title} — ${project.status}. Click to ${isExpanded ? 'collapse' : 'expand'} details.`}
-      initial={{ opacity: 0, y: 35 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
-      transition={{ duration: 0.65, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transform: `perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
       }}
     >
-      {/* Specular glass reflection sheen */}
+      {/* Dynamic Specular Light Flare */}
       <div
-        className="projects-card-sheen"
+        className="project-3d-sheen"
         style={{
-          opacity: isHovered ? 0.8 : 0,
-          background: `radial-gradient(circle at ${(tilt.y + 4) * 12 + 50}% ${(-tilt.x + 4) * 12 + 50}%, rgba(34, 211, 238, 0.12), transparent 60%)`,
+          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(96, 165, 250, 0.18) 0%, rgba(34, 211, 238, 0.04) 40%, transparent 70%)`,
+          opacity: isHovered ? 1 : 0,
         }}
         aria-hidden="true"
       />
 
-      <div className="projects-card-row">
-        {/* Large futuristic number */}
-        <span className="projects-number" aria-hidden="true">
-          {formatNumber(index + 1)}
-        </span>
+      {/* Layer 1: Ambient Lighting Border */}
+      <div className="project-3d-glow-border" aria-hidden="true" />
 
-        {/* Title area */}
-        <div className="projects-title-area">
-          <div className="projects-meta-bar">
-            <span className="projects-number--mobile" aria-hidden="true">
+      {/* Layer 2: Elevated 3D Content Surface */}
+      <div className="project-3d-inner">
+        {/* Top Header: Number & Status */}
+        <div className="project-3d-header">
+          <div className="project-3d-meta">
+            <span className="project-3d-number" aria-hidden="true">
               {formatNumber(index + 1)}
             </span>
-            <span className="projects-category">{project.category}</span>
+            <span className="project-3d-category">{project.category}</span>
           </div>
-          <h3 className="projects-title">{project.title}</h3>
+
+          <div className="project-3d-status-wrap">
+            <span className={`project-3d-status ${statusClass}`}>
+              <span className="project-3d-status-dot" />
+              {project.status}
+            </span>
+          </div>
         </div>
 
-        {/* Status badge */}
-        <div className="projects-status-container">
-          <span className={`projects-status ${statusClass}`}>
-            <span className="projects-status-indicator" />
-            {project.status}
-          </span>
-          <span className="projects-expand-icon" aria-hidden="true">
-            {isExpanded ? '−' : '+'}
-          </span>
+        {/* Title */}
+        <h3 className="project-3d-title">{project.title}</h3>
+
+        {/* Description */}
+        <p className="project-3d-desc">{project.description}</p>
+
+        {/* Technology Badges */}
+        <div className="project-3d-tags" aria-label="Technologies used">
+          {project.tags.map((tag) => (
+            <span key={tag} className="project-3d-tag">
+              {tag}
+            </span>
+          ))}
         </div>
-      </div>
 
-      {/* Expandable details */}
-      <AnimatePresence initial={false}>
-        {isExpanded && (
-          <motion.div
-            className="projects-expand"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="projects-expand-inner">
-              <p className="projects-description">{project.description}</p>
-              <div className="projects-tags">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="projects-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Interactive Action Buttons */}
+        <div className="project-3d-actions">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-btn project-btn--github"
+              aria-label={`View ${project.title} on GitHub`}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+              </svg>
+              <span>GitHub</span>
+            </a>
+          )}
 
-      {/* Mobile persistent summary */}
-      <div className="projects-expand-mobile">
-        <div className="projects-expand-inner">
-          <p className="projects-description">{project.description}</p>
-          <div className="projects-tags">
-            {project.tags.map((tag) => (
-              <span key={tag} className="projects-tag">
-                {tag}
-              </span>
-            ))}
-          </div>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              className="project-btn project-btn--live"
+              onClick={(e) => {
+                if (project.liveUrl.startsWith('#')) {
+                  e.preventDefault();
+                  // Trigger IRIS if it's #iris
+                  const irisBtn = document.querySelector('.iris-mascot');
+                  if (irisBtn) irisBtn.click();
+                }
+              }}
+              aria-label={`Interact with ${project.title}`}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              <span>Interactive Preview</span>
+            </a>
+          )}
+
+          {project.metrics && (
+            <span className="project-3d-metric">
+              <span className="project-3d-metric-icon">◈</span>
+              {project.metrics}
+            </span>
+          )}
         </div>
       </div>
     </motion.article>
@@ -152,7 +159,7 @@ function ProjectCard({ project, index }) {
 /* ── Projects Section ── */
 export default function Projects() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
   return (
     <section id="projects" className="section projects-section" ref={sectionRef}>
@@ -160,23 +167,23 @@ export default function Projects() {
         {/* Section Header */}
         <motion.header
           className="projects-header"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="section-label">03 — Projects</p>
+          <p className="section-label">04 — Software Projects</p>
           <h2 className="section-title">
-            Featured <em>Engineering Works</em>
+            Engineered <em>Software Solutions</em>
           </h2>
           <p className="projects-subtitle">
-            A curated showcase of artificial intelligence, security, and systems engineering projects.
+            Actual software applications, artificial intelligence models, and IoT security systems developed by Shahariyar Khan Rashad.
           </p>
         </motion.header>
 
-        {/* Project Cards List */}
-        <div className="projects-list" role="list">
+        {/* 3D Projects Grid */}
+        <div className="projects-3d-grid" role="list">
           {projects.map((project, index) => (
-            <ProjectCard
+            <ProjectCard3D
               key={project.id}
               project={project}
               index={index}

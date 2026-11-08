@@ -1,11 +1,12 @@
 /* ============================================================
-   SHAHARIYAR.EXE — Refined Research & Exploration Styles
+   SHAHARIYAR.EXE — Research & Exploration 3D Styles
    ============================================================ */
 
 .research-section {
   position: relative;
   background-color: var(--color-bg-primary);
   border-top: 1px solid var(--border-subtle);
+  padding: var(--space-4xl) 0;
 }
 
 .research-container {
@@ -18,45 +19,115 @@
   margin-bottom: var(--space-3xl);
 }
 
-/* ── 2x2 Grid ── */
-.research-grid {
+/* ── 3D Research Grid ── */
+.research-3d-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-lg);
+  gap: var(--space-xl);
   margin-bottom: var(--space-2xl);
+  perspective: 1200px;
 }
 
-.research-card {
+/* ── 3D Card Architecture ── */
+.research-3d-card {
+  position: relative;
   background: var(--color-bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: var(--space-xl);
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+  overflow: hidden;
+  box-shadow: var(--shadow-3d-card);
   display: flex;
   flex-direction: column;
-  transition: all var(--duration-normal) var(--ease-out-quart);
 }
 
-.research-card:hover {
-  transform: translateY(-3px);
+.research-3d-card--hovered {
   border-color: var(--border-hover);
-  background: var(--color-bg-elevated);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-3d-card-hover), 0 0 24px rgba(59, 130, 246, 0.12);
+}
+
+/* Specular Sheen */
+.research-3d-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+/* Glow Border */
+.research-3d-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  pointer-events: none;
+  z-index: 2;
+  transition: border-color 0.3s ease;
+}
+
+.research-3d-card--hovered .research-3d-glow {
+  border-color: rgba(96, 165, 250, 0.3);
+}
+
+/* Content */
+.research-3d-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.research-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.research-card-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .research-card-icon {
   font-family: var(--font-mono);
-  font-size: 1.6rem;
+  font-size: 1.35rem;
   color: var(--color-accent-cyan);
-  margin-bottom: var(--space-sm);
-  line-height: 1;
+}
+
+.research-card-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(96, 165, 250, 0.1);
+  color: var(--color-accent-primary);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .research-card-title {
   font-family: var(--font-heading);
-  font-size: var(--text-lg);
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text-heading);
   margin-bottom: var(--space-xs);
+  letter-spacing: -0.01em;
 }
 
 .research-card-description {
@@ -84,23 +155,20 @@
   display: flex;
   align-items: center;
   gap: var(--space-md);
+  margin: 0;
   max-width: none;
 }
 
 .research-note-icon {
-  color: var(--color-accent-primary);
+  color: var(--color-accent-cyan);
   font-size: 1.1rem;
   flex-shrink: 0;
 }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .research-grid {
+  .research-3d-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .research-card {
-    padding: var(--space-lg);
+    gap: var(--space-lg);
   }
 }
