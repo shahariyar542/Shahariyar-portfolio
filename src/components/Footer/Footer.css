@@ -1,10 +1,10 @@
 /* ============================================================
-   Footer — Minimal Elegant
+   Footer — Futuristic Dark Navy Styles
    ============================================================ */
 
 .footer {
-  background: var(--color-espresso);
-  border-top: 1px solid var(--color-gold);
+  background: var(--color-bg-secondary);
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
   padding: var(--space-xl) 0;
   position: relative;
 }
@@ -20,18 +20,16 @@
 .footer-copyright {
   font-family: var(--font-ui);
   font-size: var(--text-xs);
-  color: var(--color-warm-white);
-  opacity: 0.6;
+  color: var(--color-text-secondary);
   white-space: nowrap;
 }
 
 /* ── Center Tagline ── */
 .footer-tagline {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  font-style: italic;
-  color: var(--color-warm-white);
-  opacity: 0.5;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: var(--color-accent-cyan);
   text-align: center;
   white-space: nowrap;
 }
@@ -40,7 +38,7 @@
 .footer-social {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .footer-social-link {
@@ -50,46 +48,43 @@
   width: 36px;
   height: 36px;
   border-radius: var(--radius-full);
-  color: var(--color-warm-white);
-  opacity: 0.6;
-  transition:
-    color var(--duration-fast) var(--ease-out-quart),
-    opacity var(--duration-fast) var(--ease-out-quart),
-    transform var(--duration-fast) var(--ease-out-quart);
+  color: var(--color-text-secondary);
+  transition: all var(--duration-fast) var(--ease-out-quart);
 }
 
 .footer-social-link:hover {
-  color: var(--color-gold);
-  opacity: 1;
+  color: var(--color-accent-cyan);
+  background: rgba(34, 211, 238, 0.1);
   transform: translateY(-2px);
 }
 
 /* ── Back to Top Button ── */
 .footer-back-to-top {
   position: fixed;
-  bottom: var(--space-xl);
-  right: var(--space-xl);
-  z-index: var(--z-above);
+  bottom: 2rem;
+  right: calc(2rem + 72px);
+  z-index: var(--z-nav);
   width: 44px;
   height: 44px;
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-gold);
-  background: var(--color-espresso);
-  color: var(--color-gold);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  background: rgba(13, 20, 40, 0.85);
+  backdrop-filter: blur(12px);
+  color: var(--color-accent-cyan);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    background var(--duration-fast) var(--ease-out-quart),
-    color var(--duration-fast) var(--ease-out-quart),
-    transform var(--duration-fast) var(--ease-out-quart);
+  transition: all var(--duration-fast) var(--ease-out-quart);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .footer-back-to-top:hover {
-  background: var(--color-gold);
-  color: var(--color-espresso);
+  background: var(--color-accent-blue);
+  color: #FFFFFF;
+  border-color: var(--color-accent-blue);
   transform: translateY(-2px);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
 }
 
 /* ── Responsive ── */
@@ -105,28 +100,9 @@
   }
 
   .footer-back-to-top {
-    bottom: var(--space-lg);
-    right: var(--space-lg);
-    width: 40px;
-    height: 40px;
-  }
-}
-
-/* ── Reduced Motion ── */
-@media (prefers-reduced-motion: reduce) {
-  .footer-social-link {
-    transition: none;
-  }
-
-  .footer-social-link:hover {
-    transform: none;
-  }
-
-  .footer-back-to-top {
-    transition: none;
-  }
-
-  .footer-back-to-top:hover {
-    transform: none;
+    bottom: 1.25rem;
+    right: calc(1.25rem + 62px);
+    width: 38px;
+    height: 38px;
   }
 }

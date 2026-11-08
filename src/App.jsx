@@ -35,7 +35,9 @@ function App() {
       {!isLoading && (
         <>
           <CustomCursor />
-          <div className="noise-overlay" aria-hidden="true" />
+          <div className="cyber-bg-grid" aria-hidden="true" />
+          <div className="cyber-glow-orb cyber-glow-1" aria-hidden="true" />
+          <div className="cyber-glow-orb cyber-glow-2" aria-hidden="true" />
           <Navigation />
           
           <main>

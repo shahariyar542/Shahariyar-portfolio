@@ -1,15 +1,15 @@
 /* ============================================================
-   SHAHARIYAR.EXE — IRIS AI Companion Styles
+   SHAHARIYAR.EXE — Futuristic IRIS AI Companion Styles
    ============================================================ */
 
-/* ── Floating Mascot ── */
+/* ── Floating Mascot Launcher ── */
 .iris-mascot {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   z-index: var(--z-iris, 1100);
-  width: 60px;
-  height: 60px;
+  width: 62px;
+  height: 62px;
   border-radius: var(--radius-full);
   background: transparent;
   border: none;
@@ -19,25 +19,26 @@
   justify-content: center;
   padding: 0;
   outline: none;
-  filter: drop-shadow(0 8px 24px rgba(198, 167, 107, 0.35));
+  filter: drop-shadow(0 8px 24px rgba(34, 211, 238, 0.4));
 }
 
 .iris-mascot-body {
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--color-butter) 0%, var(--color-gold) 70%, #9e7f45 100%);
+  background: radial-gradient(circle at 35% 30%, var(--color-accent-cyan) 0%, var(--color-accent-blue) 65%, #1d4ed8 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: inset 0 -3px 8px rgba(33, 31, 27, 0.25), 0 4px 16px rgba(198, 167, 107, 0.4);
+  box-shadow: inset 0 -3px 8px rgba(0, 0, 0, 0.4), 0 0 20px rgba(34, 211, 238, 0.5);
   animation: iris-float 3.5s ease-in-out infinite;
   transition: transform var(--duration-fast) var(--ease-out-quart);
 }
 
 .iris-mascot:hover .iris-mascot-body {
-  transform: scale(1.06);
+  transform: scale(1.08);
+  box-shadow: inset 0 -3px 8px rgba(0, 0, 0, 0.4), 0 0 28px rgba(34, 211, 238, 0.7);
 }
 
 .iris-mascot-face {
@@ -51,43 +52,43 @@
   top: 3px;
   width: 5px;
   height: 6px;
-  background: var(--color-espresso);
+  background: #070B18;
   border-radius: 50%;
   animation: iris-blink 4s infinite;
 }
 
 .iris-mascot-eye--left {
-  left: 3px;
+  left: 4px;
 }
 
 .iris-mascot-eye--right {
-  right: 3px;
+  right: 4px;
 }
 
 .iris-mascot-smile {
   position: absolute;
-  bottom: 1px;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
   width: 10px;
   height: 5px;
-  border-bottom: 2px solid var(--color-espresso);
+  border-bottom: 2px solid #070B18;
   border-radius: 0 0 10px 10px;
 }
 
 .iris-mascot-label {
   position: absolute;
   bottom: -6px;
-  background: var(--color-espresso);
-  color: var(--color-gold);
-  font-family: var(--font-heading);
+  background: #070B18;
+  color: var(--color-accent-cyan);
+  font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-gold);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   pointer-events: none;
 }
 
@@ -95,7 +96,7 @@
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 1.5px solid var(--color-gold);
+  border: 1.5px solid var(--color-accent-cyan);
   opacity: 0.7;
   animation: iris-pulse 2.8s ease-out infinite;
   pointer-events: none;
@@ -125,11 +126,11 @@
     opacity: 0.8;
   }
   70% {
-    transform: scale(1.35);
+    transform: scale(1.4);
     opacity: 0;
   }
   100% {
-    transform: scale(1.4);
+    transform: scale(1.45);
     opacity: 0;
   }
 }
@@ -139,13 +140,16 @@
   position: fixed;
   bottom: 6rem;
   right: 2rem;
-  width: 380px;
+  width: 390px;
   max-width: calc(100vw - 2.5rem);
   height: 540px;
   max-height: calc(100vh - 8rem);
-  background: var(--color-ivory);
+  background: rgba(13, 20, 40, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius-xl);
-  box-shadow: 0 20px 60px rgba(33, 31, 27, 0.25), 0 0 0 1px rgba(198, 167, 107, 0.35);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(59, 130, 246, 0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -154,13 +158,13 @@
 
 /* Header */
 .iris-chat-header {
-  background: var(--color-espresso);
-  color: var(--color-warm-white);
+  background: rgba(7, 11, 24, 0.9);
+  color: var(--color-text-main);
   padding: 1.1rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(198, 167, 107, 0.2);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .iris-chat-header-info {
@@ -173,11 +177,11 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--color-butter) 0%, var(--color-gold) 100%);
+  background: radial-gradient(circle at 35% 30%, var(--color-accent-cyan) 0%, var(--color-accent-blue) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
 }
 
 .iris-chat-avatar-face {
@@ -188,23 +192,23 @@
 .iris-mini-eye {
   width: 4px;
   height: 5px;
-  background: var(--color-espresso);
+  background: #070B18;
   border-radius: 50%;
 }
 
 .iris-chat-name {
   font-family: var(--font-heading);
   font-size: var(--text-base);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.05em;
-  color: var(--color-warm-white);
+  color: #FFFFFF;
   line-height: 1.2;
 }
 
 .iris-chat-status {
-  font-family: var(--font-ui);
+  font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: rgba(248, 246, 240, 0.65);
+  color: var(--color-accent-cyan);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -215,26 +219,26 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #4ade80;
+  background: #22D3EE;
   display: inline-block;
-  box-shadow: 0 0 8px #4ade80;
+  box-shadow: 0 0 8px #22D3EE;
 }
 
 .iris-status-dot--thinking {
-  background: var(--color-gold);
-  box-shadow: 0 0 8px var(--color-gold);
+  background: #3B82F6;
+  box-shadow: 0 0 8px #3B82F6;
   animation: iris-status-pulse 1s infinite alternate;
 }
 
 @keyframes iris-status-pulse {
-  from { opacity: 0.4; }
+  from { opacity: 0.3; }
   to { opacity: 1; }
 }
 
 .iris-chat-close {
   background: transparent;
   border: none;
-  color: rgba(248, 246, 240, 0.6);
+  color: var(--color-text-secondary);
   cursor: pointer;
   padding: 6px;
   border-radius: var(--radius-sm);
@@ -245,7 +249,7 @@
 }
 
 .iris-chat-close:hover {
-  color: var(--color-warm-white);
+  color: #FFFFFF;
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -257,7 +261,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  background: var(--color-ivory);
+  background: transparent;
 }
 
 .iris-message {
@@ -284,18 +288,19 @@
 }
 
 .iris-message--iris .iris-message-bubble {
-  background: #EDE8DC;
-  color: var(--color-charcoal);
+  background: rgba(17, 28, 51, 0.95);
+  color: var(--color-text-main);
   border-bottom-left-radius: 3px;
-  border: 1px solid rgba(198, 167, 107, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .iris-message--user .iris-message-bubble {
-  background: var(--color-gold);
-  color: var(--color-espresso);
+  background: linear-gradient(135deg, var(--color-accent-blue) 0%, #2563EB 100%);
+  color: #FFFFFF;
   font-weight: 500;
   border-bottom-right-radius: 3px;
-  box-shadow: 0 2px 8px rgba(198, 167, 107, 0.25);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 /* Typing bubble */
@@ -311,7 +316,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-charcoal);
+  background: var(--color-accent-cyan);
   opacity: 0.4;
   animation: iris-typing-bounce 1.4s infinite ease-in-out both;
 }
@@ -341,27 +346,26 @@
   flex-wrap: wrap;
   gap: 0.4rem;
   padding: 0 1.25rem 0.85rem;
-  background: var(--color-ivory);
 }
 
 .iris-suggestion-chip {
-  background: var(--color-butter);
-  border: 1px solid rgba(198, 167, 107, 0.5);
-  color: var(--color-charcoal);
+  background: rgba(17, 28, 51, 0.8);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: var(--color-accent-cyan);
   font-family: var(--font-ui);
   font-size: 0.72rem;
-  font-weight: 600;
-  padding: 5px 10px;
+  font-weight: 500;
+  padding: 5px 11px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-out-quart);
+  transition: all var(--duration-fast);
   white-space: nowrap;
 }
 
 .iris-suggestion-chip:hover {
-  background: var(--color-gold);
-  color: var(--color-espresso);
-  border-color: var(--color-gold);
+  background: var(--color-accent-blue);
+  color: #FFFFFF;
+  border-color: var(--color-accent-blue);
   transform: translateY(-1px);
 }
 
@@ -370,8 +374,8 @@
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  background: var(--color-warm-white);
-  border-top: 1px solid rgba(36, 35, 33, 0.08);
+  background: rgba(7, 11, 24, 0.95);
+  border-top: 1px solid rgba(59, 130, 246, 0.2);
   gap: 0.5rem;
 }
 
@@ -382,32 +386,32 @@
   padding: 0.5rem 0.6rem;
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  color: var(--color-charcoal);
+  color: var(--color-text-main);
   outline: none;
 }
 
 .iris-chat-input input::placeholder {
-  color: rgba(36, 35, 33, 0.4);
+  color: var(--color-text-secondary);
 }
 
 .iris-send-btn {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--color-gold);
-  color: var(--color-espresso);
+  background: linear-gradient(135deg, var(--color-accent-blue) 0%, var(--color-accent-cyan) 100%);
+  color: #FFFFFF;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--duration-fast) var(--ease-out-quart);
+  transition: all var(--duration-fast);
   flex-shrink: 0;
 }
 
 .iris-send-btn:hover:not(:disabled) {
-  background: var(--color-gold-hover);
   transform: scale(1.08);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.5);
 }
 
 .iris-send-btn:disabled {
@@ -416,18 +420,18 @@
   transform: none;
 }
 
-/* ── Mobile responsiveness ── */
+/* ── Mobile ── */
 @media (max-width: 640px) {
   .iris-mascot {
     bottom: 1.25rem;
     right: 1.25rem;
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
   }
 
   .iris-mascot-body {
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
   }
 
   .iris-chat {
@@ -436,15 +440,5 @@
     left: 1rem;
     width: auto;
     height: 65vh;
-  }
-}
-
-/* ── Reduced motion ── */
-@media (prefers-reduced-motion: reduce) {
-  .iris-mascot-body,
-  .iris-mascot-pulse,
-  .iris-mascot-eye,
-  .iris-typing-dot {
-    animation: none !important;
   }
 }

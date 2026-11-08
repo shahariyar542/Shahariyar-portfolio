@@ -1,5 +1,5 @@
 /* ============================================================
-   Loader — Styles
+   Loader — Futuristic Dark Navy Styles
    ============================================================ */
 
 .loader-screen {
@@ -8,7 +8,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-espresso);
+  background-color: var(--color-bg-primary);
   z-index: 10000;
   display: flex;
   flex-direction: column;
@@ -20,11 +20,12 @@
 .loader-title {
   font-family: var(--font-heading);
   font-size: var(--text-sm);
-  color: var(--color-gold);
-  letter-spacing: 0.3em;
+  color: var(--color-accent-cyan);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   display: flex;
   overflow: hidden;
+  font-weight: 700;
 }
 
 .loader-letter {
@@ -32,9 +33,9 @@
 }
 
 .loader-bar-track {
-  width: 120px;
+  width: 140px;
   height: 2px;
-  background-color: var(--color-espresso-light);
+  background-color: rgba(59, 130, 246, 0.2);
   border-radius: var(--radius-full);
   overflow: hidden;
   position: relative;
@@ -42,7 +43,8 @@
 
 .loader-bar-fill {
   height: 100%;
-  background-color: var(--color-gold);
+  background: linear-gradient(90deg, var(--color-accent-blue) 0%, var(--color-accent-cyan) 100%);
+  box-shadow: 0 0 10px var(--color-accent-cyan);
   border-radius: var(--radius-full);
   transform-origin: left;
 }
