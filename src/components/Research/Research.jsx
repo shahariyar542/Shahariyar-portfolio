@@ -1,94 +1,131 @@
-import { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { researchInterests } from '../../data/portfolio';
 import './Research.css';
 
-/* ── Interactive 3D Research Card ── */
-function ResearchCard3D({ interest, index }) {
-  const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true, margin: '-40px' });
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-  const [isHovered, setIsHovered] = useState(false);
+// 4 Distinct coordinated accent color systems
+const researchColorThemes = [
+  {
+    name: 'Electric Blue',
+    primary: '#3B82F6',
+    secondary: '#60A5FA',
+    glow: 'rgba(59, 130, 246, 0.28)',
+    border: 'rgba(59, 130, 246, 0.45)',
+    bg: 'rgba(59, 130, 246, 0.08)',
+    sheen: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.22) 0%, transparent 70%)',
+  },
+  {
+    name: 'Cyan',
+    primary: '#06B6D4',
+    secondary: '#22D3EE',
+    glow: 'rgba(34, 211, 238, 0.28)',
+    border: 'rgba(34, 211, 238, 0.45)',
+    bg: 'rgba(34, 211, 238, 0.08)',
+    sheen: 'radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.22) 0%, transparent 70%)',
+  },
+  {
+    name: 'Violet',
+    primary: '#8B5CF6',
+    secondary: '#A78BFA',
+    glow: 'rgba(139, 92, 246, 0.28)',
+    border: 'rgba(139, 92, 246, 0.45)',
+    bg: 'rgba(139, 92, 246, 0.08)',
+    sheen: 'radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.22) 0%, transparent 70%)',
+  },
+  {
+    name: 'Emerald',
+    primary: '#10B981',
+    secondary: '#34D399',
+    glow: 'rgba(16, 185, 129, 0.28)',
+    border: 'rgba(16, 185, 129, 0.45)',
+    bg: 'rgba(16, 185, 129, 0.08)',
+    sheen: 'radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.22) 0%, transparent 70%)',
+  },
+];
 
-  const handleMouseMove = (e) => {
-    if (!cardRef.current || window.innerWidth < 1024) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const xPct = (x / rect.width) * 100;
-    const yPct = (y / rect.height) * 100;
-    setMousePos({ x: xPct, y: yPct });
-
-    const tiltX = ((y / rect.height) - 0.5) * -12;
-    const tiltY = ((x / rect.width) - 0.5) * 12;
-    setTilt({ x: tiltX, y: tiltY });
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setTilt({ x: 0, y: 0 });
-  };
-
-  return (
-    <motion.article
-      ref={cardRef}
-      className={`research-3d-card ${isHovered ? 'research-3d-card--hovered' : ''}`}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{
-        duration: 0.65,
-        delay: index * 0.1,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-      }}
-    >
-      {/* Dynamic Specular Sheen */}
-      <div
-        className="research-3d-sheen"
-        style={{
-          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(96, 165, 250, 0.18) 0%, rgba(34, 211, 238, 0.04) 45%, transparent 70%)`,
-          opacity: isHovered ? 1 : 0,
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Glow Border */}
-      <div className="research-3d-glow" aria-hidden="true" />
-
-      {/* Content */}
-      <div className="research-3d-content">
-        <div className="research-card-top">
-          <div className="research-card-icon-box">
-            <span className="research-card-icon" aria-hidden="true">
-              {interest.icon}
-            </span>
-          </div>
-          {interest.tag && (
-            <span className="research-card-tag">{interest.tag}</span>
-          )}
-        </div>
-
-        <h3 className="research-card-title">{interest.title}</h3>
-        <p className="research-card-description">{interest.description}</p>
-      </div>
-    </motion.article>
-  );
-}
-
-/* ── Research Section ── */
 export default function Research() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
-  const noteRef = useRef(null);
-  const noteInView = useInView(noteRef, { once: true, margin: '-40px' });
+  const isInView = useInView(sectionRef, { margin: '-80px' });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
+
+  const totalCards = researchInterests.length;
+
+  // Active theme based on current card index
+  const activeTheme = useMemo(
+    () => researchColorThemes[activeIndex % researchColorThemes.length],
+    [activeIndex]
+  );
+
+  const nextCard = useCallback(() => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % totalCards);
+  }, [totalCards]);
+
+  const prevCard = useCallback(() => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev - 1 + totalCards) % totalCards);
+  }, [totalCards]);
+
+  const goToCard = useCallback(
+    (index) => {
+      setDirection(index > activeIndex ? 1 : -1);
+      setActiveIndex(index);
+    },
+    [activeIndex]
+  );
+
+  // Automatic rotation every 1 second (1000ms), paused on hover or when out of view
+  useEffect(() => {
+    // Check prefers-reduced-motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || isPaused || !isInView) return;
+
+    const timer = setInterval(() => {
+      nextCard();
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isPaused, isInView, nextCard]);
+
+  // Framer motion 3D slide-and-rotate variants
+  const cardVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 140 : -140,
+      y: 0,
+      rotateY: dir > 0 ? 32 : -32,
+      scale: 0.88,
+      opacity: 0,
+      filter: 'blur(4px)',
+    }),
+    center: {
+      x: 0,
+      y: 0,
+      rotateY: 0,
+      scale: 1,
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.42,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? -140 : 140,
+      y: 0,
+      rotateY: dir > 0 ? -32 : 32,
+      scale: 0.88,
+      opacity: 0,
+      filter: 'blur(4px)',
+      transition: {
+        duration: 0.35,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    }),
+  };
+
+  const activeInterest = researchInterests[activeIndex];
 
   return (
     <section id="research" className="section section-dark research-section" ref={sectionRef}>
@@ -102,33 +139,200 @@ export default function Research() {
         >
           <p className="section-label">04 — Research Directions</p>
           <h2 className="section-title">
-            Research & <em>Exploration</em>
+            Research &amp; <em>Exploration</em>
           </h2>
+          <p className="research-intro-sub">
+            Continuous auto-rotating 3D carousel transitioning across core research inquiries with dedicated chromatic signatures. Hover anywhere to pause and read.
+          </p>
         </motion.header>
 
-        {/* 3D Research Interests Grid */}
-        <div className="research-3d-grid">
-          {researchInterests.map((interest, index) => (
-            <ResearchCard3D
-              key={interest.title}
-              interest={interest}
-              index={index}
-            />
-          ))}
+        {/* ── 3D Auto-Rotating Carousel Stage ── */}
+        <div
+          className="research-carousel-stage"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          role="region"
+          aria-label="Auto-rotating 3D research card carousel"
+        >
+          {/* Dynamic Ambient Color Aura */}
+          <div
+            className="research-dynamic-aura"
+            style={{
+              background: `radial-gradient(circle, ${activeTheme.glow} 0%, transparent 68%)`,
+            }}
+            aria-hidden="true"
+          />
+
+          {/* 3D Perspective Card Stage */}
+          <div className="research-3d-viewport">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.article
+                key={activeIndex}
+                custom={direction}
+                variants={cardVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="research-active-3d-card"
+                style={{
+                  borderColor: activeTheme.border,
+                  boxShadow: `0 16px 40px rgba(0, 0, 0, 0.5), 0 0 35px ${activeTheme.glow}`,
+                }}
+              >
+                {/* Dynamic Specular Sheen */}
+                <div
+                  className="research-card-sheen"
+                  style={{ background: activeTheme.sheen }}
+                  aria-hidden="true"
+                />
+
+                {/* Card Interior */}
+                <div className="research-card-inner">
+                  {/* Top Bar with Icon & Tag */}
+                  <div className="research-card-topbar">
+                    <div
+                      className="research-card-iconbox"
+                      style={{
+                        backgroundColor: activeTheme.bg,
+                        borderColor: activeTheme.border,
+                        color: activeTheme.secondary,
+                      }}
+                    >
+                      <span className="research-glyph">{activeInterest.icon}</span>
+                    </div>
+
+                    <div className="research-card-badges">
+                      <span
+                        className="research-color-pill"
+                        style={{
+                          color: activeTheme.secondary,
+                          borderColor: activeTheme.border,
+                          backgroundColor: activeTheme.bg,
+                        }}
+                      >
+                        {activeTheme.name}
+                      </span>
+                      <span
+                        className="research-topic-tag"
+                        style={{
+                          color: '#FFFFFF',
+                          borderColor: 'rgba(255, 255, 255, 0.15)',
+                        }}
+                      >
+                        {activeInterest.tag}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Domain Index */}
+                  <span
+                    className="research-domain-index"
+                    style={{ color: activeTheme.secondary }}
+                  >
+                    INVESTIGATION 0{activeIndex + 1} / 0{totalCards}
+                  </span>
+
+                  {/* Title */}
+                  <h3 className="research-card-heading">{activeInterest.title}</h3>
+
+                  {/* Description */}
+                  <p className="research-card-body">{activeInterest.description}</p>
+
+                  {/* Bottom Metagroup */}
+                  <div className="research-card-footer">
+                    <span className="research-status-cue">
+                      <span
+                        className="research-status-dot"
+                        style={{
+                          backgroundColor: activeTheme.secondary,
+                          boxShadow: `0 0 8px ${activeTheme.secondary}`,
+                        }}
+                      />
+                      Active Theoretical Investigation
+                    </span>
+
+                    <span className="research-pause-hint">
+                      {isPaused ? '⏸ Paused for Reading' : '↻ Rotating (1s)'}
+                    </span>
+                  </div>
+                </div>
+              </motion.article>
+            </AnimatePresence>
+          </div>
+
+          {/* ── Carousel Controls & Progress Bar ── */}
+          <div className="research-controls-wrap">
+            {/* Prev Button */}
+            <button
+              type="button"
+              className="research-nav-arrow"
+              onClick={prevCard}
+              aria-label="Previous Research Domain"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+
+            {/* Navigation Dots with coordinated theme colors */}
+            <div className="research-nav-indicators" aria-label="Research domain indicators">
+              {researchInterests.map((interest, i) => {
+                const isActive = activeIndex === i;
+                const theme = researchColorThemes[i % researchColorThemes.length];
+                return (
+                  <button
+                    key={interest.title}
+                    type="button"
+                    className={`research-indicator-dot ${isActive ? 'research-indicator-dot--active' : ''}`}
+                    onClick={() => goToCard(i)}
+                    aria-label={`Jump to ${interest.title}`}
+                    style={{
+                      '--dot-accent': theme.secondary,
+                    }}
+                  >
+                    <span className="indicator-dot-inner" />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Next Button */}
+            <button
+              type="button"
+              className="research-nav-arrow"
+              onClick={nextCard}
+              aria-label="Next Research Domain"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+
+            {/* 1-Second Timer Progress Bar */}
+            <div className="research-timer-bar" aria-hidden="true">
+              <div
+                key={activeIndex}
+                className={`research-timer-fill ${isPaused ? 'research-timer-fill--paused' : ''}`}
+                style={{
+                  backgroundColor: activeTheme.secondary,
+                  boxShadow: `0 0 10px ${activeTheme.secondary}`,
+                }}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Academic Note */}
+        {/* Future Growth Note */}
         <motion.aside
-          ref={noteRef}
           className="research-note"
-          initial={{ opacity: 0, x: -20 }}
-          animate={noteInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           aria-label="Future research note"
         >
           <p className="research-note-text">
             <span className="research-note-icon" aria-hidden="true">✦</span>
-            This section expands with publications, research papers, and algorithmic explorations as academic investigations progress.
+            This research corridor expands dynamically with peer-reviewed publications, algorithmic whitepapers, and collaborative laboratory inquiries as academic investigations advance.
           </p>
         </motion.aside>
       </div>

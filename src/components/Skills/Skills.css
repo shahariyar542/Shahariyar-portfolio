@@ -1,6 +1,6 @@
 /* ============================================================
-   SHAHARIYAR.EXE — Skills 3D Interactive Matrix
-   Modern 3D interactive category cards with high contrast & depth
+   SHAHARIYAR.EXE — Skills Infinite 3D Orbiting Carousel
+   Continuously rotating 3D circular orbit with realistic depth
    ============================================================ */
 
 .skills {
@@ -9,6 +9,7 @@
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
   padding: var(--space-4xl) 0;
+  overflow: hidden;
 }
 
 .skills-intro {
@@ -18,84 +19,192 @@
   max-width: 65ch;
   line-height: 1.7;
   margin-top: calc(-1 * var(--space-md));
-  margin-bottom: var(--space-3xl);
+  margin-bottom: var(--space-2xl);
 }
 
-/* ── 5-Category 3D Grid Layout ── */
-.skills-3d-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-xl);
-  perspective: 1200px;
-}
-
-/* ── 3D Skill Category Card ── */
-.skills-3d-card {
+/* ── 3D Orbit Viewport ── */
+.skills-orbit-viewport {
   position: relative;
+  width: 100%;
+  height: 560px;
+  perspective: 1200px;
+  perspective-origin: 50% 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: grab;
+  touch-action: pan-y;
+  margin-top: var(--space-md);
+}
+
+.skills-orbit-viewport:active {
+  cursor: grabbing;
+}
+
+/* ── Holographic Center Core (Nucleus) ── */
+.skills-orbit-nucleus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.nucleus-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.nucleus-ring--outer {
+  width: 140px;
+  height: 140px;
+  border: 1px dashed rgba(34, 211, 238, 0.28);
+  animation: nucleus-spin 30s linear infinite;
+  box-shadow: 0 0 35px rgba(34, 211, 238, 0.12);
+}
+
+.nucleus-ring--inner {
+  width: 90px;
+  height: 90px;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  animation: nucleus-spin 18s linear infinite reverse;
+}
+
+.nucleus-orb {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.22) 0%, rgba(59, 130, 246, 0.08) 60%, transparent 100%);
+  border: 1.5px solid rgba(34, 211, 238, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35), inset 0 0 12px rgba(34, 211, 238, 0.2);
+}
+
+.nucleus-glyph {
+  font-size: 0.95rem;
+  color: #22D3EE;
+  line-height: 1;
+}
+
+.nucleus-text {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+
+@keyframes nucleus-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Orbit Floor Ring in Perspective ── */
+.skills-orbit-floor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(76deg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.skills-orbit-ring {
+  border-radius: 50%;
+  border: 1.5px dashed rgba(96, 165, 250, 0.18);
+  box-shadow: 0 0 45px rgba(34, 211, 238, 0.08), inset 0 0 35px rgba(59, 130, 246, 0.05);
+}
+
+/* ── 3D Stage Container ── */
+.skills-orbit-stage {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Individual 3D Orbit Card ── */
+.skills-orbit-card {
+  position: absolute;
+  width: 310px;
   background: var(--color-bg-card);
   border-radius: var(--radius-xl);
-  padding: var(--space-xl);
   border: 1px solid var(--border-subtle);
   transform-style: preserve-3d;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+  will-change: transform, opacity, filter;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.25s ease,
               border-color 0.25s ease;
   overflow: hidden;
   box-shadow: var(--shadow-3d-card);
-  display: flex;
-  flex-direction: column;
+  margin-left: -155px; /* center horizontally on origin */
+  margin-top: -190px;  /* center vertically on origin */
 }
 
-.skills-3d-card--hovered {
+.skills-orbit-card--hovered {
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-3d-card-hover), 0 0 24px rgba(59, 130, 246, 0.15);
+  box-shadow: var(--shadow-3d-card-hover), 0 0 35px rgba(34, 211, 238, 0.25);
+  cursor: default;
 }
 
-/* Dynamic Specular Sheen */
-.skills-3d-sheen {
+/* Dynamic Sheen */
+.skills-card-sheen {
   position: absolute;
   inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.14) 0%, transparent 65%);
   pointer-events: none;
   z-index: 1;
-  transition: opacity 0.3s ease;
-  border-radius: inherit;
 }
 
-/* Subtle glowing accent border */
-.skills-3d-glow-border {
+.skills-card-glow-border {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
   border: 1px solid transparent;
   pointer-events: none;
   z-index: 2;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.25s ease;
 }
 
-.skills-3d-card--hovered .skills-3d-glow-border {
-  border-color: rgba(96, 165, 250, 0.3);
+.skills-orbit-card--hovered .skills-card-glow-border {
+  border-color: rgba(34, 211, 238, 0.45);
 }
 
 /* Card Content */
-.skills-3d-content {
+.skills-card-inner {
   position: relative;
   z-index: 3;
+  padding: var(--space-xl);
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 /* Header */
-.skills-card-header {
+.skills-card-head {
   display: flex;
   align-items: flex-start;
   gap: var(--space-md);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
 
-.skills-icon-wrap {
-  width: 48px;
-  height: 48px;
+.skills-card-icon-box {
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-md);
   background: rgba(59, 130, 246, 0.12);
   border: 1px solid rgba(59, 130, 246, 0.3);
@@ -105,98 +214,80 @@
   flex-shrink: 0;
 }
 
-.skills-icon-glyph {
+.skills-card-glyph {
   font-family: var(--font-mono);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   color: var(--color-accent-cyan);
 }
 
-.skills-header-meta {
+.skills-card-head-meta {
   flex: 1;
   min-width: 0;
 }
 
-.skills-header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.skills-category-index {
+.skills-card-index {
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-size: 0.68rem;
   color: var(--color-accent-primary);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
 }
 
-.skills-count-tag {
+.skills-card-heading {
   font-family: var(--font-heading);
-  font-size: 0.72rem;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  background: rgba(148, 163, 184, 0.1);
-  color: var(--color-text-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  font-weight: 500;
-}
-
-.skills-card-title {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-text-heading);
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
-.skills-card-desc {
+.skills-card-summary {
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: var(--space-lg);
-  flex-grow: 0;
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
 }
 
 /* ── Badges List ── */
-.skills-badge-grid {
+.skills-card-pill-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: auto;
+  gap: 8px;
 }
 
-.skill-tech-badge {
+.skills-pill-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 13px;
+  padding: 7px 11px;
   border-radius: var(--radius-md);
   background: rgba(8, 13, 27, 0.65);
   border: 1px solid rgba(148, 163, 184, 0.12);
   transition: all var(--duration-fast);
 }
 
-.skill-tech-badge:hover {
+.skills-pill-item:hover {
   background: rgba(18, 29, 53, 0.85);
   border-color: rgba(96, 165, 250, 0.35);
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
 
-.skill-tech-badge--highlight {
-  border-color: rgba(59, 130, 246, 0.28);
+.skills-pill-item--highlight {
+  border-color: rgba(59, 130, 246, 0.3);
   background: rgba(13, 21, 40, 0.75);
 }
 
-.skill-tech-main {
+.skills-pill-main {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
-.skill-tech-dot {
+.skills-pill-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
@@ -204,34 +295,158 @@
   box-shadow: 0 0 6px rgba(34, 211, 238, 0.6);
 }
 
-.skill-tech-name {
+.skills-pill-name {
   font-family: var(--font-heading);
-  font-size: var(--text-sm);
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-text-heading);
   letter-spacing: -0.01em;
 }
 
-.skill-tech-star {
+.skills-pill-star {
   color: #FBBF24;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   margin-left: 2px;
 }
 
-.skill-tech-level {
+.skills-pill-level {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 600;
-  padding: 3px 9px;
+  padding: 2px 7px;
   border-radius: var(--radius-full);
   border: 1px solid;
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
 
+/* ── Orbit Controls Bar ── */
+.skills-orbit-controls {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 16px;
+  background: rgba(13, 21, 40, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 120;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.orbit-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.orbit-nav-btn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--color-accent-cyan);
+  border-color: rgba(34, 211, 238, 0.4);
+  transform: scale(1.08);
+}
+
+.orbit-indicators {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.orbit-dot {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.orbit-dot-fill {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.35);
+  transition: all var(--duration-normal) var(--ease-out-quart);
+}
+
+.orbit-dot:hover .orbit-dot-fill {
+  background: var(--color-accent-primary);
+  transform: scale(1.2);
+}
+
+.orbit-dot--active .orbit-dot-fill {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--color-accent-cyan);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+}
+
+.orbit-toggle-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  color: var(--color-accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: all var(--duration-fast);
+}
+
+.orbit-toggle-btn:hover {
+  background: var(--color-accent-cyan);
+  color: #070B18;
+}
+
+/* ── Responsive Viewport ── */
 @media (max-width: 768px) {
-  .skills-3d-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
+  .skills-orbit-viewport {
+    height: 480px;
+  }
+  .skills-orbit-card {
+    width: 260px;
+    margin-left: -130px;
+    margin-top: -160px;
+    padding: var(--space-md);
+  }
+  .skills-card-inner {
+    padding: var(--space-md);
+  }
+  .skills-card-heading {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-orbit-viewport {
+    height: 440px;
+  }
+  .skills-orbit-card {
+    width: 230px;
+    margin-left: -115px;
+    margin-top: -140px;
+  }
+  .skills-card-summary {
+    display: none;
   }
 }
