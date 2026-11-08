@@ -127,20 +127,6 @@ export default function Navigation() {
         role="banner"
       >
         <div className="nav-topbar-inner">
-          <a
-            href="#home"
-            className="nav-logo"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-            }}
-            aria-label="Scroll to top"
-          >
-            <span className="nav-logo-text">SHAHARIYAR</span>
-            <span className="nav-logo-ext">.EXE</span>
-            <span className="nav-logo-dot" />
-          </a>
-
           {/* Desktop Nav Links */}
           <nav className="nav-desktop-menu" aria-label="Main Navigation">
             {navItems.map((item) => {

@@ -177,7 +177,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── RIGHT: Profile Image Presentation ── */}
+        {/* ── RIGHT: Profile Image in Premium Circular White Glow Presentation ── */}
         <motion.div
           className="hero-visual"
           variants={scaleIn(0.35)}
@@ -185,25 +185,25 @@ export default function Hero() {
           animate={animateState}
         >
           <motion.div
-            className="hero-avatar-card"
+            className="hero-profile-container"
             style={{ x: photoX, y: photoY }}
           >
-            <div className="hero-avatar-frame">
+            {/* Soft white ambient radial glow */}
+            <div className="hero-profile-glow" aria-hidden="true" />
+            <div className="hero-profile-glow-ambient" aria-hidden="true" />
+            
+            {/* Subtle animated circular light rings */}
+            <div className="hero-profile-ring" aria-hidden="true" />
+            <div className="hero-profile-ring-outer" aria-hidden="true" />
+
+            {/* Perfectly circular image frame */}
+            <div className="hero-profile-frame">
               <img
-                className="hero-avatar-img"
+                className="hero-profile-img"
                 src={personalInfo.profileImage}
                 alt={personalInfo.fullName}
                 loading="eager"
               />
-            </div>
-            
-            {/* Meta indicator pill */}
-            <div className="hero-avatar-pill">
-              <span className="hero-avatar-status" />
-              <div className="hero-avatar-meta">
-                <span className="hero-avatar-title">Batch 44</span>
-                <span className="hero-avatar-dept">Software Engineering</span>
-              </div>
             </div>
           </motion.div>
         </motion.div>

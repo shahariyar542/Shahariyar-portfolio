@@ -34,38 +34,6 @@
   justify-content: space-between;
 }
 
-/* Logo */
-.nav-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.nav-logo-text {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: var(--color-text-heading);
-}
-
-.nav-logo-ext {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-accent-primary);
-}
-
-.nav-logo-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent-cyan);
-  margin-left: 2px;
-}
-
 /* Desktop Menu Links */
 .nav-desktop-menu {
   display: flex;
@@ -113,6 +81,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: auto;
 }
 
 .nav-cta-btn {
