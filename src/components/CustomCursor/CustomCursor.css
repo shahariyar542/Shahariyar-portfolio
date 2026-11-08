@@ -1,44 +1,42 @@
 /* ============================================================
-   CustomCursor — Futuristic Cyber Cursor Styles
+   CustomCursor — Clean Desktop Cursor Styles
    ============================================================ */
 
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 7px;
-  height: 7px;
-  background-color: var(--color-accent-cyan);
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-accent-primary);
   border-radius: var(--radius-full);
   pointer-events: none;
   z-index: var(--z-cursor);
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px var(--color-accent-cyan);
 }
 
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 38px;
-  height: 38px;
-  border: 1.5px solid rgba(59, 130, 246, 0.45);
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(96, 165, 250, 0.4);
   border-radius: var(--radius-full);
   pointer-events: none;
   z-index: var(--z-cursor);
   transform: translate(-50%, -50%);
-  transition: width 0.3s var(--ease-out-expo),
-              height 0.3s var(--ease-out-expo),
-              border-color 0.3s var(--ease-out-expo),
-              background 0.3s var(--ease-out-expo);
+  transition: width 0.25s var(--ease-out-quart),
+              height 0.25s var(--ease-out-quart),
+              border-color 0.25s var(--ease-out-quart),
+              background 0.25s var(--ease-out-quart);
 }
 
 .cursor-ring.cursor-ring--hover {
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
   border-color: var(--color-accent-cyan);
-  background: rgba(34, 211, 238, 0.08);
-  box-shadow: 0 0 16px rgba(34, 211, 238, 0.3);
+  background: rgba(96, 165, 250, 0.08);
 }
 
 /* Hide on touch / mobile */
@@ -56,7 +54,6 @@
   }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .cursor-dot,
   .cursor-ring {

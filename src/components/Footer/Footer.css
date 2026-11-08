@@ -1,10 +1,10 @@
 /* ============================================================
-   Footer — Futuristic Dark Navy Styles
+   Footer — Refined Minimal Styles
    ============================================================ */
 
 .footer {
   background: var(--color-bg-secondary);
-  border-top: 1px solid rgba(59, 130, 246, 0.15);
+  border-top: 1px solid var(--border-subtle);
   padding: var(--space-xl) 0;
   position: relative;
 }
@@ -18,7 +18,7 @@
 
 /* ── Copyright ── */
 .footer-copyright {
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
   font-size: var(--text-xs);
   color: var(--color-text-secondary);
   white-space: nowrap;
@@ -26,10 +26,11 @@
 
 /* ── Center Tagline ── */
 .footer-tagline {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: var(--text-xs);
-  letter-spacing: 0.1em;
-  color: var(--color-accent-cyan);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-accent-primary);
   text-align: center;
   white-space: nowrap;
 }
@@ -45,46 +46,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
   color: var(--color-text-secondary);
-  transition: all var(--duration-fast) var(--ease-out-quart);
+  transition: all var(--duration-fast);
 }
 
 .footer-social-link:hover {
-  color: var(--color-accent-cyan);
-  background: rgba(34, 211, 238, 0.1);
-  transform: translateY(-2px);
+  color: var(--color-text-heading);
+  background: var(--color-bg-elevated);
 }
 
 /* ── Back to Top Button ── */
 .footer-back-to-top {
   position: fixed;
   bottom: 2rem;
-  right: calc(2rem + 72px);
+  right: calc(2rem + 68px);
   z-index: var(--z-nav);
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(59, 130, 246, 0.35);
-  background: rgba(13, 20, 40, 0.85);
-  backdrop-filter: blur(12px);
-  color: var(--color-accent-cyan);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--color-bg-card);
+  color: var(--color-text-body);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-out-quart);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all var(--duration-fast);
+  box-shadow: var(--shadow-sm);
 }
 
 .footer-back-to-top:hover {
-  background: var(--color-accent-blue);
-  color: #FFFFFF;
-  border-color: var(--color-accent-blue);
+  background: var(--color-bg-elevated);
+  border-color: var(--border-hover);
+  color: var(--color-accent-primary);
   transform: translateY(-2px);
-  box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
 }
 
 /* ── Responsive ── */
@@ -101,8 +99,8 @@
 
   .footer-back-to-top {
     bottom: 1.25rem;
-    right: calc(1.25rem + 62px);
-    width: 38px;
-    height: 38px;
+    right: calc(1.25rem + 58px);
+    width: 36px;
+    height: 36px;
   }
 }

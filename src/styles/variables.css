@@ -1,58 +1,73 @@
 /* ============================================================
-   SHAHARIYAR.EXE — Futuristic AI Engineer Design System Variables
+   SHAHARIYAR.EXE — Professional AI Engineer Design Tokens
+   Vercel / Linear inspired aesthetic: High readability, visual harmony
    ============================================================ */
 
 :root {
-  /* ── Core Dark Navy & Cyber Accent Palette ── */
-  --color-bg-primary: #070B18;       /* Primary dark space navy */
-  --color-bg-secondary: #0D1428;     /* Secondary deep tech navy */
-  --color-bg-card: #111C33;          /* Glass card background */
-  --color-bg-card-glass: rgba(17, 28, 51, 0.72);
-  --color-accent-blue: #3B82F6;      /* Primary electric blue */
-  --color-accent-cyan: #22D3EE;      /* Secondary cyber cyan */
-  --color-text-main: #F8FAFC;        /* Main crisp text */
-  --color-text-secondary: #94A3B8;   /* Secondary muted slate */
-  
-  /* Backward-compatible mappings */
-  --color-ivory: #070B18;            /* Primary surface */
-  --color-espresso: #0D1428;         /* Deep surface */
-  --color-gold: #3B82F6;             /* Replaced by Electric Blue */
-  --color-gold-hover: #60A5FA;       /* Bright blue hover */
-  --color-gold-muted: rgba(59, 130, 246, 0.22);
-  --color-butter: #22D3EE;           /* Replaced by Neon Cyan */
-  --color-charcoal: #F8FAFC;         /* Light high-contrast text */
-  --color-warm-white: #F8FAFC;       /* Light text */
-  
-  /* Futuristic Tech Accents */
-  --color-cyan-glow: rgba(34, 211, 238, 0.35);
-  --color-blue-glow: rgba(59, 130, 246, 0.35);
-  --color-border-glass: rgba(59, 130, 246, 0.18);
-  --color-border-hover: rgba(34, 211, 238, 0.45);
-  --color-espresso-light: #16223D;
-  --color-divider: rgba(148, 163, 184, 0.12);
-  --color-divider-light: rgba(59, 130, 246, 0.25);
-  --color-overlay: rgba(7, 11, 24, 0.88);
-  
-  /* ── Typography ── */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-ui: 'Manrope', system-ui, sans-serif;
-  --font-mono: 'Space Grotesk', monospace;
-  
-  /* Font Sizes — Fluid Scale */
-  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
-  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
-  --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
-  --text-md: clamp(1rem, 0.9rem + 0.5vw, 1.15rem);
-  --text-lg: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
-  --text-xl: clamp(1.3rem, 1.1rem + 1vw, 1.75rem);
-  --text-2xl: clamp(1.6rem, 1.3rem + 1.5vw, 2.25rem);
-  --text-3xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
-  --text-4xl: clamp(2.5rem, 1.8rem + 3.5vw, 4.5rem);
-  --text-5xl: clamp(3rem, 2rem + 5vw, 6.5rem);
-  --text-hero: clamp(3.2rem, 2rem + 6.5vw, 8rem);
-  
+  /* ── Background Color System ── */
+  --color-bg-main: #080D1B;          /* Main primary background */
+  --color-bg-secondary: #0D1528;     /* Secondary section background */
+  --color-bg-elevated: #121D35;      /* Elevated floating surfaces */
+  --color-bg-card: #111B30;          /* Card surfaces */
+  --color-bg-card-glass: rgba(17, 27, 48, 0.78);
+
+  /* ── Typography Contrast System ── */
+  --color-text-heading: #F8FAFC;     /* Main headings (ultra-high contrast) */
+  --color-text-body: #CBD5E1;        /* Body paragraphs (comfortable, clear) */
+  --color-text-secondary: #94A3B8;   /* Secondary captions & meta */
+  --color-text-muted: #7C8DA8;       /* Labels, tags & placeholders */
+
+  /* ── Selective Accent Palette ── */
+  --color-accent-primary: #60A5FA;   /* Primary soft bright blue */
+  --color-accent-electric: #3B82F6;  /* Electric blue for CTAs */
+  --color-accent-cyan: #22D3EE;      /* Selective cyber cyan */
+
+  /* ── Borders & Outlines ── */
+  --border-subtle: rgba(148, 163, 184, 0.16);
+  --border-hover: rgba(96, 165, 250, 0.55);
+  --border-active: rgba(34, 211, 238, 0.6);
+
+  /* ── Shadows & Subtle Depth (No blinding neon) ── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --shadow-blue-subtle: 0 4px 20px rgba(59, 130, 246, 0.15);
+
+  /* ── Backward-compatible Aliases ── */
+  --color-bg-primary: var(--color-bg-main);
+  --color-text-main: var(--color-text-heading);
+  --color-accent-blue: var(--color-accent-electric);
+  --color-ivory: var(--color-bg-main);
+  --color-espresso: var(--color-bg-secondary);
+  --color-gold: var(--color-accent-primary);
+  --color-gold-hover: #93C5FD;
+  --color-gold-muted: rgba(96, 165, 250, 0.2);
+  --color-butter: var(--color-accent-cyan);
+  --color-charcoal: var(--color-text-heading);
+  --color-warm-white: var(--color-text-heading);
+  --color-espresso-light: var(--color-bg-elevated);
+  --color-divider: var(--border-subtle);
+
+  /* ── Typography Engine ── */
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Space Grotesk', monospace;
+
+  /* Font Scale — Strict Mathematical Hierarchy */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-md: 1.125rem;    /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 1.875rem;   /* 30px */
+  --text-3xl: 2.25rem;    /* 36px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 3.75rem;    /* 60px */
+  --text-hero: clamp(2.75rem, 2.2rem + 3.5vw, 4.75rem);
+
   /* ── Spacing ── */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -60,36 +75,31 @@
   --space-lg: 1.5rem;
   --space-xl: 2rem;
   --space-2xl: 3rem;
-  --space-3xl: 4rem;
+  --space-3xl: 4.5rem;
   --space-4xl: 6rem;
-  --space-5xl: 8rem;
-  --space-section: clamp(5rem, 4rem + 5vw, 9rem);
-  
-  /* ── Layout ── */
-  --container-max: 1360px;
-  --container-narrow: 920px;
-  --container-padding: clamp(1.25rem, 1rem + 2.5vw, 3.5rem);
-  
-  /* ── Borders & Radius ── */
+  --space-section: clamp(4.5rem, 3.5rem + 4vw, 7.5rem);
+
+  /* ── Container Layout ── */
+  --container-max: 1240px;
+  --container-narrow: 860px;
+  --container-padding: clamp(1.25rem, 1rem + 2vw, 2.5rem);
+
+  /* ── Radii ── */
   --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 26px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
   --radius-full: 9999px;
-  
-  /* ── Transitions ── */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Transitions & Easings ── */
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --duration-fast: 0.2s;
-  --duration-normal: 0.35s;
-  --duration-slow: 0.6s;
-  --duration-slower: 0.8s;
-  --duration-slowest: 1.2s;
-  
-  /* ── Z-Index ── */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 0.15s;
+  --duration-normal: 0.25s;
+  --duration-slow: 0.45s;
+
+  /* ── Z-Index Hierarchy ── */
   --z-canvas-bg: -1;
-  --z-behind: 0;
   --z-base: 1;
   --z-above: 10;
   --z-nav: 100;
@@ -99,13 +109,10 @@
   --z-cursor: 9999;
 }
 
-/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --duration-fast: 0s;
     --duration-normal: 0s;
     --duration-slow: 0s;
-    --duration-slower: 0s;
-    --duration-slowest: 0s;
   }
 }

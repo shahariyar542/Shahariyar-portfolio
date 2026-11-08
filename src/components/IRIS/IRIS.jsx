@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { irisKnowledge, irisSuggestedQuestions, personalInfo } from '../../data/portfolio';
+import { irisKnowledge, irisSuggestedQuestions } from '../../data/portfolio';
 import { generateId } from '../../utils/helpers';
 import './IRIS.css';
 

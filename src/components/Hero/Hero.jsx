@@ -13,11 +13,11 @@ import './Hero.css';
 const ease = [0.16, 1, 0.3, 1];
 
 const fadeUp = (delay = 0) => ({
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease, delay },
+    transition: { duration: 0.6, ease, delay },
   },
 });
 
@@ -25,47 +25,32 @@ const slideReveal = (delay = 0) => ({
   hidden: { y: '110%' },
   visible: {
     y: '0%',
-    transition: { duration: 0.85, ease, delay },
+    transition: { duration: 0.75, ease, delay },
   },
 });
 
 const scaleIn = (delay = 0) => ({
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.94 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.85, ease, delay },
+    transition: { duration: 0.75, ease, delay },
   },
 });
-
-/* ── Scroll indicator pulsing ── */
-const scrollLinePulse = {
-  initial: { scaleY: 0 },
-  animate: {
-    scaleY: [0, 1, 0],
-    transition: {
-      duration: 2.2,
-      repeat: Infinity,
-      ease: [0.65, 0, 0.35, 1],
-    },
-  },
-};
 
 export default function Hero() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  /* ── Mouse parallax ── */
+  /* Mouse parallax */
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 25, stiffness: 100, mass: 0.8 };
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
-  const photoX = useTransform(smoothMouseX, [-0.5, 0.5], [-12, 12]);
-  const photoY = useTransform(smoothMouseY, [-0.5, 0.5], [-12, 12]);
-  const badgeX = useTransform(smoothMouseX, [-0.5, 0.5], [16, -16]);
-  const badgeY = useTransform(smoothMouseY, [-0.5, 0.5], [16, -16]);
+  const photoX = useTransform(smoothMouseX, [-0.5, 0.5], [-8, 8]);
+  const photoY = useTransform(smoothMouseY, [-0.5, 0.5], [-8, 8]);
 
   const handleMouseMove = useCallback(
     (e) => {
@@ -100,96 +85,91 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* ── Interactive 3D WebGL Canvas ── */}
+      {/* Interactive 3D WebGL Canvas */}
       <ThreeHeroCanvas />
 
-      {/* Subtle tech background glow */}
-      <div className="hero-glow-layer" aria-hidden="true" />
-
       <div className="hero-inner">
-        {/* ── LEFT: Typography & Identity ── */}
+        {/* ── LEFT: Typography & Clear Hierarchy ── */}
         <div className="hero-content">
           {/* Status Badge */}
           <motion.div
-            className="hero-status-pill"
+            className="hero-badge"
             variants={fadeUp(0)}
             initial="hidden"
             animate={animateState}
           >
-            <span className="hero-status-dot" />
-            <span className="hero-status-text">AI & Software Engineering</span>
+            <span className="hero-badge-dot" />
+            <span className="hero-badge-text">Available for AI & Engineering Projects</span>
           </motion.div>
 
-          {/* Subheading greeting */}
+          {/* Subheading Greeting */}
           <motion.p
             className="hero-greeting"
-            variants={fadeUp(0.12)}
+            variants={fadeUp(0.1)}
             initial="hidden"
             animate={animateState}
           >
-            HELLO, I&rsquo;M
+            HELLO, I AM
           </motion.p>
 
-          {/* Full Name presentation */}
+          {/* Large Name */}
           <div className="hero-name-wrapper">
             <motion.h1
               className="hero-name"
-              variants={slideReveal(0.24)}
+              variants={slideReveal(0.2)}
               initial="hidden"
               animate={animateState}
             >
-              Shahariyar Khan Rashad
-              <span className="hero-name-dot">.</span>
+              Shahariyar Khan Rashad<span className="hero-dot">.</span>
             </motion.h1>
           </div>
 
-          {/* Subtitle required: Software Engineering Student | Aspiring AI Engineer */}
+          {/* Professional Title */}
           <motion.h2
-            className="hero-subtitle"
-            variants={fadeUp(0.4)}
+            className="hero-title"
+            variants={fadeUp(0.35)}
             initial="hidden"
             animate={animateState}
           >
-            Software Engineering Student <span className="hero-subtitle-divider">|</span>{' '}
-            <span className="hero-subtitle-accent">Aspiring AI Engineer</span>
+            Software Engineering Student <span className="hero-title-separator">/</span>{' '}
+            <span className="hero-title-highlight">Aspiring AI Engineer</span>
           </motion.h2>
 
-          {/* Supporting description */}
+          {/* Description — high contrast body text */}
           <motion.p
             className="hero-description"
-            variants={fadeUp(0.55)}
+            variants={fadeUp(0.48)}
             initial="hidden"
             animate={animateState}
           >
-            Engineering next-generation intelligent systems, exploring predictive architectures,
-            machine learning models, and human-centric digital experiences.
+            Focused on building intelligent software systems, machine learning architectures, and data-driven solutions at Daffodil International University.
           </motion.p>
 
-          {/* Professional CTA buttons */}
+          {/* CTAs */}
           <motion.div
-            className="hero-buttons"
-            variants={fadeUp(0.7)}
+            className="hero-actions"
+            variants={fadeUp(0.6)}
             initial="hidden"
             animate={animateState}
           >
             <button
-              className="hero-btn hero-btn--primary"
+              className="btn btn-primary"
               onClick={() => scrollToSection('projects')}
               type="button"
             >
               <span>Explore Projects</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
               </svg>
             </button>
             <button
-              className="hero-btn hero-btn--outline"
+              className="btn btn-secondary"
               onClick={() => scrollToSection('contact')}
               type="button"
             >
               <span>Contact Me</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
@@ -197,66 +177,51 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ── RIGHT: Profile Image in Futuristic Geometric Presentation ── */}
+        {/* ── RIGHT: Profile Image Presentation ── */}
         <motion.div
           className="hero-visual"
-          variants={scaleIn(0.4)}
+          variants={scaleIn(0.35)}
           initial="hidden"
           animate={animateState}
         >
-          {/* Cyber Ring Decor */}
-          <div className="hero-cyber-ring" aria-hidden="true" />
-          <div className="hero-cyber-ring-outer" aria-hidden="true" />
-
-          {/* Photo frame with mouse parallax */}
           <motion.div
-            className="hero-photo-wrapper"
+            className="hero-avatar-card"
             style={{ x: photoX, y: photoY }}
           >
-            <div className="hero-photo-glass-halo" />
-            <img
-              className="hero-photo"
-              src={personalInfo.profileImage}
-              alt={`Portrait of ${personalInfo.fullName}`}
-              loading="eager"
-            />
-          </motion.div>
-
-          {/* Floating Cyber Badge */}
-          <motion.div
-            className="hero-floating-badge"
-            style={{ x: badgeX, y: badgeY }}
-          >
-            <span className="hero-badge-icon">⚡</span>
-            <div className="hero-badge-text">
-              <span className="hero-badge-title">IRIS Active</span>
-              <span className="hero-badge-caption">AI Companion Online</span>
+            <div className="hero-avatar-frame">
+              <img
+                className="hero-avatar-img"
+                src={personalInfo.profileImage}
+                alt={personalInfo.fullName}
+                loading="eager"
+              />
+            </div>
+            
+            {/* Meta indicator pill */}
+            <div className="hero-avatar-pill">
+              <span className="hero-avatar-status" />
+              <div className="hero-avatar-meta">
+                <span className="hero-avatar-title">Batch 44</span>
+                <span className="hero-avatar-dept">Software Engineering</span>
+              </div>
             </div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* ── Scroll Indicator ── */}
-      <motion.div
-        className="hero-scroll"
-        variants={fadeUp(1.0)}
-        initial="hidden"
-        animate={animateState}
+      {/* Clean Scroll Cue */}
+      <div
+        className="hero-scroll-cue"
         onClick={() => scrollToSection('about')}
         role="button"
         tabIndex={0}
-        aria-label="Scroll to explore"
+        aria-label="Scroll to content"
       >
-        <div className="hero-scroll-line-track">
-          <motion.div
-            className="hero-scroll-line"
-            variants={scrollLinePulse}
-            initial="initial"
-            animate="animate"
-          />
-        </div>
-        <span className="hero-scroll-text">SCROLL TO EXPLORE</span>
-      </motion.div>
+        <span className="hero-scroll-mouse">
+          <span className="hero-scroll-wheel" />
+        </span>
+        <span className="hero-scroll-text">EXPLORE</span>
+      </div>
     </section>
   );
 }

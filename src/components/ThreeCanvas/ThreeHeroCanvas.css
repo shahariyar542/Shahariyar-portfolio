@@ -9,7 +9,7 @@
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 .three-hero-container canvas {
@@ -20,6 +20,6 @@
 
 @media (max-width: 768px) {
   .three-hero-container {
-    opacity: 0.45;
+    opacity: 0.35;
   }
 }

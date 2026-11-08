@@ -9,10 +9,10 @@ export default function ThreeHeroCanvas() {
     const container = mountRef.current;
     if (!container) return;
 
-    // Respect reduced motion
+    // Reduced motion check
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Scene, Camera, Renderer
+    // Scene setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -20,7 +20,7 @@ export default function ThreeHeroCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 7;
+    camera.position.z = 6.5;
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -31,73 +31,72 @@ export default function ThreeHeroCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // Group for mouse interaction
     const group = new THREE.Group();
     scene.add(group);
 
-    // ── 1. Central Futuristic Geometric Object (Icosahedron + Wireframe) ──
-    const outerGeo = new THREE.IcosahedronGeometry(2.1, 1);
+    // ── 1. Elegant Geometric Core (Icosahedron with subtle wireframe) ──
+    const outerGeo = new THREE.IcosahedronGeometry(2.0, 1);
     const wireframeMat = new THREE.MeshBasicMaterial({
-      color: 0x3b82f6,
+      color: 0x60a5fa,
       wireframe: true,
       transparent: true,
-      opacity: 0.38,
+      opacity: 0.28,
     });
     const outerMesh = new THREE.Mesh(outerGeo, wireframeMat);
     group.add(outerMesh);
 
-    // Inner glowing core geometry
-    const innerGeo = new THREE.OctahedronGeometry(1.2, 0);
+    // Inner octahedron core
+    const innerGeo = new THREE.OctahedronGeometry(1.15, 0);
     const innerMat = new THREE.MeshStandardMaterial({
-      color: 0x070b18,
-      emissive: 0x22d3ee,
-      emissiveIntensity: 0.65,
-      roughness: 0.2,
+      color: 0x0d1528,
+      emissive: 0x3b82f6,
+      emissiveIntensity: 0.45,
+      roughness: 0.3,
       metalness: 0.8,
     });
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
     group.add(innerMesh);
 
-    // Glowing orbital ring
-    const ringGeo = new THREE.TorusGeometry(2.7, 0.02, 16, 100);
+    // Subtle orbital ring
+    const ringGeo = new THREE.TorusGeometry(2.6, 0.015, 16, 90);
     const ringMat = new THREE.MeshBasicMaterial({
       color: 0x22d3ee,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.35,
     });
     const ringMesh = new THREE.Mesh(ringGeo, ringMat);
     ringMesh.rotation.x = Math.PI / 3;
     ringMesh.rotation.y = Math.PI / 6;
     group.add(ringMesh);
 
-    // ── 2. Floating Cyber Particles ──
-    const particleCount = 120;
+    // ── 2. Subtle Micro Particles ──
+    const particleCount = 80;
     const particleGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
-    const color1 = new THREE.Color(0x3b82f6);
-    const color2 = new THREE.Color(0x22d3ee);
+    const c1 = new THREE.Color(0x60a5fa);
+    const c2 = new THREE.Color(0x22d3ee);
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 16;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 12;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+      positions[i * 3] = (Math.random() - 0.5) * 14;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
 
-      const mixed = Math.random() > 0.5 ? color1 : color2;
-      colors[i * 3] = mixed.r;
-      colors[i * 3 + 1] = mixed.g;
-      colors[i * 3 + 2] = mixed.b;
+      const c = Math.random() > 0.5 ? c1 : c2;
+      colors[i * 3] = c.r;
+      colors[i * 3 + 1] = c.g;
+      colors[i * 3 + 2] = c.b;
     }
 
     particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const particleMat = new THREE.PointsMaterial({
-      size: 0.065,
+      size: 0.05,
       vertexColors: true,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.6,
       blending: THREE.AdditiveBlending,
     });
 
@@ -105,16 +104,12 @@ export default function ThreeHeroCanvas() {
     scene.add(particles);
 
     // ── 3. Lighting ──
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x22d3ee, 2.5, 50);
-    pointLight.position.set(4, 5, 5);
+    const pointLight = new THREE.PointLight(0x3b82f6, 1.8, 40);
+    pointLight.position.set(4, 4, 5);
     scene.add(pointLight);
-
-    const blueLight = new THREE.PointLight(0x3b82f6, 2, 50);
-    blueLight.position.set(-4, -5, -2);
-    scene.add(blueLight);
 
     // ── 4. Mouse Interactive Parallax ──
     let targetX = 0;
@@ -124,8 +119,8 @@ export default function ThreeHeroCanvas() {
 
     const handleMouseMove = (e) => {
       const { innerWidth, innerHeight } = window;
-      targetX = (e.clientX / innerWidth - 0.5) * 1.5;
-      targetY = (e.clientY / innerHeight - 0.5) * 1.5;
+      targetX = (e.clientX / innerWidth - 0.5) * 1.2;
+      targetY = (e.clientY / innerHeight - 0.5) * 1.2;
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -149,24 +144,19 @@ export default function ThreeHeroCanvas() {
       animationFrameId = requestAnimationFrame(animate);
 
       if (!prefersReducedMotion) {
-        // Subtle auto-rotation
-        outerMesh.rotation.x += 0.003;
-        outerMesh.rotation.y += 0.004;
-
-        innerMesh.rotation.x -= 0.005;
-        innerMesh.rotation.y -= 0.003;
-
-        ringMesh.rotation.z += 0.006;
-
-        particles.rotation.y += 0.0006;
+        outerMesh.rotation.x += 0.002;
+        outerMesh.rotation.y += 0.0025;
+        innerMesh.rotation.x -= 0.003;
+        innerMesh.rotation.y -= 0.002;
+        ringMesh.rotation.z += 0.004;
+        particles.rotation.y += 0.0004;
       }
 
-      // Smooth mouse lerping
-      currentX += (targetX - currentX) * 0.05;
-      currentY += (targetY - currentY) * 0.05;
+      currentX += (targetX - currentX) * 0.04;
+      currentY += (targetY - currentY) * 0.04;
 
-      group.rotation.y = currentX * 0.6;
-      group.rotation.x = -currentY * 0.6;
+      group.rotation.y = currentX * 0.5;
+      group.rotation.x = -currentY * 0.5;
 
       renderer.render(scene, camera);
     };
@@ -183,7 +173,6 @@ export default function ThreeHeroCanvas() {
         container.removeChild(renderer.domElement);
       }
 
-      // Dispose resources
       outerGeo.dispose();
       wireframeMat.dispose();
       innerGeo.dispose();
