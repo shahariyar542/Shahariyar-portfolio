@@ -1,0 +1,62 @@
+/* ============================================================
+   CustomCursor — Styles
+   ============================================================ */
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-gold);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--color-gold-muted);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-out-expo),
+              height 0.3s var(--ease-out-expo),
+              border-color 0.3s var(--ease-out-expo);
+}
+
+.cursor-ring.cursor-ring--hover {
+  width: 56px;
+  height: 56px;
+  border-color: var(--color-gold);
+}
+
+/* Hide on touch / mobile */
+@media (pointer: coarse), (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}

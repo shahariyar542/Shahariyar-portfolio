@@ -1,0 +1,132 @@
+/* ============================================================
+   Footer — Minimal Elegant
+   ============================================================ */
+
+.footer {
+  background: var(--color-espresso);
+  border-top: 1px solid var(--color-gold);
+  padding: var(--space-xl) 0;
+  position: relative;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+/* ── Copyright ── */
+.footer-copyright {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--color-warm-white);
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+/* ── Center Tagline ── */
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-warm-white);
+  opacity: 0.5;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Social Links ── */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  color: var(--color-warm-white);
+  opacity: 0.6;
+  transition:
+    color var(--duration-fast) var(--ease-out-quart),
+    opacity var(--duration-fast) var(--ease-out-quart),
+    transform var(--duration-fast) var(--ease-out-quart);
+}
+
+.footer-social-link:hover {
+  color: var(--color-gold);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* ── Back to Top Button ── */
+.footer-back-to-top {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  z-index: var(--z-above);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gold);
+  background: var(--color-espresso);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out-quart),
+    color var(--duration-fast) var(--ease-out-quart),
+    transform var(--duration-fast) var(--ease-out-quart);
+}
+
+.footer-back-to-top:hover {
+  background: var(--color-gold);
+  color: var(--color-espresso);
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .footer-tagline {
+    order: -1;
+  }
+
+  .footer-back-to-top {
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .footer-social-link {
+    transition: none;
+  }
+
+  .footer-social-link:hover {
+    transform: none;
+  }
+
+  .footer-back-to-top {
+    transition: none;
+  }
+
+  .footer-back-to-top:hover {
+    transform: none;
+  }
+}
