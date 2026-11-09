@@ -147,15 +147,6 @@ export default function Navigation() {
 
           {/* CTA + Mobile Toggle */}
           <div className="nav-actions">
-            <a
-              href="/Shahariyar_Khan_Rashad_CV.pdf"
-              download="Shahariyar_Khan_Rashad_CV.pdf"
-              className="nav-cv-btn"
-              aria-label="Download CV"
-            >
-              CV
-            </a>
-
             <button
               className="nav-cta-btn"
               onClick={() => scrollTo('contact')}

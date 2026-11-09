@@ -1,6 +1,6 @@
 /* ============================================================
    SHAHARIYAR.EXE — Interactive 3D Roadway Projects Showcase
-   Futuristic cyber highway with animated vehicle & alternating cards
+   Progressive One-by-One Reveal & Realistic Warm Golden Headlights
    ============================================================ */
 
 .projects-section {
@@ -137,7 +137,7 @@
   padding-left: var(--space-md);
 }
 
-/* Center Waypoint Anchor */
+/* Center Waypoint Spacer (No duplicate DOM number) */
 .station-node-anchor {
   display: flex;
   align-items: center;
@@ -146,36 +146,30 @@
   height: 100%;
 }
 
-.station-pulse-beacon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--color-bg-card);
-  border: 1.5px solid rgba(59, 130, 246, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 16px rgba(59, 130, 246, 0.2);
-  transition: all var(--duration-fast);
-}
-
-.station-pulse-beacon--active {
-  border-color: var(--color-accent-cyan);
-  box-shadow: 0 0 24px rgba(34, 211, 238, 0.55);
-}
-
-.beacon-number {
-  font-family: var(--font-heading);
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: #FFFFFF;
-}
-
-/* ── 3D Roadway Project Card (Slightly reduced by ~7%) ── */
-.roadway-project-card {
+/* ── Progressive Card Wrapper ── */
+.roadway-card-wrapper {
   position: relative;
   width: 100%;
   max-width: 448px;
+  will-change: transform, opacity, filter;
+}
+
+/* ── Surrounding Warm Golden Headlight Ambient Pool ── */
+.card-warm-headlight-pool {
+  position: absolute;
+  inset: -28px;
+  border-radius: var(--radius-2xl);
+  pointer-events: none;
+  filter: blur(28px);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ── 3D Roadway Project Card ── */
+.roadway-project-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   background: var(--color-bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
@@ -189,8 +183,8 @@
 }
 
 .roadway-project-card--hovered {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-3d-card-hover), 0 0 35px rgba(34, 211, 238, 0.2);
+  border-color: rgba(251, 191, 36, 0.55);
+  box-shadow: var(--shadow-3d-card-hover), 0 0 38px rgba(251, 191, 36, 0.28);
 }
 
 .project-road-sheen {
@@ -202,8 +196,8 @@
   border-radius: inherit;
 }
 
-/* Headlight Directional Reflection Layer */
-.project-road-headlight-reflect {
+/* Warm Golden Headlight Surface Reflection */
+.project-road-warm-reflect {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -223,7 +217,7 @@
 }
 
 .roadway-project-card--hovered .project-road-glow {
-  border-color: rgba(34, 211, 238, 0.45);
+  border-color: rgba(251, 191, 36, 0.45);
 }
 
 /* Inner Card Structure */
@@ -254,7 +248,7 @@
 .project-road-index {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--color-accent-cyan);
+  color: #FBBF24;
   font-weight: 700;
   letter-spacing: 0.1em;
 }
@@ -460,7 +454,7 @@
 /* ── Responsive Architecture ── */
 @media (max-width: 900px) {
   .roadway-station-row {
-    grid-template-columns: 44px 1fr;
+    grid-template-columns: 40px 1fr;
     gap: var(--space-md);
     min-height: auto;
     margin-bottom: var(--space-2xl);

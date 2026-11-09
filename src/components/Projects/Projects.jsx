@@ -11,7 +11,7 @@ const statusClassMap = {
 
 const formatNumber = (num) => String(num).padStart(2, '0');
 
-// Waypoints for each project station
+// Waypoints for each project station along the road
 const waypoints = [
   { id: 0, x: 450, y: 240, side: 'left' },
   { id: 1, x: 550, y: 640, side: 'right' },
@@ -29,17 +29,10 @@ export default function Projects() {
   const [carPos, setCarPos] = useState({ x: 500, y: 60, angle: 90 });
   const [isSectionHovered, setIsSectionHovered] = useState(false);
   const [illuminations, setIlluminations] = useState([0, 0, 0, 0]);
+  const [reveals, setReveals] = useState([0, 0, 0, 0]);
   const [comingSoonReveal, setComingSoonReveal] = useState(0);
 
   // Winding SVG path definition across 1000 x 2050 coordinate box
-  // Stations:
-  // Card 0 (Left): Y ~ 240, Waypoint at (450, 240)
-  // Card 1 (Right): Y ~ 640, Waypoint at (550, 640)
-  // Card 2 (Left): Y ~ 1040, Waypoint at (450, 1040)
-  // Card 3 (Right): Y ~ 1440, Waypoint at (550, 1440)
-  // Extended road segment past Project 4:
-  // Towards COMING SOON at Y ~ 1740
-  // Bottom U-turn loop: curves smoothly 180 degrees from (500, 1740) down to (500, 1980) and back
   const pathD = `M 500 0 
     C 490 80, 450 150, 450 240 
     C 450 380, 550 480, 550 640 
@@ -49,21 +42,21 @@ export default function Projects() {
     C 500 1840, 560 1930, 500 1980
     C 440 1930, 440 1840, 480 1760`;
 
-  // Advanced physical vehicle controller with realistic U-turn and scroll direction steering
+  // Physical vehicle controller with progressive reveal & warm illumination
   useEffect(() => {
     let animId;
     let targetProgress = 0;
     let currentProgress = 0;
     let currentAngle = 90;
     let lastProgress = 0;
-    let scrollDirection = 'down'; // 'down' or 'up'
+    let scrollDirection = 'down';
 
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const windowH = window.innerHeight;
 
-      // Progress: 0 when top of section enters, 1 when bottom leaves
+      // Progress: 0 when top enters, 1 when bottom leaves
       const totalDist = rect.height + windowH;
       const scrolled = windowH - rect.top;
       const rawProgress = Math.max(0, Math.min(1, scrolled / totalDist));
@@ -73,13 +66,13 @@ export default function Projects() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    // Lerp loop for fluid, physical car motion
+    // 60fps Physical Lerp Loop
     const updateCar = () => {
       if (roadPathRef.current) {
         const pDiff = targetProgress - currentProgress;
         currentProgress += pDiff * 0.08;
 
-        // Detect scroll direction with a small deadband
+        // Detect scroll direction with deadband
         if (targetProgress - lastProgress > 0.0008) {
           scrollDirection = 'down';
         } else if (targetProgress - lastProgress < -0.0008) {
@@ -97,30 +90,47 @@ export default function Projects() {
         const dy = ptNext.y - pt.y;
         const forwardAngle = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
 
-        // When scrolling down, car faces forward.
-        // When scrolling up, car faces backward along the path (pointing upwards in the direction of motion).
-        // At the bottom turning loop (currentProgress > 0.93), the path itself performs the U-turn!
+        // Realistic heading: car faces forward when traveling down,
+        // faces upward along the road when traveling back up,
+        // and steers through the U-turn loop at the end (currentProgress > 0.92)
         let targetHeading = forwardAngle;
         if (scrollDirection === 'up' && currentProgress < 0.92) {
           targetHeading = forwardAngle + 180;
         }
 
-        // Shortest angular difference for smooth natural rotation (no jumping or teleporting)
+        // Shortest angular distance to prevent any jumping or teleporting
         const angleDiff = ((targetHeading - currentAngle + 540) % 360) - 180;
         currentAngle += angleDiff * 0.12;
 
         setCarPos({ x: pt.x, y: pt.y, angle: currentAngle });
 
-        // Calculate headlight illumination intensity for each project card
+        // ── 1. One-by-one Progressive Card Reveal ──
+        // Cards stay completely hidden until the vehicle approaches.
+        // Once vehicle reaches/passes the waypoint, card remains visible.
+        // On upward scroll, cards reverse smoothly as vehicle moves away.
+        const approachWindow = 220;
+        const newReveals = waypoints.map((wp) => {
+          const startY = wp.y - approachWindow;
+          if (pt.y >= wp.y) {
+            return 1; // fully visible once reached or passed
+          } else if (pt.y > startY) {
+            return (pt.y - startY) / approachWindow; // gradual reveal
+          }
+          return 0; // completely hidden before vehicle approaches
+        });
+        setReveals(newReveals);
+
+        // ── 2. Realistic Warm Golden Headlight Illumination ──
+        // When vehicle is close to a card, headlights illuminate the card & surroundings
         const newIlluminations = waypoints.map((wp) => {
           const distY = Math.abs(pt.y - wp.y);
-          if (distY > 260) return 0;
-          const proximity = 1 - distY / 260;
+          if (distY > 240) return 0;
+          const proximity = 1 - distY / 240;
           return Math.pow(proximity, 1.4); // smooth optical falloff
         });
         setIlluminations(newIlluminations);
 
-        // Calculate "COMING SOON" reveal after Project 4 (Y > 1460)
+        // ── 3. "COMING SOON" Reveal (after Project 4: Y > 1460) ──
         if (pt.y < 1460) {
           setComingSoonReveal(0);
         } else {
@@ -187,16 +197,26 @@ export default function Projects() {
                   <stop offset="100%" stopColor="#0B132B" />
                 </linearGradient>
 
-                {/* Headlight cone gradient */}
-                <radialGradient id="headlightBeam" cx="50%" cy="100%" r="90%">
-                  <stop offset="0%" stopColor="rgba(34, 211, 238, 0.75)" />
-                  <stop offset="40%" stopColor="rgba(59, 130, 246, 0.3)" />
-                  <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
+                {/* Warm Golden/Amber Headlight Beam Gradient */}
+                <radialGradient id="warmHeadlightBeam" cx="50%" cy="100%" r="90%">
+                  <stop offset="0%" stopColor="rgba(254, 240, 138, 0.88)" />
+                  <stop offset="35%" stopColor="rgba(251, 191, 36, 0.52)" />
+                  <stop offset="70%" stopColor="rgba(245, 158, 11, 0.22)" />
+                  <stop offset="100%" stopColor="rgba(251, 191, 36, 0)" />
                 </radialGradient>
 
-                {/* Glow filter */}
+                {/* Neon road glow filter */}
                 <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                {/* Warm golden light glow filter */}
+                <filter id="warmGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="5" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
@@ -208,7 +228,7 @@ export default function Projects() {
               <path
                 d={pathD}
                 fill="none"
-                stroke="rgba(0, 0, 0, 0.6)"
+                stroke="rgba(0, 0, 0, 0.65)"
                 strokeWidth="105"
                 strokeLinecap="round"
               />
@@ -255,20 +275,30 @@ export default function Projects() {
                 filter="url(#neonGlow)"
               />
 
-              {/* Connecting Conduits from Road Waypoints to Project Cards */}
+              {/* ── Exactly ONE Road Waypoint Marker & Warm Conduit Per Project ── */}
               {waypoints.map((wp, idx) => {
                 const isSelected = activeProject === idx;
                 const illum = illuminations[idx] || 0;
+                const reveal = reveals[idx] || 0;
                 const targetX = wp.side === 'left' ? 320 : 680;
+
+                // Warm golden conduit illumination when headlights hit
                 const strokeColor =
-                  isSelected || illum > 0.15
-                    ? `rgba(34, 211, 238, ${Math.max(0.35, illum * 0.95)})`
-                    : 'rgba(96, 165, 250, 0.25)';
-                const strokeW = isSelected || illum > 0.15 ? 1.5 + illum * 2 : 1.5;
+                  illum > 0.1
+                    ? `rgba(251, 191, 36, ${Math.max(0.3, illum * 0.95)})`
+                    : `rgba(96, 165, 250, ${0.15 + reveal * 0.15})`;
+                const strokeW = illum > 0.1 ? 1.5 + illum * 2 : 1.5;
 
                 return (
-                  <g key={`conduit-${idx}`} className={`road-conduit-group ${isSelected ? 'road-conduit--active' : ''}`}>
-                    {/* Conduit Line */}
+                  <g
+                    key={`conduit-${idx}`}
+                    className="road-conduit-group"
+                    style={{
+                      opacity: Math.max(0.18, reveal),
+                      transition: 'opacity 0.3s ease',
+                    }}
+                  >
+                    {/* Conduit Line from Waypoint to Card */}
                     <line
                       x1={wp.x}
                       y1={wp.y}
@@ -280,23 +310,27 @@ export default function Projects() {
                       className="road-conduit-line"
                     />
 
-                    {/* Milestone Waypoint Ring */}
+                    {/* Single Milestone Waypoint Ring with warm glow */}
                     <circle
                       cx={wp.x}
                       cy={wp.y}
                       r={15 + illum * 3}
                       fill="#070B18"
-                      stroke={isSelected || illum > 0.15 ? '#22D3EE' : '#3B82F6'}
+                      stroke={illum > 0.1 ? '#FBBF24' : isSelected ? '#22D3EE' : '#3B82F6'}
                       strokeWidth={1.8 + illum * 1.2}
-                      filter="url(#neonGlow)"
+                      filter={illum > 0.1 ? 'url(#warmGlow)' : 'url(#neonGlow)'}
                     />
+
+                    {/* Milestone Center Dot */}
                     <circle
                       cx={wp.x}
                       cy={wp.y}
                       r={6 + illum * 2}
-                      fill={isSelected || illum > 0.15 ? '#22D3EE' : '#60A5FA'}
+                      fill={illum > 0.1 ? '#FDE047' : '#60A5FA'}
                       className="road-waypoint-pulse"
                     />
+
+                    {/* EXACTLY ONE NUMBER: 01, 02, 03, 04 on the road marker */}
                     <text
                       x={wp.x}
                       y={wp.y + 4}
@@ -306,22 +340,22 @@ export default function Projects() {
                       fontWeight="700"
                       textAnchor="middle"
                     >
-                      {idx + 1}
+                      {formatNumber(idx + 1)}
                     </text>
                   </g>
                 );
               })}
 
-              {/* ── Personal Vehicle: "SHAHARIYAR" ── */}
+              {/* ── Personal Vehicle: "SHAHARIYAR" with Warm Golden Headlights ── */}
               <g
                 className="road-car-group"
                 transform={`translate(${carPos.x}, ${carPos.y}) rotate(${carPos.angle})`}
               >
-                {/* Projected Headlight Beams */}
+                {/* Projected Warm Headlight Beams */}
                 <polygon
-                  points="-18,-15 18,-15 45,-125 -45,-125"
-                  fill="url(#headlightBeam)"
-                  opacity="0.8"
+                  points="-18,-15 18,-15 48,-130 -48,-130"
+                  fill="url(#warmHeadlightBeam)"
+                  opacity="0.85"
                 />
 
                 {/* Underglow Halo */}
@@ -330,7 +364,7 @@ export default function Projects() {
                   cy="0"
                   rx="26"
                   ry="38"
-                  fill="rgba(34, 211, 238, 0.35)"
+                  fill="rgba(34, 211, 238, 0.32)"
                   filter="url(#neonGlow)"
                 />
 
@@ -364,9 +398,9 @@ export default function Projects() {
                   fill="rgba(34, 211, 238, 0.65)"
                 />
 
-                {/* Twin Cyan Headlights */}
-                <circle cx="-10" cy="-24" r="3" fill="#FFFFFF" filter="url(#neonGlow)" />
-                <circle cx="10" cy="-24" r="3" fill="#FFFFFF" filter="url(#neonGlow)" />
+                {/* Twin Warm Golden Headlights */}
+                <circle cx="-10" cy="-24" r="3.2" fill="#FEF08A" filter="url(#warmGlow)" />
+                <circle cx="10" cy="-24" r="3.2" fill="#FEF08A" filter="url(#warmGlow)" />
 
                 {/* Twin Red Taillights */}
                 <circle cx="-10" cy="23" r="2.5" fill="#EF4444" />
@@ -399,12 +433,13 @@ export default function Projects() {
             </svg>
           </div>
 
-          {/* ── Alternating Project Cards Layout ── */}
+          {/* ── Alternating Project Cards Layout (Progressive 1-by-1 Reveal) ── */}
           <div className="roadway-cards-flow">
             {projects.map((project, index) => {
               const isEven = index % 2 === 0;
               const isSelected = activeProject === index;
               const illum = illuminations[index] || 0;
+              const reveal = reveals[index] || 0;
               const statusClass = statusClassMap[project.status] || '';
 
               return (
@@ -423,6 +458,7 @@ export default function Projects() {
                         project={project}
                         index={index}
                         isSelected={isSelected}
+                        reveal={reveal}
                         illumination={illum}
                         statusClass={statusClass}
                         side="left"
@@ -430,20 +466,8 @@ export default function Projects() {
                     )}
                   </div>
 
-                  {/* Center Roadway Node Beacon Marker */}
-                  <div className="station-node-anchor" aria-hidden="true">
-                    <div
-                      className={`station-pulse-beacon ${
-                        isSelected || illum > 0.15 ? 'station-pulse-beacon--active' : ''
-                      }`}
-                      style={{
-                        transform: `scale(${1 + illum * 0.15})`,
-                        boxShadow: `0 0 ${16 + illum * 20}px rgba(34, 211, 238, ${0.2 + illum * 0.6})`,
-                      }}
-                    >
-                      <span className="beacon-number">{formatNumber(index + 1)}</span>
-                    </div>
-                  </div>
+                  {/* Center Roadway Node Anchor (Spacing only — no duplicate number) */}
+                  <div className="station-node-anchor" aria-hidden="true" />
 
                   {/* Right Column Spacer or Card */}
                   <div className="station-column station-column--right">
@@ -452,6 +476,7 @@ export default function Projects() {
                         project={project}
                         index={index}
                         isSelected={isSelected}
+                        reveal={reveal}
                         illumination={illum}
                         statusClass={statusClass}
                         side="right"
@@ -485,8 +510,8 @@ export default function Projects() {
   );
 }
 
-/* ── Interactive 3D Project Card along the Road (Refined -5 to 8% size) ── */
-function ProjectCardRoadway({ project, index, isSelected, illumination, statusClass, side }) {
+/* ── Interactive 3D Project Card with Progressive Reveal & Warm Headlight Illumination ── */
+function ProjectCardRoadway({ project, index, isSelected, reveal, illumination, statusClass, side }) {
   const cardRef = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
@@ -514,114 +539,139 @@ function ProjectCardRoadway({ project, index, isSelected, illumination, statusCl
   // Directional headlight glow origin: side of the card facing the center road
   const headlightFacingOrigin = side === 'left' ? '100% 50%' : '0% 50%';
 
+  // If card is completely unrevealed, keep pointer events off and hidden
+  const isCardVisible = reveal > 0.02;
+
   return (
-    <article
-      ref={cardRef}
-      className={`roadway-project-card ${isSelected ? 'roadway-project-card--hovered' : ''}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+    <div
+      className="roadway-card-wrapper"
       style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        borderColor:
-          illumination > 0.15
-            ? `rgba(34, 211, 238, ${0.2 + illumination * 0.5})`
-            : undefined,
-        boxShadow:
-          illumination > 0.15
-            ? `var(--shadow-3d-card), 0 0 ${illumination * 26}px rgba(34, 211, 238, ${illumination * 0.3})`
-            : undefined,
-        filter: `brightness(${1 + illumination * 0.08})`,
+        opacity: reveal,
+        visibility: isCardVisible ? 'visible' : 'hidden',
+        pointerEvents: reveal > 0.75 ? 'auto' : 'none',
+        transform: `translateY(${(1 - reveal) * 24}px) scale(${0.95 + reveal * 0.05})`,
+        filter: `blur(${(1 - reveal) * 6}px)`,
+        transition: 'opacity 0.2s ease-out, transform 0.25s ease-out, filter 0.25s ease-out',
       }}
     >
-      {/* Dynamic Specular Sheen & Headlight Beam Illumination */}
+      {/* ── Surrounding Warm Golden Headlight Ambient Pool ── */}
       <div
-        className="project-road-sheen"
+        className="card-warm-headlight-pool"
         style={{
-          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(34, 211, 238, 0.16) 0%, rgba(59, 130, 246, 0.04) 50%, transparent 75%)`,
-          opacity: isSelected ? 1 : 0,
+          background: `radial-gradient(ellipse at ${headlightFacingOrigin}, rgba(251, 191, 36, ${illumination * 0.35}) 0%, rgba(245, 158, 11, ${illumination * 0.14}) 45%, transparent 75%)`,
+          opacity: illumination > 0.05 ? 1 : 0,
         }}
         aria-hidden="true"
       />
 
-      {/* Headlight Directional Reflection Layer */}
-      <div
-        className="project-road-headlight-reflect"
+      <article
+        ref={cardRef}
+        className={`roadway-project-card ${isSelected ? 'roadway-project-card--hovered' : ''}`}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         style={{
-          background: `radial-gradient(circle at ${headlightFacingOrigin}, rgba(34, 211, 238, ${illumination * 0.22}) 0%, transparent 68%)`,
-          opacity: illumination > 0.08 ? 1 : 0,
+          transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          borderColor:
+            illumination > 0.1
+              ? `rgba(251, 191, 36, ${0.18 + illumination * 0.6})`
+              : undefined,
+          boxShadow:
+            illumination > 0.1
+              ? `var(--shadow-3d-card), 0 0 ${illumination * 34}px rgba(251, 191, 36, ${illumination * 0.38}), 0 0 ${illumination * 14}px rgba(254, 240, 138, ${illumination * 0.25})`
+              : undefined,
+          filter: `brightness(${1 + illumination * 0.07})`,
         }}
-        aria-hidden="true"
-      />
+      >
+        {/* Dynamic Cursor Sheen */}
+        <div
+          className="project-road-sheen"
+          style={{
+            background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(34, 211, 238, 0.16) 0%, rgba(59, 130, 246, 0.04) 50%, transparent 75%)`,
+            opacity: isSelected ? 1 : 0,
+          }}
+          aria-hidden="true"
+        />
 
-      <div className="project-road-glow" aria-hidden="true" />
+        {/* Warm Golden Headlight Surface Reflection */}
+        <div
+          className="project-road-warm-reflect"
+          style={{
+            background: `radial-gradient(ellipse at ${headlightFacingOrigin}, rgba(254, 240, 138, ${illumination * 0.22}) 0%, rgba(251, 191, 36, ${illumination * 0.12}) 40%, transparent 70%)`,
+            opacity: illumination > 0.05 ? 1 : 0,
+          }}
+          aria-hidden="true"
+        />
 
-      <div className="project-road-inner">
-        {/* Top Header */}
-        <div className="project-road-top">
-          <div className="project-road-meta">
-            <span className="project-road-index">STATION 0{index + 1}</span>
-            <span className="project-road-category">{project.category}</span>
+        <div className="project-road-glow" aria-hidden="true" />
+
+        <div className="project-road-inner">
+          {/* Top Header */}
+          <div className="project-road-top">
+            <div className="project-road-meta">
+              <span className="project-road-index">STATION 0{index + 1}</span>
+              <span className="project-road-category">{project.category}</span>
+            </div>
+
+            <span className={`project-road-status ${statusClass}`}>
+              <span className="project-status-dot" />
+              {project.status}
+            </span>
           </div>
 
-          <span className={`project-road-status ${statusClass}`}>
-            <span className="project-status-dot" />
-            {project.status}
-          </span>
+          {/* Title */}
+          <h3 className="project-road-title">{project.title}</h3>
+
+          {/* Description */}
+          <p className="project-road-description">{project.description}</p>
+
+          {/* Technology Badges */}
+          <div className="project-road-tags">
+            {project.tags.map((tag) => (
+              <span key={tag} className="project-road-tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="project-road-actions">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="road-btn road-btn--github"
+                aria-label={`View ${project.title} on GitHub`}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+                <span>Repository</span>
+              </a>
+            )}
+
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                className="road-btn road-btn--live"
+                aria-label={`Launch ${project.title} interactive demo`}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                <span>Live System</span>
+              </a>
+            )}
+
+            {project.metrics && (
+              <span className="project-road-metric">
+                <span className="metric-icon">⚡</span>
+                {project.metrics}
+              </span>
+            )}
+          </div>
         </div>
-
-        {/* Title */}
-        <h3 className="project-road-title">{project.title}</h3>
-
-        {/* Description */}
-        <p className="project-road-description">{project.description}</p>
-
-        {/* Technology Badges */}
-        <div className="project-road-tags">
-          {project.tags.map((tag) => (
-            <span key={tag} className="project-road-tag">
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="project-road-actions">
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="road-btn road-btn--github"
-              aria-label={`View ${project.title} on GitHub`}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-              </svg>
-              <span>Repository</span>
-            </a>
-          )}
-
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              className="road-btn road-btn--live"
-              aria-label={`Launch ${project.title} interactive demo`}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-              <span>Live System</span>
-            </a>
-          )}
-
-          {project.metrics && (
-            <span className="project-road-metric">
-              <span className="metric-icon">⚡</span>
-              {project.metrics}
-            </span>
-          )}
-        </div>
-      </div>
-    </article>
+      </article>
+    </div>
   );
 }
