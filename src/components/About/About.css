@@ -1,6 +1,6 @@
 /* ============================================================
    SHAHARIYAR.EXE — Refined About Styles
-   Three Unique Interactive 3D Identity Cards
+   Original 3 Identity Cards with Premium Interactive 3D Effects
    ============================================================ */
 
 .about {
@@ -78,18 +78,18 @@
   box-shadow: 0 4px 16px rgba(59, 130, 246, 0.35);
 }
 
-/* ── Three Unique Interactive 3D Cards Grid ── */
-.about-cards-3d-grid {
+/* ── 3 Original Identity Cards in 3D ── */
+.about-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-xl);
   perspective: 1200px;
 }
 
-/* Common 3D Base Architecture */
-.about-3d-card {
+.about-card {
   position: relative;
   background: var(--color-bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transform-style: preserve-3d;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -97,165 +97,17 @@
               border-color 0.25s ease;
   overflow: hidden;
   box-shadow: var(--shadow-3d-card);
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.about-card-interior {
-  position: relative;
-  z-index: 3;
-  padding: 24px 24px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.about-card--hovered {
+  box-shadow: var(--shadow-3d-card-hover), 0 0 28px rgba(59, 130, 246, 0.18);
+  border-color: var(--border-hover);
 }
 
-/* ============================================================
-   CARD 1 — 3D Academic Identity Card (DIU / Software Engineering)
-   ============================================================ */
-.about-card--academic {
-  border: 1px solid rgba(96, 165, 250, 0.24);
-  background: linear-gradient(145deg, rgba(13, 21, 40, 0.95) 0%, rgba(8, 13, 27, 0.95) 100%);
-}
-
-.about-card--academic.about-card--hovered {
-  border-color: rgba(96, 165, 250, 0.55);
-  box-shadow: var(--shadow-3d-card-hover), 0 0 30px rgba(59, 130, 246, 0.2);
-}
-
-.academic-reflection-border {
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  border: 1.5px solid transparent;
-  pointer-events: none;
-  z-index: 2;
-  transition: border-color 0.3s ease;
-}
-
-.about-card--academic.about-card--hovered .academic-reflection-border {
-  border-color: rgba(34, 211, 238, 0.4);
-}
-
-.academic-card-sheen {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.academic-top-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-md);
-}
-
-.academic-badge-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.academic-glyph {
-  color: var(--color-accent-cyan);
-  font-size: 0.9rem;
-}
-
-.academic-inst-tag {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--color-accent-primary);
-  letter-spacing: 0.1em;
-}
-
-.academic-batch-pill {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: var(--radius-full);
-  background: rgba(34, 211, 238, 0.1);
-  color: var(--color-accent-cyan);
-  border: 1px solid rgba(34, 211, 238, 0.3);
-}
-
-.academic-institution-name {
-  font-family: var(--font-heading);
-  font-size: 1.22rem;
-  font-weight: 700;
-  color: var(--color-text-heading);
-  line-height: 1.3;
-  margin-bottom: 4px;
-}
-
-.academic-dept-name {
-  font-family: var(--font-heading);
-  font-size: 0.88rem;
-  color: var(--color-accent-primary);
-  font-weight: 600;
-  margin-bottom: var(--space-lg);
-}
-
-.academic-divider {
-  height: 1px;
-  background: rgba(148, 163, 184, 0.14);
-  width: 100%;
-  margin-top: auto;
-  margin-bottom: var(--space-md);
-}
-
-.academic-footer-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--space-sm);
-}
-
-.academic-field-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.academic-field-label {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.08em;
-  margin-bottom: 2px;
-}
-
-.academic-field-val {
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
-  color: var(--color-text-secondary);
-  font-weight: 600;
-}
-
-.academic-status-pill {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: #34D399;
-  font-weight: 600;
-}
-
-/* ============================================================
-   CARD 2 — Interactive 3D Profile Card (Personal / AI Focus)
-   ============================================================ */
-.about-card--profile {
-  border: 1px solid rgba(34, 211, 238, 0.22);
-  background: linear-gradient(145deg, rgba(14, 23, 44, 0.95) 0%, rgba(8, 13, 27, 0.95) 100%);
-}
-
-.about-card--profile.about-card--hovered {
-  border-color: rgba(34, 211, 238, 0.55);
-  box-shadow: var(--shadow-3d-card-hover), 0 0 32px rgba(34, 211, 238, 0.22);
-}
-
-.profile-cursor-glow {
+/* Cursor-following sheen */
+.about-card-sheen {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -264,239 +116,69 @@
   border-radius: inherit;
 }
 
-.profile-top-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-md);
-}
-
-.profile-avatar-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  background: rgba(34, 211, 238, 0.1);
-  border: 1px solid rgba(34, 211, 238, 0.3);
-}
-
-.profile-chip-icon {
-  font-size: 0.85rem;
-  color: var(--color-accent-cyan);
-}
-
-.profile-chip-text {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--color-accent-cyan);
-  letter-spacing: 0.08em;
-}
-
-.profile-location-tag {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--color-text-secondary);
-}
-
-.profile-pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #34D399;
-  box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
-}
-
-.profile-full-name {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-text-heading);
-  letter-spacing: -0.015em;
-  margin-bottom: 3px;
-}
-
-.profile-tagline {
-  font-family: var(--font-heading);
-  font-size: 0.86rem;
-  color: var(--color-accent-cyan);
-  font-weight: 600;
-  margin-bottom: var(--space-md);
-}
-
-.profile-mission-text {
-  font-family: var(--font-body);
-  font-size: 0.86rem;
-  color: var(--color-text-body);
-  line-height: 1.65;
-  margin-bottom: var(--space-lg);
-  flex: 1;
-}
-
-.profile-tech-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: auto;
-}
-
-.profile-mini-badge {
-  font-family: var(--font-heading);
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: var(--radius-full);
-  background: rgba(148, 163, 184, 0.08);
-  color: var(--color-text-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.16);
-}
-
-/* ============================================================
-   CARD 3 — 3D Achievement Showcase (Prestigious Award)
-   ============================================================ */
-.about-card--award {
-  border: 1px solid rgba(251, 191, 36, 0.32);
-  background: linear-gradient(145deg, rgba(18, 22, 38, 0.95) 0%, rgba(10, 14, 25, 0.95) 100%);
-}
-
-.about-card--award.about-card--hovered {
-  border-color: rgba(251, 191, 36, 0.65);
-  box-shadow: var(--shadow-3d-card-hover), 0 0 36px rgba(251, 191, 36, 0.25);
-}
-
-.award-ambient-gold-glow {
+/* Glowing border overlay */
+.about-card-glow-border {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, transparent 70%);
-  pointer-events: none;
-  filter: blur(24px);
-  z-index: 1;
-}
-
-.award-gold-sweep {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 0%, rgba(251, 191, 36, 0.08) 45%, rgba(254, 240, 138, 0.18) 50%, rgba(251, 191, 36, 0.08) 55%, transparent 100%);
-  background-size: 250% 250%;
-  animation: gold-sheen-sweep 7s ease-in-out infinite;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid transparent;
   pointer-events: none;
   z-index: 2;
+  transition: border-color 0.3s ease;
 }
 
-@keyframes gold-sheen-sweep {
-  0% {
-    background-position: -120% 0%;
-  }
-  50%, 100% {
-    background-position: 220% 0%;
-  }
-}
-
-.award-card-header {
+/* Inner content with 3D elevation */
+.about-card-content {
+  position: relative;
+  z-index: 3;
+  padding: 22px 24px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-md);
+  flex-direction: column;
+  height: 100%;
 }
 
-.award-trophy-ring {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(251, 191, 36, 0.14);
-  border: 1px solid rgba(251, 191, 36, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FBBF24;
-  box-shadow: 0 0 14px rgba(251, 191, 36, 0.3);
-}
-
-.award-badge-pill {
-  font-family: var(--font-heading);
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  background: rgba(251, 191, 36, 0.12);
-  color: #FBBF24;
-  border: 1px solid rgba(251, 191, 36, 0.4);
-  letter-spacing: 0.02em;
-}
-
-.award-event-label {
+.about-card-number {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-md);
+  transition: color 0.3s ease;
 }
 
-.award-distinction-title {
+.about-card-icon {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  margin-bottom: var(--space-sm);
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.about-card-title {
   font-family: var(--font-heading);
   font-size: 1.22rem;
-  font-weight: 800;
-  color: #F8FAFC;
-  line-height: 1.25;
-  margin-bottom: var(--space-sm);
-  background: linear-gradient(135deg, #FFFFFF 40%, #FBBF24 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin-bottom: var(--space-xs);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
 }
 
-.award-distinction-desc {
+.about-card-text {
   font-family: var(--font-body);
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   color: var(--color-text-body);
-  line-height: 1.65;
-  margin-bottom: var(--space-lg);
-  flex: 1;
+  line-height: 1.7;
 }
 
-.award-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: var(--space-sm);
-  border-top: 1px solid rgba(251, 191, 36, 0.18);
-  margin-top: auto;
-}
-
-.award-category-tag {
-  font-family: var(--font-heading);
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #FCD34D;
-}
-
-.award-verified-check {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: #34D399;
-}
-
-/* ── Responsive Grid ── */
+/* Responsive */
 @media (max-width: 900px) {
   .about-grid {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
   }
 
-  .about-cards-3d-grid {
+  .about-cards {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
   }

@@ -33,7 +33,8 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 10;
+  opacity: 1;
 }
 
 .roadway-svg {
@@ -452,31 +453,143 @@
 }
 
 /* ── Responsive Architecture ── */
-@media (max-width: 900px) {
+
+/* Tablet & Laptop (768px – 1024px) */
+@media (max-width: 1024px) and (min-width: 768px) {
   .roadway-station-row {
-    grid-template-columns: 40px 1fr;
-    gap: var(--space-md);
-    min-height: auto;
-    margin-bottom: var(--space-2xl);
+    grid-template-columns: 1fr 80px 1fr;
+    min-height: 340px;
   }
-
-  .station-column--left,
+  .station-column--left {
+    padding-right: var(--space-sm);
+  }
   .station-column--right {
-    grid-column: 2;
-    padding: 0;
-    justify-content: stretch;
+    padding-left: var(--space-sm);
   }
+}
 
-  .station-node-anchor {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .station-column:empty {
-    display: none;
+/* Mobile Screens (< 768px): Alternating Highway with Zero Overlap */
+@media (max-width: 767px) {
+  .roadway-container {
+    padding: 0 4px;
   }
 
   .roadway-svg-wrap {
-    opacity: 0.3;
+    opacity: 1;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .roadway-cards-flow {
+    gap: 36px;
+  }
+
+  /* Even rows: Card on Left (1fr), Road Corridor on Right (75px) */
+  .roadway-station--left {
+    display: grid;
+    grid-template-columns: 1fr 75px;
+    align-items: center;
+    min-height: 340px;
+    gap: 12px;
+  }
+
+  .roadway-station--left .station-column--left {
+    order: 1;
+    padding: 0;
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .roadway-station--left .station-node-anchor {
+    order: 2;
+    width: 100%;
+    min-height: 60px;
+  }
+
+  .roadway-station--left .station-column--right {
+    display: none;
+  }
+
+  /* Odd rows: Road Corridor on Left (75px), Card on Right (1fr) */
+  .roadway-station--right {
+    display: grid;
+    grid-template-columns: 75px 1fr;
+    align-items: center;
+    min-height: 340px;
+    gap: 12px;
+  }
+
+  .roadway-station--right .station-node-anchor {
+    order: 1;
+    width: 100%;
+    min-height: 60px;
+  }
+
+  .roadway-station--right .station-column--right {
+    order: 2;
+    padding: 0;
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .roadway-station--right .station-column--left {
+    display: none;
+  }
+
+  .roadway-card-wrapper {
+    max-width: 100%;
+  }
+
+  .project-road-inner {
+    padding: 18px 16px;
+  }
+
+  .project-road-title {
+    font-size: 1.08rem;
+  }
+
+  .project-road-description,
+  .project-road-desc {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-road-tag {
+    font-size: 0.66rem;
+    padding: 2.5px 7px;
+  }
+}
+
+/* Small Mobile Screens (<= 400px, e.g. 360px & 390px) */
+@media (max-width: 400px) {
+  .roadway-station--left {
+    grid-template-columns: 1fr 68px;
+    gap: 8px;
+    min-height: 330px;
+  }
+
+  .roadway-station--right {
+    grid-template-columns: 68px 1fr;
+    gap: 8px;
+    min-height: 330px;
+  }
+
+  .project-road-inner {
+    padding: 15px 13px;
+  }
+
+  .project-road-title {
+    font-size: 1.0rem;
+  }
+
+  .project-road-description,
+  .project-road-desc {
+    font-size: 0.74rem;
+  }
+
+  .road-btn {
+    padding: 6px 10px;
+    font-size: 0.7rem;
   }
 }

@@ -49,7 +49,8 @@ export default function Skills() {
   const [angle, setAngle] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
-  const [orbitRadius, setOrbitRadius] = useState(400);
+  const [orbitRadii, setOrbitRadii] = useState({ rx: 420, rz: 420 });
+  const [isMobile, setIsMobile] = useState(false);
   const [isAutoRotate, setIsAutoRotate] = useState(true);
 
   // Touch tracking refs
@@ -60,20 +61,32 @@ export default function Skills() {
   // Speed: rotates smoothly from right to left (negative angle increment)
   const ROTATION_SPEED = 0.22; // degrees per frame
 
-  // Compute responsive orbit radius
+  // Compute intelligently responsive orbit radius:
+  // On mobile, use elliptical orbit (compressed X-spread) so cards never clip horizontally
   useEffect(() => {
     const updateRadius = () => {
       const w = window.innerWidth;
-      if (w < 480) {
-        setOrbitRadius(190);
-      } else if (w < 768) {
-        setOrbitRadius(240);
+      if (w < 380) {
+        setOrbitRadii({ rx: 24, rz: 120 });
+        setIsMobile(true);
+      } else if (w < 480) {
+        setOrbitRadii({ rx: 36, rz: 135 });
+        setIsMobile(true);
+      } else if (w < 640) {
+        setOrbitRadii({ rx: 48, rz: 150 });
+        setIsMobile(true);
+      } else if (w <= 768) {
+        setOrbitRadii({ rx: 110, rz: 210 });
+        setIsMobile(true);
       } else if (w < 1024) {
-        setOrbitRadius(320);
+        setOrbitRadii({ rx: 210, rz: 260 });
+        setIsMobile(false);
       } else if (w < 1366) {
-        setOrbitRadius(380);
+        setOrbitRadii({ rx: 320, rz: 340 });
+        setIsMobile(false);
       } else {
-        setOrbitRadius(430);
+        setOrbitRadii({ rx: 400, rz: 400 });
+        setIsMobile(false);
       }
     };
 
@@ -84,7 +97,6 @@ export default function Skills() {
 
   // Animation loop with requestAnimationFrame
   useEffect(() => {
-    // Check prefers-reduced-motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced || !isAutoRotate) return;
 
@@ -135,7 +147,6 @@ export default function Skills() {
 
   const jumpToCard = useCallback(
     (index) => {
-      // Calculate angle that brings card[index] to front (angle = 0 => card 0 at front)
       const targetAngle = -(index * (360 / totalCards));
       setAngle(targetAngle);
     },
@@ -194,8 +205,8 @@ export default function Skills() {
             <div
               className="skills-orbit-ring"
               style={{
-                width: `${orbitRadius * 2 + 120}px`,
-                height: `${orbitRadius * 2 + 120}px`,
+                width: `${orbitRadii.rx * 2 + 80}px`,
+                height: `${orbitRadii.rz * 2 + 80}px`,
               }}
             />
           </div>
@@ -203,34 +214,28 @@ export default function Skills() {
           {/* 3D Orbit Stage */}
           <div className="skills-orbit-stage">
             {categories.map((category, i) => {
-              // Base angle for this card
               const baseAngle = i * (360 / totalCards);
-              // Current orbital angle in degrees
               const currentAngle = (baseAngle + angle) % 360;
               const rad = (currentAngle * Math.PI) / 180;
 
-              // 3D coordinates in orbit:
-              // X: Left-to-right axis
-              // Z: Near-to-far axis (cos(rad) * radius)
-              const x = Math.sin(rad) * orbitRadius;
-              const z = Math.cos(rad) * orbitRadius;
+              // Responsive 3D coordinates in orbit:
+              const x = Math.sin(rad) * orbitRadii.rx;
+              const z = Math.cos(rad) * orbitRadii.rz;
 
               // Normalized depth factor from 0 (back) to 1 (front)
               const zNorm = (Math.cos(rad) + 1) / 2;
 
-              // Scale: 0.72 at deepest point to 1.06 at closest point
-              let scale = 0.72 + zNorm * 0.34;
-              // Opacity: 0.36 at deepest point to 1.0 at front
+              // Scale: on mobile, subtle scaling keeps back cards legible and prevents viewport clipping
+              let scale = isMobile ? 0.70 + zNorm * 0.16 : 0.72 + zNorm * 0.34;
               let opacity = 0.36 + zNorm * 0.64;
-              // Brightness: dimmer when recessed in back
               let brightness = 0.65 + zNorm * 0.45;
 
-              // Subtle face angle: turns slightly tangent to the circle
-              const rotateY = -currentAngle * 0.32;
+              // Face angle: reduced on mobile so front card faces viewer directly
+              const rotateY = -currentAngle * (isMobile ? 0.12 : 0.32);
 
               const isThisCardHovered = hoveredCardIndex === i;
               if (isThisCardHovered) {
-                scale += 0.06;
+                scale += 0.05;
                 opacity = 1;
                 brightness = 1.15;
               }
@@ -242,7 +247,7 @@ export default function Skills() {
                   key={category.label}
                   className={`skills-orbit-card ${isThisCardHovered ? 'skills-orbit-card--hovered' : ''}`}
                   style={{
-                    transform: `translate3d(${x}px, 0px, ${z + (isThisCardHovered ? 40 : 0)}px) rotateY(${rotateY}deg) scale(${scale})`,
+                    transform: `translate3d(${x}px, 0px, ${z + (isThisCardHovered ? 35 : 0)}px) rotateY(${rotateY}deg) scale(${scale})`,
                     zIndex,
                     opacity,
                     filter: `brightness(${brightness})`,
@@ -326,7 +331,6 @@ export default function Skills() {
             {/* Orbit Waypoints / Indicators */}
             <div className="orbit-indicators">
               {categories.map((c, i) => {
-                // Find which card is closest to the front (cos(rad) is highest)
                 const baseAngle = i * (360 / totalCards);
                 const currentAngle = (baseAngle + angle) % 360;
                 const rad = (currentAngle * Math.PI) / 180;

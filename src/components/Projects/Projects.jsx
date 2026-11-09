@@ -11,13 +11,39 @@ const statusClassMap = {
 
 const formatNumber = (num) => String(num).padStart(2, '0');
 
-// Waypoints for each project station along the road
-const waypoints = [
+// Desktop Waypoints (centered highway corridor)
+const desktopWaypoints = [
   { id: 0, x: 450, y: 240, side: 'left' },
   { id: 1, x: 550, y: 640, side: 'right' },
   { id: 2, x: 450, y: 1040, side: 'left' },
   { id: 3, x: 550, y: 1440, side: 'right' },
 ];
+
+// Mobile Waypoints (alternating side highway: Station 0 right, 1 left, 2 right, 3 left)
+const mobileWaypoints = [
+  { id: 0, x: 880, y: 220, side: 'left' },
+  { id: 1, x: 120, y: 600, side: 'right' },
+  { id: 2, x: 880, y: 980, side: 'left' },
+  { id: 3, x: 120, y: 1360, side: 'right' },
+];
+
+const desktopPathD = `M 500 0 
+  C 490 80, 450 150, 450 240 
+  C 450 380, 550 480, 550 640 
+  C 550 800, 450 900, 450 1040 
+  C 450 1200, 550 1300, 550 1440 
+  C 550 1560, 500 1640, 500 1740
+  C 500 1840, 560 1930, 500 1980
+  C 440 1930, 440 1840, 480 1760`;
+
+const mobilePathD = `M 500 0 
+  C 600 50, 880 110, 880 220 
+  C 880 390, 120 430, 120 600 
+  C 120 770, 880 810, 880 980 
+  C 880 1150, 120 1190, 120 1360 
+  C 120 1500, 500 1560, 500 1680
+  C 500 1790, 560 1880, 500 1930
+  C 440 1880, 440 1790, 480 1710`;
 
 export default function Projects() {
   const sectionRef = useRef(null);
@@ -25,6 +51,7 @@ export default function Projects() {
   const roadPathRef = useRef(null);
   const isInView = useInView(sectionRef, { margin: '-80px' });
 
+  const [isMobile, setIsMobile] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
   const [carPos, setCarPos] = useState({ x: 500, y: 60, angle: 90 });
   const [isSectionHovered, setIsSectionHovered] = useState(false);
@@ -32,15 +59,26 @@ export default function Projects() {
   const [reveals, setReveals] = useState([0, 0, 0, 0]);
   const [comingSoonReveal, setComingSoonReveal] = useState(0);
 
-  // Winding SVG path definition across 1000 x 2050 coordinate box
-  const pathD = `M 500 0 
-    C 490 80, 450 150, 450 240 
-    C 450 380, 550 480, 550 640 
-    C 550 800, 450 900, 450 1040 
-    C 450 1200, 550 1300, 550 1440 
-    C 550 1560, 500 1640, 500 1740
-    C 500 1840, 560 1930, 500 1980
-    C 440 1930, 440 1840, 480 1760`;
+  // Responsive mode detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const activeWaypoints = isMobile ? mobileWaypoints : desktopWaypoints;
+  const isMobileRef = useRef(isMobile);
+  const activeWaypointsRef = useRef(activeWaypoints);
+
+  useEffect(() => {
+    isMobileRef.current = isMobile;
+    activeWaypointsRef.current = activeWaypoints;
+  }, [isMobile, activeWaypoints]);
+
+  const pathD = isMobile ? mobilePathD : desktopPathD;
 
   // Physical vehicle controller with progressive reveal & warm illumination
   useEffect(() => {
@@ -104,12 +142,14 @@ export default function Projects() {
 
         setCarPos({ x: pt.x, y: pt.y, angle: currentAngle });
 
+        const currentMobile = isMobileRef.current;
+        const currentWps = activeWaypointsRef.current;
+
         // ── 1. One-by-one Progressive Card Reveal ──
         // Cards stay completely hidden until the vehicle approaches.
         // Once vehicle reaches/passes the waypoint, card remains visible.
-        // On upward scroll, cards reverse smoothly as vehicle moves away.
-        const approachWindow = 220;
-        const newReveals = waypoints.map((wp) => {
+        const approachWindow = currentMobile ? 180 : 220;
+        const newReveals = currentWps.map((wp) => {
           const startY = wp.y - approachWindow;
           if (pt.y >= wp.y) {
             return 1; // fully visible once reached or passed
@@ -122,19 +162,21 @@ export default function Projects() {
 
         // ── 2. Realistic Warm Golden Headlight Illumination ──
         // When vehicle is close to a card, headlights illuminate the card & surroundings
-        const newIlluminations = waypoints.map((wp) => {
+        const maxDist = currentMobile ? 200 : 240;
+        const newIlluminations = currentWps.map((wp) => {
           const distY = Math.abs(pt.y - wp.y);
-          if (distY > 240) return 0;
-          const proximity = 1 - distY / 240;
+          if (distY > maxDist) return 0;
+          const proximity = 1 - distY / maxDist;
           return Math.pow(proximity, 1.4); // smooth optical falloff
         });
         setIlluminations(newIlluminations);
 
-        // ── 3. "COMING SOON" Reveal (after Project 4: Y > 1460) ──
-        if (pt.y < 1460) {
+        // ── 3. "COMING SOON" Reveal (after Project 4) ──
+        const comingSoonY = currentMobile ? 1400 : 1460;
+        if (pt.y < comingSoonY) {
           setComingSoonReveal(0);
         } else {
-          const rev = Math.min(1, Math.max(0, (pt.y - 1460) / 220));
+          const rev = Math.min(1, Math.max(0, (pt.y - comingSoonY) / 200));
           setComingSoonReveal(rev);
         }
       }
@@ -229,7 +271,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="rgba(0, 0, 0, 0.65)"
-                strokeWidth="105"
+                strokeWidth={isMobile ? 125 : 105}
                 strokeLinecap="round"
               />
 
@@ -238,7 +280,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="url(#roadAsphalt)"
-                strokeWidth="74"
+                strokeWidth={isMobile ? 96 : 74}
                 strokeLinecap="round"
               />
 
@@ -247,7 +289,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="rgba(59, 130, 246, 0.32)"
-                strokeWidth="76"
+                strokeWidth={isMobile ? 98 : 76}
                 strokeLinecap="round"
               />
 
@@ -256,7 +298,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="#22D3EE"
-                strokeWidth="2.5"
+                strokeWidth={isMobile ? 3.5 : 2.5}
                 strokeDasharray="16 12"
                 className="road-guardrail"
                 opacity="0.85"
@@ -269,18 +311,20 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="#60A5FA"
-                strokeWidth="3"
+                strokeWidth={isMobile ? 3.5 : 3}
                 strokeDasharray="18 22"
                 className="road-centerline"
                 filter="url(#neonGlow)"
               />
 
               {/* ── Exactly ONE Road Waypoint Marker & Warm Conduit Per Project ── */}
-              {waypoints.map((wp, idx) => {
+              {activeWaypoints.map((wp, idx) => {
                 const isSelected = activeProject === idx;
                 const illum = illuminations[idx] || 0;
                 const reveal = reveals[idx] || 0;
-                const targetX = wp.side === 'left' ? 320 : 680;
+                const targetX = isMobile
+                  ? (wp.side === 'left' ? 700 : 300)
+                  : (wp.side === 'left' ? 320 : 680);
 
                 // Warm golden conduit illumination when headlights hit
                 const strokeColor =
@@ -314,7 +358,7 @@ export default function Projects() {
                     <circle
                       cx={wp.x}
                       cy={wp.y}
-                      r={15 + illum * 3}
+                      r={(isMobile ? 22 : 15) + illum * 3}
                       fill="#070B18"
                       stroke={illum > 0.1 ? '#FBBF24' : isSelected ? '#22D3EE' : '#3B82F6'}
                       strokeWidth={1.8 + illum * 1.2}
@@ -325,7 +369,7 @@ export default function Projects() {
                     <circle
                       cx={wp.x}
                       cy={wp.y}
-                      r={6 + illum * 2}
+                      r={(isMobile ? 9 : 6) + illum * 2}
                       fill={illum > 0.1 ? '#FDE047' : '#60A5FA'}
                       className="road-waypoint-pulse"
                     />
@@ -333,9 +377,9 @@ export default function Projects() {
                     {/* EXACTLY ONE NUMBER: 01, 02, 03, 04 on the road marker */}
                     <text
                       x={wp.x}
-                      y={wp.y + 4}
+                      y={wp.y + (isMobile ? 5 : 4)}
                       fill="#FFFFFF"
-                      fontSize="9"
+                      fontSize={isMobile ? "13" : "9"}
                       fontFamily="Space Grotesk, sans-serif"
                       fontWeight="700"
                       textAnchor="middle"
@@ -349,7 +393,7 @@ export default function Projects() {
               {/* ── Personal Vehicle: "SHAHARIYAR" with Warm Golden Headlights ── */}
               <g
                 className="road-car-group"
-                transform={`translate(${carPos.x}, ${carPos.y}) rotate(${carPos.angle})`}
+                transform={`translate(${carPos.x}, ${carPos.y}) rotate(${carPos.angle}) scale(${isMobile ? 1.85 : 1.0})`}
               >
                 {/* Projected Warm Headlight Beams */}
                 <polygon
