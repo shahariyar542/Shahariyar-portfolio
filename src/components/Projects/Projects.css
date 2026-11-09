@@ -33,7 +33,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 10;
+  z-index: 1;
   opacity: 1;
 }
 
@@ -106,10 +106,10 @@
   }
 }
 
-/* ── Alternating Cards Flow Layout ── */
+/* ── Layer 4: Cards Flow Layout (above road layer) ── */
 .roadway-cards-flow {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   gap: var(--space-3xl);
@@ -147,9 +147,10 @@
   height: 100%;
 }
 
-/* ── Progressive Card Wrapper ── */
+/* ── Layer 5: Progressive Card Wrapper ── */
 .roadway-card-wrapper {
   position: relative;
+  z-index: 5;
   width: 100%;
   max-width: 448px;
   will-change: transform, opacity, filter;
@@ -454,7 +455,7 @@
 
 /* ── Responsive Architecture ── */
 
-/* Tablet & Laptop (768px – 1024px) */
+/* Tablet & Laptop (768px – 1024px): Preserved Original Alternating Layout */
 @media (max-width: 1024px) and (min-width: 768px) {
   .roadway-station-row {
     grid-template-columns: 1fr 80px 1fr;
@@ -468,128 +469,113 @@
   }
 }
 
-/* Mobile Screens (< 768px): Alternating Highway with Zero Overlap */
+/* Mobile Screens (< 768px): Road Corridor beside Cards (Separate Visual Areas) */
 @media (max-width: 767px) {
   .roadway-container {
-    padding: 0 4px;
+    padding: 0 8px;
   }
 
   .roadway-svg-wrap {
+    z-index: 1;
     opacity: 1;
-    z-index: 10;
     pointer-events: none;
   }
 
   .roadway-cards-flow {
-    gap: 36px;
+    gap: 32px;
+    z-index: 4;
   }
 
-  /* Even rows: Card on Left (1fr), Road Corridor on Right (75px) */
-  .roadway-station--left {
+  /* Two separate visual areas: Col 1 = 48px Road corridor, Col 2 = 1fr Project Card beside the road */
+  .roadway-station-row {
     display: grid;
-    grid-template-columns: 1fr 75px;
+    grid-template-columns: 48px 1fr;
     align-items: center;
+    gap: 14px;
     min-height: 340px;
-    gap: 12px;
   }
 
-  .roadway-station--left .station-column--left {
-    order: 1;
-    padding: 0;
-    justify-content: stretch;
-    width: 100%;
-  }
-
-  .roadway-station--left .station-node-anchor {
-    order: 2;
-    width: 100%;
+  .station-node-anchor {
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
     min-height: 60px;
   }
 
-  .roadway-station--left .station-column--right {
-    display: none;
-  }
-
-  /* Odd rows: Road Corridor on Left (75px), Card on Right (1fr) */
-  .roadway-station--right {
-    display: grid;
-    grid-template-columns: 75px 1fr;
-    align-items: center;
-    min-height: 340px;
-    gap: 12px;
-  }
-
-  .roadway-station--right .station-node-anchor {
-    order: 1;
-    width: 100%;
-    min-height: 60px;
-  }
-
-  .roadway-station--right .station-column--right {
-    order: 2;
+  .station-column--left {
+    grid-column: 2;
+    grid-row: 1;
     padding: 0;
-    justify-content: stretch;
     width: 100%;
+    justify-content: stretch;
   }
 
-  .roadway-station--right .station-column--left {
+  .station-column--right {
     display: none;
   }
 
   .roadway-card-wrapper {
     max-width: 100%;
+    z-index: 5;
+  }
+
+  .roadway-project-card {
+    z-index: 6;
   }
 
   .project-road-inner {
-    padding: 18px 16px;
+    padding: 18px 18px;
   }
 
   .project-road-title {
-    font-size: 1.08rem;
+    font-size: 1.12rem;
+    line-height: 1.35;
   }
 
-  .project-road-description,
-  .project-road-desc {
-    font-size: 0.78rem;
-    line-height: 1.5;
+  .project-road-description {
+    font-size: 0.84rem;
+    line-height: 1.58;
     margin-bottom: var(--space-sm);
   }
 
   .project-road-tag {
-    font-size: 0.66rem;
-    padding: 2.5px 7px;
+    font-size: 0.68rem;
+    padding: 2.5px 8px;
+  }
+
+  .road-btn {
+    padding: 6px 12px;
+    font-size: 0.74rem;
   }
 }
 
-/* Small Mobile Screens (<= 400px, e.g. 360px & 390px) */
-@media (max-width: 400px) {
-  .roadway-station--left {
-    grid-template-columns: 1fr 68px;
-    gap: 8px;
-    min-height: 330px;
+/* Small Mobile Screens (<= 380px, e.g. 360px) */
+@media (max-width: 380px) {
+  .roadway-container {
+    padding: 0 4px;
   }
 
-  .roadway-station--right {
-    grid-template-columns: 68px 1fr;
-    gap: 8px;
+  .roadway-station-row {
+    grid-template-columns: 44px 1fr;
+    gap: 10px;
     min-height: 330px;
   }
 
   .project-road-inner {
-    padding: 15px 13px;
+    padding: 16px 14px;
   }
 
   .project-road-title {
-    font-size: 1.0rem;
+    font-size: 1.05rem;
   }
 
-  .project-road-description,
-  .project-road-desc {
-    font-size: 0.74rem;
+  .project-road-description {
+    font-size: 0.80rem;
+    line-height: 1.52;
   }
 
   .road-btn {
-    padding: 6px 10px;
-    font-size: 0.7rem;
+    padding: 5px 10px;
+    font-size: 0.70rem;
   }
 }

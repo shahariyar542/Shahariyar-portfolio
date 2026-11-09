@@ -19,12 +19,12 @@ const desktopWaypoints = [
   { id: 3, x: 550, y: 1440, side: 'right' },
 ];
 
-// Mobile Waypoints (alternating side highway: Station 0 right, 1 left, 2 right, 3 left)
+// Mobile Waypoints (dedicated side highway corridor beside project cards)
 const mobileWaypoints = [
-  { id: 0, x: 880, y: 220, side: 'left' },
-  { id: 1, x: 120, y: 600, side: 'right' },
-  { id: 2, x: 880, y: 980, side: 'left' },
-  { id: 3, x: 120, y: 1360, side: 'right' },
+  { id: 0, x: 66, y: 220, side: 'right' },
+  { id: 1, x: 78, y: 600, side: 'right' },
+  { id: 2, x: 56, y: 980, side: 'right' },
+  { id: 3, x: 76, y: 1360, side: 'right' },
 ];
 
 const desktopPathD = `M 500 0 
@@ -36,14 +36,14 @@ const desktopPathD = `M 500 0
   C 500 1840, 560 1930, 500 1980
   C 440 1930, 440 1840, 480 1760`;
 
-const mobilePathD = `M 500 0 
-  C 600 50, 880 110, 880 220 
-  C 880 390, 120 430, 120 600 
-  C 120 770, 880 810, 880 980 
-  C 880 1150, 120 1190, 120 1360 
-  C 120 1500, 500 1560, 500 1680
-  C 500 1790, 560 1880, 500 1930
-  C 440 1880, 440 1790, 480 1710`;
+const mobilePathD = `M 66 0 
+  C 56 70, 66 140, 66 220 
+  C 66 380, 78 440, 78 600 
+  C 78 760, 56 820, 56 980 
+  C 56 1140, 76 1200, 76 1360 
+  C 76 1480, 66 1560, 66 1680
+  C 66 1770, 88 1850, 66 1910
+  C 44 1850, 44 1770, 66 1700`;
 
 export default function Projects() {
   const sectionRef = useRef(null);
@@ -271,7 +271,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="rgba(0, 0, 0, 0.65)"
-                strokeWidth={isMobile ? 125 : 105}
+                strokeWidth={isMobile ? 85 : 105}
                 strokeLinecap="round"
               />
 
@@ -280,7 +280,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="url(#roadAsphalt)"
-                strokeWidth={isMobile ? 96 : 74}
+                strokeWidth={isMobile ? 64 : 74}
                 strokeLinecap="round"
               />
 
@@ -289,7 +289,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="rgba(59, 130, 246, 0.32)"
-                strokeWidth={isMobile ? 98 : 76}
+                strokeWidth={isMobile ? 66 : 76}
                 strokeLinecap="round"
               />
 
@@ -298,7 +298,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="#22D3EE"
-                strokeWidth={isMobile ? 3.5 : 2.5}
+                strokeWidth={2.5}
                 strokeDasharray="16 12"
                 className="road-guardrail"
                 opacity="0.85"
@@ -311,7 +311,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="#60A5FA"
-                strokeWidth={isMobile ? 3.5 : 3}
+                strokeWidth={isMobile ? 2.5 : 3}
                 strokeDasharray="18 22"
                 className="road-centerline"
                 filter="url(#neonGlow)"
@@ -322,9 +322,7 @@ export default function Projects() {
                 const isSelected = activeProject === idx;
                 const illum = illuminations[idx] || 0;
                 const reveal = reveals[idx] || 0;
-                const targetX = isMobile
-                  ? (wp.side === 'left' ? 700 : 300)
-                  : (wp.side === 'left' ? 320 : 680);
+                const targetX = isMobile ? 150 : (wp.side === 'left' ? 320 : 680);
 
                 // Warm golden conduit illumination when headlights hit
                 const strokeColor =
@@ -358,7 +356,7 @@ export default function Projects() {
                     <circle
                       cx={wp.x}
                       cy={wp.y}
-                      r={(isMobile ? 22 : 15) + illum * 3}
+                      r={(isMobile ? 18 : 15) + illum * 3}
                       fill="#070B18"
                       stroke={illum > 0.1 ? '#FBBF24' : isSelected ? '#22D3EE' : '#3B82F6'}
                       strokeWidth={1.8 + illum * 1.2}
@@ -369,7 +367,7 @@ export default function Projects() {
                     <circle
                       cx={wp.x}
                       cy={wp.y}
-                      r={(isMobile ? 9 : 6) + illum * 2}
+                      r={(isMobile ? 7 : 6) + illum * 2}
                       fill={illum > 0.1 ? '#FDE047' : '#60A5FA'}
                       className="road-waypoint-pulse"
                     />
@@ -377,9 +375,9 @@ export default function Projects() {
                     {/* EXACTLY ONE NUMBER: 01, 02, 03, 04 on the road marker */}
                     <text
                       x={wp.x}
-                      y={wp.y + (isMobile ? 5 : 4)}
+                      y={wp.y + 4}
                       fill="#FFFFFF"
-                      fontSize={isMobile ? "13" : "9"}
+                      fontSize={isMobile ? "11" : "9"}
                       fontFamily="Space Grotesk, sans-serif"
                       fontWeight="700"
                       textAnchor="middle"
@@ -393,7 +391,7 @@ export default function Projects() {
               {/* ── Personal Vehicle: "SHAHARIYAR" with Warm Golden Headlights ── */}
               <g
                 className="road-car-group"
-                transform={`translate(${carPos.x}, ${carPos.y}) rotate(${carPos.angle}) scale(${isMobile ? 1.85 : 1.0})`}
+                transform={`translate(${carPos.x}, ${carPos.y}) rotate(${carPos.angle}) scale(${isMobile ? 1.35 : 1.0})`}
               >
                 {/* Projected Warm Headlight Beams */}
                 <polygon
@@ -495,9 +493,9 @@ export default function Projects() {
                   onMouseEnter={() => handleCardHover(index)}
                   onMouseLeave={handleCardLeave}
                 >
-                  {/* Left Column Spacer or Card */}
+                  {/* Left Column Spacer or Card (Desktop alternating / Mobile card beside road) */}
                   <div className="station-column station-column--left">
-                    {isEven && (
+                    {(isEven || isMobile) && (
                       <ProjectCardRoadway
                         project={project}
                         index={index}
@@ -505,17 +503,17 @@ export default function Projects() {
                         reveal={reveal}
                         illumination={illum}
                         statusClass={statusClass}
-                        side="left"
+                        side={isMobile ? 'right' : 'left'}
                       />
                     )}
                   </div>
 
-                  {/* Center Roadway Node Anchor (Spacing only — no duplicate number) */}
+                  {/* Center Roadway Node Anchor (Desktop center / Mobile left corridor) */}
                   <div className="station-node-anchor" aria-hidden="true" />
 
-                  {/* Right Column Spacer or Card */}
+                  {/* Right Column Spacer or Card (Desktop alternating) */}
                   <div className="station-column station-column--right">
-                    {!isEven && (
+                    {!isEven && !isMobile && (
                       <ProjectCardRoadway
                         project={project}
                         index={index}
