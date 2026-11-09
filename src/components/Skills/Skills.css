@@ -132,6 +132,8 @@
 /* ── Individual 3D Orbit Card ── */
 .skills-orbit-card {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 288px;
   background: var(--color-bg-card);
   border-radius: var(--radius-xl);
@@ -411,8 +413,13 @@
 
 /* ── Responsive Viewport ── */
 @media (max-width: 768px) {
+  #skills .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
   .skills-orbit-viewport {
-    height: 490px;
+    height: 500px;
+    overflow: visible;
   }
   .skills-orbit-card {
     width: 268px;
@@ -428,16 +435,32 @@
 }
 
 @media (max-width: 480px) {
+  #skills .container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
   .skills-orbit-viewport {
     height: 480px;
+    overflow: visible;
   }
   .skills-orbit-card {
-    width: 232px;
-    margin-left: -116px;
+    width: 236px;
+    margin-left: -118px;
     margin-top: -145px;
   }
   .skills-card-inner {
     padding: 14px 15px;
+  }
+  .skills-card-head {
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .skills-card-icon-box {
+    width: 38px;
+    height: 38px;
+  }
+  .skills-card-glyph {
+    font-size: 1.1rem;
   }
   .skills-card-heading {
     font-size: 0.95rem;
@@ -446,8 +469,11 @@
     font-size: 0.72rem;
     margin-bottom: var(--space-xs);
   }
+  .skills-card-pill-list {
+    gap: 6px;
+  }
   .skills-pill-item {
-    padding: 5px 10px;
+    padding: 4.5px 9px;
   }
   .skills-pill-name {
     font-size: 0.78rem;
@@ -456,15 +482,43 @@
     font-size: 0.62rem;
     padding: 2px 6px;
   }
+  /* Holographic Nucleus scaled proportionally for mobile orbit */
+  .skills-orbit-nucleus {
+    width: 80px;
+    height: 80px;
+  }
+  .nucleus-ring--outer {
+    width: 96px;
+    height: 96px;
+  }
+  .nucleus-ring--inner {
+    width: 64px;
+    height: 64px;
+  }
+  .nucleus-orb {
+    width: 42px;
+    height: 42px;
+  }
+  .nucleus-glyph {
+    font-size: 0.8rem;
+  }
+  .nucleus-text {
+    font-size: 0.44rem;
+  }
 }
 
 @media (max-width: 380px) {
+  #skills .container {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
   .skills-orbit-viewport {
     height: 470px;
+    overflow: visible;
   }
   .skills-orbit-card {
-    width: 218px;
-    margin-left: -109px;
+    width: 222px;
+    margin-left: -111px;
     margin-top: -140px;
   }
   .skills-card-inner {
@@ -476,6 +530,9 @@
   .skills-card-summary {
     font-size: 0.68rem;
   }
+  .skills-card-pill-list {
+    gap: 5px;
+  }
   .skills-pill-item {
     padding: 4px 8px;
   }
@@ -485,5 +542,27 @@
   .skills-pill-level {
     font-size: 0.58rem;
     padding: 1.5px 5px;
+  }
+  .skills-orbit-nucleus {
+    width: 70px;
+    height: 70px;
+  }
+  .nucleus-ring--outer {
+    width: 84px;
+    height: 84px;
+  }
+  .nucleus-ring--inner {
+    width: 54px;
+    height: 54px;
+  }
+  .nucleus-orb {
+    width: 36px;
+    height: 36px;
+  }
+  .nucleus-glyph {
+    font-size: 0.72rem;
+  }
+  .nucleus-text {
+    font-size: 0.40rem;
   }
 }

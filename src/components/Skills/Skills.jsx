@@ -41,7 +41,7 @@ const proficiencyColorMap = {
 export default function Skills() {
   const sectionRef = useRef(null);
   const orbitContainerRef = useRef(null);
-  const isInView = useInView(sectionRef, { margin: '-60px' });
+  const isInView = useInView(sectionRef, { amount: 0.05 });
 
   const categories = useMemo(() => categoryKeys.map((k) => skills[k]), []);
   const totalCards = categories.length; // 5
@@ -65,9 +65,9 @@ export default function Skills() {
     const updateRadius = () => {
       const w = window.innerWidth;
       if (w < 380) {
-        setOrbitRadius(32);
+        setOrbitRadius(60);
       } else if (w < 480) {
-        setOrbitRadius(42);
+        setOrbitRadius(72);
       } else if (w <= 768) {
         setOrbitRadius(190);
       } else if (w < 1024) {
@@ -96,7 +96,14 @@ export default function Skills() {
       const delta = (currentTime - lastTime) / 16.666; // normalize to 60fps
       lastTime = currentTime;
 
-      if (!isHovered && !isDraggingRef.current && isInView) {
+      // On touch/mobile devices, simulated hover from tap does not halt rotation
+      const isTouchDevice =
+        typeof window !== 'undefined' &&
+        (window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches);
+
+      const shouldRotate = (!isHovered || isTouchDevice) && !isDraggingRef.current && isInView;
+
+      if (shouldRotate) {
         setAngle((prev) => (prev - ROTATION_SPEED * Math.min(delta, 2)) % 360);
       }
       animId = requestAnimationFrame(loop);
@@ -123,6 +130,8 @@ export default function Skills() {
 
   const handleTouchEnd = () => {
     isDraggingRef.current = false;
+    setIsHovered(false);
+    setHoveredCardIndex(null);
   };
 
   // Step rotation manually
@@ -176,6 +185,7 @@ export default function Skills() {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchEnd}
           role="region"
           aria-label="3D Skills Orbiting Carousel"
         >
@@ -214,13 +224,24 @@ export default function Skills() {
               // Normalized depth factor from 0 (back) to 1 (front)
               const zNorm = (Math.cos(rad) + 1) / 2;
 
-              // Original approved scale, opacity, brightness & face angle formulas
-              let scale = 0.72 + zNorm * 0.34;
-              let opacity = 0.36 + zNorm * 0.64;
+              // Scale & depth:
+              // Desktop maintains exact approved formulas (scale 0.72 - 1.06)
+              // Mobile (<480px) scales smoothly (0.68 - 1.04) so back cards tuck gracefully
+              const isMobileWidth = orbitRadius <= 72;
+              let scale = isMobileWidth
+                ? 0.68 + zNorm * 0.36
+                : 0.72 + zNorm * 0.34;
+              let opacity = isMobileWidth
+                ? 0.32 + zNorm * 0.68
+                : 0.36 + zNorm * 0.64;
               let brightness = 0.65 + zNorm * 0.45;
 
               // Subtle face angle: turns slightly tangent to the circular orbit
-              const rotateY = -currentAngle * 0.32;
+              // Desktop preserves existing approved formula (-currentAngle * 0.32)
+              // Mobile uses continuous sine-based tangent rotation (-Math.sin(rad) * 18) for zero jumps
+              const rotateY = isMobileWidth
+                ? -Math.sin(rad) * 18
+                : -currentAngle * 0.32;
 
               const isThisCardHovered = hoveredCardIndex === i;
               if (isThisCardHovered) {
