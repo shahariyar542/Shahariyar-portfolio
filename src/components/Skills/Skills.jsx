@@ -164,15 +164,6 @@ export default function Skills() {
           Skills &amp; <em>Competencies</em>
         </motion.h2>
 
-        <motion.p
-          className="skills-intro"
-          initial={{ opacity: 0, y: 15 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Continuous 3D orbital carousel of core engineering competencies. Hover over any domain to pause rotation and inspect technical proficiencies.
-        </motion.p>
-
         {/* ── 3D Orbit Viewport ── */}
         <div
           className="skills-orbit-viewport"

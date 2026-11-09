@@ -11,6 +11,14 @@ const statusClassMap = {
 
 const formatNumber = (num) => String(num).padStart(2, '0');
 
+// Waypoints for each project station
+const waypoints = [
+  { id: 0, x: 450, y: 240, side: 'left' },
+  { id: 1, x: 550, y: 640, side: 'right' },
+  { id: 2, x: 450, y: 1040, side: 'left' },
+  { id: 3, x: 550, y: 1440, side: 'right' },
+];
+
 export default function Projects() {
   const sectionRef = useRef(null);
   const roadSvgRef = useRef(null);
@@ -18,35 +26,37 @@ export default function Projects() {
   const isInView = useInView(sectionRef, { margin: '-80px' });
 
   const [activeProject, setActiveProject] = useState(null);
-  const [carPos, setCarPos] = useState({ x: 500, y: 80, angle: 90 });
+  const [carPos, setCarPos] = useState({ x: 500, y: 60, angle: 90 });
   const [isSectionHovered, setIsSectionHovered] = useState(false);
+  const [illuminations, setIlluminations] = useState([0, 0, 0, 0]);
+  const [comingSoonReveal, setComingSoonReveal] = useState(0);
 
-  // Winding SVG path definition across 1000 x 1700 coordinate box
-  // Waypoints aligned with cards:
-  // Card 0 (Left): Y ~ 240, Waypoint at (460, 240)
-  // Card 1 (Right): Y ~ 640, Waypoint at (540, 640)
-  // Card 2 (Left): Y ~ 1040, Waypoint at (460, 1040)
-  // Card 3 (Right): Y ~ 1440, Waypoint at (540, 1440)
+  // Winding SVG path definition across 1000 x 2050 coordinate box
+  // Stations:
+  // Card 0 (Left): Y ~ 240, Waypoint at (450, 240)
+  // Card 1 (Right): Y ~ 640, Waypoint at (550, 640)
+  // Card 2 (Left): Y ~ 1040, Waypoint at (450, 1040)
+  // Card 3 (Right): Y ~ 1440, Waypoint at (550, 1440)
+  // Extended road segment past Project 4:
+  // Towards COMING SOON at Y ~ 1740
+  // Bottom U-turn loop: curves smoothly 180 degrees from (500, 1740) down to (500, 1980) and back
   const pathD = `M 500 0 
     C 490 80, 450 150, 450 240 
     C 450 380, 550 480, 550 640 
     C 550 800, 450 900, 450 1040 
     C 450 1200, 550 1300, 550 1440 
-    C 550 1550, 510 1620, 500 1700`;
+    C 550 1560, 500 1640, 500 1740
+    C 500 1840, 560 1930, 500 1980
+    C 440 1930, 440 1840, 480 1760`;
 
-  // Waypoints for each project station
-  const waypoints = [
-    { id: 0, x: 450, y: 240, side: 'left' },
-    { id: 1, x: 550, y: 640, side: 'right' },
-    { id: 2, x: 450, y: 1040, side: 'left' },
-    { id: 3, x: 550, y: 1440, side: 'right' },
-  ];
-
-  // Smooth car animation following scroll progress
+  // Advanced physical vehicle controller with realistic U-turn and scroll direction steering
   useEffect(() => {
     let animId;
     let targetProgress = 0;
     let currentProgress = 0;
+    let currentAngle = 90;
+    let lastProgress = 0;
+    let scrollDirection = 'down'; // 'down' or 'up'
 
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -66,7 +76,17 @@ export default function Projects() {
     // Lerp loop for fluid, physical car motion
     const updateCar = () => {
       if (roadPathRef.current) {
-        currentProgress += (targetProgress - currentProgress) * 0.08;
+        const pDiff = targetProgress - currentProgress;
+        currentProgress += pDiff * 0.08;
+
+        // Detect scroll direction with a small deadband
+        if (targetProgress - lastProgress > 0.0008) {
+          scrollDirection = 'down';
+        } else if (targetProgress - lastProgress < -0.0008) {
+          scrollDirection = 'up';
+        }
+        lastProgress = targetProgress;
+
         const pathLen = roadPathRef.current.getTotalLength();
         const dist = Math.max(2, Math.min(pathLen - 4, currentProgress * pathLen));
 
@@ -75,9 +95,38 @@ export default function Projects() {
 
         const dx = ptNext.x - pt.x;
         const dy = ptNext.y - pt.y;
-        const angle = (Math.atan2(dy, dx) * 180) / Math.PI + 90; // car points forward along tangent
+        const forwardAngle = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
 
-        setCarPos({ x: pt.x, y: pt.y, angle });
+        // When scrolling down, car faces forward.
+        // When scrolling up, car faces backward along the path (pointing upwards in the direction of motion).
+        // At the bottom turning loop (currentProgress > 0.93), the path itself performs the U-turn!
+        let targetHeading = forwardAngle;
+        if (scrollDirection === 'up' && currentProgress < 0.92) {
+          targetHeading = forwardAngle + 180;
+        }
+
+        // Shortest angular difference for smooth natural rotation (no jumping or teleporting)
+        const angleDiff = ((targetHeading - currentAngle + 540) % 360) - 180;
+        currentAngle += angleDiff * 0.12;
+
+        setCarPos({ x: pt.x, y: pt.y, angle: currentAngle });
+
+        // Calculate headlight illumination intensity for each project card
+        const newIlluminations = waypoints.map((wp) => {
+          const distY = Math.abs(pt.y - wp.y);
+          if (distY > 260) return 0;
+          const proximity = 1 - distY / 260;
+          return Math.pow(proximity, 1.4); // smooth optical falloff
+        });
+        setIlluminations(newIlluminations);
+
+        // Calculate "COMING SOON" reveal after Project 4 (Y > 1460)
+        if (pt.y < 1460) {
+          setComingSoonReveal(0);
+        } else {
+          const rev = Math.min(1, Math.max(0, (pt.y - 1460) / 220));
+          setComingSoonReveal(rev);
+        }
       }
       animId = requestAnimationFrame(updateCar);
     };
@@ -118,9 +167,6 @@ export default function Projects() {
           <h2 className="section-title">
             Engineering <em>Showcase</em>
           </h2>
-          <p className="projects-intro-text">
-            A continuous architectural roadway traversing my software systems and predictive models. Scroll through the landscape to guide the personal vehicle along the journey.
-          </p>
         </motion.header>
 
         {/* ── 3D Roadway Journey Container ── */}
@@ -130,7 +176,7 @@ export default function Projects() {
             <svg
               ref={roadSvgRef}
               className="roadway-svg"
-              viewBox="0 0 1000 1700"
+              viewBox="0 0 1000 2050"
               preserveAspectRatio="none"
             >
               <defs>
@@ -143,7 +189,7 @@ export default function Projects() {
 
                 {/* Headlight cone gradient */}
                 <radialGradient id="headlightBeam" cx="50%" cy="100%" r="90%">
-                  <stop offset="0%" stopColor="rgba(34, 211, 238, 0.7)" />
+                  <stop offset="0%" stopColor="rgba(34, 211, 238, 0.75)" />
                   <stop offset="40%" stopColor="rgba(59, 130, 246, 0.3)" />
                   <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
                 </radialGradient>
@@ -163,7 +209,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="rgba(0, 0, 0, 0.6)"
-                strokeWidth="110"
+                strokeWidth="105"
                 strokeLinecap="round"
               />
 
@@ -172,7 +218,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="url(#roadAsphalt)"
-                strokeWidth="78"
+                strokeWidth="74"
                 strokeLinecap="round"
               />
 
@@ -180,8 +226,8 @@ export default function Projects() {
               <path
                 d={pathD}
                 fill="none"
-                stroke="rgba(59, 130, 246, 0.35)"
-                strokeWidth="80"
+                stroke="rgba(59, 130, 246, 0.32)"
+                strokeWidth="76"
                 strokeLinecap="round"
               />
 
@@ -212,8 +258,14 @@ export default function Projects() {
               {/* Connecting Conduits from Road Waypoints to Project Cards */}
               {waypoints.map((wp, idx) => {
                 const isSelected = activeProject === idx;
-                // Draw connecting horizontal energy beam from waypoint towards the card
+                const illum = illuminations[idx] || 0;
                 const targetX = wp.side === 'left' ? 320 : 680;
+                const strokeColor =
+                  isSelected || illum > 0.15
+                    ? `rgba(34, 211, 238, ${Math.max(0.35, illum * 0.95)})`
+                    : 'rgba(96, 165, 250, 0.25)';
+                const strokeW = isSelected || illum > 0.15 ? 1.5 + illum * 2 : 1.5;
+
                 return (
                   <g key={`conduit-${idx}`} className={`road-conduit-group ${isSelected ? 'road-conduit--active' : ''}`}>
                     {/* Conduit Line */}
@@ -222,8 +274,8 @@ export default function Projects() {
                       y1={wp.y}
                       x2={targetX}
                       y2={wp.y}
-                      stroke={isSelected ? '#22D3EE' : 'rgba(96, 165, 250, 0.3)'}
-                      strokeWidth={isSelected ? 3 : 1.5}
+                      stroke={strokeColor}
+                      strokeWidth={strokeW}
                       strokeDasharray="6 6"
                       className="road-conduit-line"
                     />
@@ -232,17 +284,17 @@ export default function Projects() {
                     <circle
                       cx={wp.x}
                       cy={wp.y}
-                      r="16"
+                      r={15 + illum * 3}
                       fill="#070B18"
-                      stroke={isSelected ? '#22D3EE' : '#3B82F6'}
-                      strokeWidth="2"
+                      stroke={isSelected || illum > 0.15 ? '#22D3EE' : '#3B82F6'}
+                      strokeWidth={1.8 + illum * 1.2}
                       filter="url(#neonGlow)"
                     />
                     <circle
                       cx={wp.x}
                       cy={wp.y}
-                      r="7"
-                      fill={isSelected ? '#22D3EE' : '#60A5FA'}
+                      r={6 + illum * 2}
+                      fill={isSelected || illum > 0.15 ? '#22D3EE' : '#60A5FA'}
                       className="road-waypoint-pulse"
                     />
                     <text
@@ -267,9 +319,9 @@ export default function Projects() {
               >
                 {/* Projected Headlight Beams */}
                 <polygon
-                  points="-18,-15 18,-15 45,-120 -45,-120"
+                  points="-18,-15 18,-15 45,-125 -45,-125"
                   fill="url(#headlightBeam)"
-                  opacity="0.75"
+                  opacity="0.8"
                 />
 
                 {/* Underglow Halo */}
@@ -284,10 +336,10 @@ export default function Projects() {
 
                 {/* Vehicle Chassis Body */}
                 <rect
-                  x="-16"
-                  y="-26"
-                  width="32"
-                  height="52"
+                  x="-15"
+                  y="-25"
+                  width="30"
+                  height="50"
                   rx="7"
                   fill="#0F172A"
                   stroke="#38BDF8"
@@ -296,10 +348,10 @@ export default function Projects() {
 
                 {/* Aerodynamic Carbon Roof / Cockpit */}
                 <rect
-                  x="-11"
-                  y="-16"
-                  width="22"
-                  height="30"
+                  x="-10"
+                  y="-15"
+                  width="20"
+                  height="28"
                   rx="4"
                   fill="#1E293B"
                   stroke="#22D3EE"
@@ -308,22 +360,22 @@ export default function Projects() {
 
                 {/* Cockpit Glass */}
                 <polygon
-                  points="-8,-12 8,-12 10,-4 -10,-4"
-                  fill="rgba(34, 211, 238, 0.6)"
+                  points="-8,-11 8,-11 9,-4 -9,-4"
+                  fill="rgba(34, 211, 238, 0.65)"
                 />
 
                 {/* Twin Cyan Headlights */}
-                <circle cx="-11" cy="-25" r="3" fill="#FFFFFF" filter="url(#neonGlow)" />
-                <circle cx="11" cy="-25" r="3" fill="#FFFFFF" filter="url(#neonGlow)" />
+                <circle cx="-10" cy="-24" r="3" fill="#FFFFFF" filter="url(#neonGlow)" />
+                <circle cx="10" cy="-24" r="3" fill="#FFFFFF" filter="url(#neonGlow)" />
 
                 {/* Twin Red Taillights */}
-                <circle cx="-11" cy="24" r="2.5" fill="#EF4444" />
-                <circle cx="11" cy="24" r="2.5" fill="#EF4444" />
+                <circle cx="-10" cy="23" r="2.5" fill="#EF4444" />
+                <circle cx="10" cy="23" r="2.5" fill="#EF4444" />
 
-                {/* Elegant Owner Tag */}
+                {/* Owner Tag */}
                 <rect
                   x="-25"
-                  y="-42"
+                  y="-41"
                   width="50"
                   height="13"
                   rx="3"
@@ -333,7 +385,7 @@ export default function Projects() {
                 />
                 <text
                   x="0"
-                  y="-33"
+                  y="-32"
                   fill="#22D3EE"
                   fontSize="7"
                   fontWeight="700"
@@ -352,6 +404,7 @@ export default function Projects() {
             {projects.map((project, index) => {
               const isEven = index % 2 === 0;
               const isSelected = activeProject === index;
+              const illum = illuminations[index] || 0;
               const statusClass = statusClassMap[project.status] || '';
 
               return (
@@ -370,14 +423,24 @@ export default function Projects() {
                         project={project}
                         index={index}
                         isSelected={isSelected}
+                        illumination={illum}
                         statusClass={statusClass}
+                        side="left"
                       />
                     )}
                   </div>
 
                   {/* Center Roadway Node Beacon Marker */}
                   <div className="station-node-anchor" aria-hidden="true">
-                    <div className={`station-pulse-beacon ${isSelected ? 'station-pulse-beacon--active' : ''}`}>
+                    <div
+                      className={`station-pulse-beacon ${
+                        isSelected || illum > 0.15 ? 'station-pulse-beacon--active' : ''
+                      }`}
+                      style={{
+                        transform: `scale(${1 + illum * 0.15})`,
+                        boxShadow: `0 0 ${16 + illum * 20}px rgba(34, 211, 238, ${0.2 + illum * 0.6})`,
+                      }}
+                    >
                       <span className="beacon-number">{formatNumber(index + 1)}</span>
                     </div>
                   </div>
@@ -389,13 +452,32 @@ export default function Projects() {
                         project={project}
                         index={index}
                         isSelected={isSelected}
+                        illumination={illum}
                         statusClass={statusClass}
+                        side="right"
                       />
                     )}
                   </div>
                 </div>
               );
             })}
+
+            {/* ── Additional Road Segment: Subtle "COMING SOON" Light Reveal ── */}
+            <div
+              className="roadway-coming-soon-segment"
+              style={{
+                opacity: comingSoonReveal,
+                filter: `blur(${(1 - comingSoonReveal) * 5}px)`,
+                transform: `translateY(${(1 - comingSoonReveal) * 15}px)`,
+              }}
+              aria-label="Upcoming projects indicator"
+            >
+              <div className="coming-soon-portal">
+                <span className="coming-soon-beacon-dot" />
+                <span className="coming-soon-track">NEXT ARCHITECTURES IN DEVELOPMENT</span>
+                <h4 className="coming-soon-title">COMING SOON</h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -403,8 +485,8 @@ export default function Projects() {
   );
 }
 
-/* ── Interactive 3D Project Card along the Road ── */
-function ProjectCardRoadway({ project, index, isSelected, statusClass }) {
+/* ── Interactive 3D Project Card along the Road (Refined -5 to 8% size) ── */
+function ProjectCardRoadway({ project, index, isSelected, illumination, statusClass, side }) {
   const cardRef = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
@@ -429,6 +511,9 @@ function ProjectCardRoadway({ project, index, isSelected, statusClass }) {
     setTilt({ x: 0, y: 0 });
   };
 
+  // Directional headlight glow origin: side of the card facing the center road
+  const headlightFacingOrigin = side === 'left' ? '100% 50%' : '0% 50%';
+
   return (
     <article
       ref={cardRef}
@@ -437,14 +522,33 @@ function ProjectCardRoadway({ project, index, isSelected, statusClass }) {
       onMouseLeave={handleMouseLeave}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        borderColor:
+          illumination > 0.15
+            ? `rgba(34, 211, 238, ${0.2 + illumination * 0.5})`
+            : undefined,
+        boxShadow:
+          illumination > 0.15
+            ? `var(--shadow-3d-card), 0 0 ${illumination * 26}px rgba(34, 211, 238, ${illumination * 0.3})`
+            : undefined,
+        filter: `brightness(${1 + illumination * 0.08})`,
       }}
     >
-      {/* Specular Sheen */}
+      {/* Dynamic Specular Sheen & Headlight Beam Illumination */}
       <div
         className="project-road-sheen"
         style={{
           background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(34, 211, 238, 0.16) 0%, rgba(59, 130, 246, 0.04) 50%, transparent 75%)`,
           opacity: isSelected ? 1 : 0,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Headlight Directional Reflection Layer */}
+      <div
+        className="project-road-headlight-reflect"
+        style={{
+          background: `radial-gradient(circle at ${headlightFacingOrigin}, rgba(34, 211, 238, ${illumination * 0.22}) 0%, transparent 68%)`,
+          opacity: illumination > 0.08 ? 1 : 0,
         }}
         aria-hidden="true"
       />

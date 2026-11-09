@@ -1,6 +1,6 @@
 /* ============================================================
    SHAHARIYAR.EXE — Research Auto-Rotating 3D Color Carousel
-   Coordinated chromatic palettes, 1s interval with hover pause
+   Coordinated chromatic palettes, 2s internal interval with hover pause
    ============================================================ */
 
 .research-section {
@@ -22,19 +22,10 @@
   text-align: center;
 }
 
-.research-intro-sub {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  color: var(--color-text-secondary);
-  max-width: 62ch;
-  line-height: 1.7;
-  margin: var(--space-xs) auto 0;
-}
-
 /* ── 3D Carousel Stage ── */
 .research-carousel-stage {
   position: relative;
-  max-width: 760px;
+  max-width: 700px;
   margin: 0 auto var(--space-3xl);
   display: flex;
   flex-direction: column;
@@ -47,8 +38,8 @@
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 550px;
-  height: 420px;
+  width: 500px;
+  height: 380px;
   border-radius: 50%;
   pointer-events: none;
   filter: blur(50px);
@@ -60,7 +51,7 @@
 .research-3d-viewport {
   position: relative;
   width: 100%;
-  min-height: 380px;
+  min-height: 360px;
   perspective: 1200px;
   perspective-origin: 50% 50%;
   display: flex;
@@ -69,11 +60,11 @@
   z-index: 2;
 }
 
-/* ── Active 3D Card ── */
+/* ── Active 3D Card (Slightly reduced by ~7%) ── */
 .research-active-3d-card {
   position: relative;
   width: 100%;
-  max-width: 640px;
+  max-width: 595px;
   background: var(--color-bg-card);
   border-radius: var(--radius-2xl);
   border: 1.5px solid;
@@ -95,7 +86,7 @@
 .research-card-inner {
   position: relative;
   z-index: 3;
-  padding: var(--space-2xl) var(--space-2xl);
+  padding: 24px 28px;
   display: flex;
   flex-direction: column;
 }
@@ -111,9 +102,9 @@
 }
 
 .research-card-iconbox {
-  width: 50px;
-  height: 50px;
-  border-radius: var(--radius-lg);
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
   border: 1.5px solid;
   display: flex;
   align-items: center;
@@ -123,7 +114,7 @@
 
 .research-glyph {
   font-family: var(--font-mono);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1;
 }
 
@@ -133,55 +124,43 @@
   gap: 8px;
 }
 
-.research-color-pill {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  border: 1px solid;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.4s ease;
-}
-
 .research-topic-tag {
   font-family: var(--font-heading);
   font-size: 0.72rem;
   font-weight: 600;
-  padding: 3px 10px;
+  padding: 3px 11px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.05);
   border: 1px solid;
+  letter-spacing: 0.02em;
 }
 
 /* Domain Index & Heading */
 .research-domain-index {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  margin-bottom: var(--space-2xs);
+  margin-bottom: 4px;
   display: block;
   transition: color 0.4s ease;
 }
 
 .research-card-heading {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.85rem);
+  font-size: clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem);
   font-weight: 700;
   color: var(--color-text-heading);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
   letter-spacing: -0.015em;
   line-height: 1.25;
 }
 
 .research-card-body {
   font-family: var(--font-body);
-  font-size: var(--text-base);
+  font-size: 0.95rem;
   color: var(--color-text-body);
   line-height: 1.75;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 /* Footer */
@@ -191,8 +170,6 @@
   justify-content: space-between;
   padding-top: var(--space-md);
   border-top: 1px solid rgba(148, 163, 184, 0.12);
-  flex-wrap: wrap;
-  gap: var(--space-sm);
 }
 
 .research-status-cue {
@@ -200,7 +177,7 @@
   align-items: center;
   gap: 7px;
   font-family: var(--font-heading);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   color: var(--color-text-secondary);
   font-weight: 500;
 }
@@ -212,20 +189,14 @@
   transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.research-pause-hint {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--color-text-muted);
-}
-
 /* ── Carousel Controls & Progress Bar ── */
 .research-controls-wrap {
   position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: var(--space-xl);
-  padding: 8px 18px;
+  margin-top: var(--space-lg);
+  padding: 7px 16px;
   background: rgba(13, 21, 40, 0.85);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
@@ -236,8 +207,8 @@
 }
 
 .research-nav-arrow {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(148, 163, 184, 0.2);
@@ -263,8 +234,8 @@
 }
 
 .research-indicator-dot {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   padding: 0;
   border: none;
   background: transparent;
@@ -288,13 +259,13 @@
 }
 
 .research-indicator-dot--active .indicator-dot-inner {
-  width: 22px;
+  width: 20px;
   border-radius: 4px;
   background: var(--dot-accent, var(--color-accent-cyan));
   box-shadow: 0 0 10px var(--dot-accent, rgba(34, 211, 238, 0.6));
 }
 
-/* 1-Second Timer Progress Bar */
+/* 2-Second Timer Progress Bar */
 .research-timer-bar {
   position: absolute;
   bottom: -4px;
@@ -310,7 +281,7 @@
   width: 100%;
   height: 100%;
   transform-origin: left;
-  animation: timer-fill-anim 1s linear infinite;
+  animation: timer-fill-anim 2s linear infinite;
 }
 
 .research-timer-fill--paused {
@@ -328,7 +299,7 @@
 
 /* ── Academic Note ── */
 .research-note {
-  max-width: 760px;
+  max-width: 700px;
   margin: 0 auto;
   background: var(--color-bg-card);
   border-left: 3px solid var(--color-accent-primary);
@@ -362,6 +333,6 @@
     padding: var(--space-xl) var(--space-md);
   }
   .research-3d-viewport {
-    min-height: 420px;
+    min-height: 400px;
   }
 }

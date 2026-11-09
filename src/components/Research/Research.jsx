@@ -76,7 +76,7 @@ export default function Research() {
     [activeIndex]
   );
 
-  // Automatic rotation every 1 second (1000ms), paused on hover or when out of view
+  // Automatic rotation every 2 seconds (2000ms), paused on hover or when out of view
   useEffect(() => {
     // Check prefers-reduced-motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -84,7 +84,7 @@ export default function Research() {
 
     const timer = setInterval(() => {
       nextCard();
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(timer);
   }, [isPaused, isInView, nextCard]);
@@ -107,7 +107,7 @@ export default function Research() {
       opacity: 1,
       filter: 'blur(0px)',
       transition: {
-        duration: 0.42,
+        duration: 0.45,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -119,7 +119,7 @@ export default function Research() {
       opacity: 0,
       filter: 'blur(4px)',
       transition: {
-        duration: 0.35,
+        duration: 0.38,
         ease: [0.16, 1, 0.3, 1],
       },
     }),
@@ -141,9 +141,6 @@ export default function Research() {
           <h2 className="section-title">
             Research &amp; <em>Exploration</em>
           </h2>
-          <p className="research-intro-sub">
-            Continuous auto-rotating 3D carousel transitioning across core research inquiries with dedicated chromatic signatures. Hover anywhere to pause and read.
-          </p>
         </motion.header>
 
         {/* ── 3D Auto-Rotating Carousel Stage ── */}
@@ -152,7 +149,7 @@ export default function Research() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           role="region"
-          aria-label="Auto-rotating 3D research card carousel"
+          aria-label="3D Research card showcase"
         >
           {/* Dynamic Ambient Color Aura */}
           <div
@@ -203,20 +200,11 @@ export default function Research() {
 
                     <div className="research-card-badges">
                       <span
-                        className="research-color-pill"
-                        style={{
-                          color: activeTheme.secondary,
-                          borderColor: activeTheme.border,
-                          backgroundColor: activeTheme.bg,
-                        }}
-                      >
-                        {activeTheme.name}
-                      </span>
-                      <span
                         className="research-topic-tag"
                         style={{
                           color: '#FFFFFF',
-                          borderColor: 'rgba(255, 255, 255, 0.15)',
+                          borderColor: activeTheme.border,
+                          backgroundColor: activeTheme.bg,
                         }}
                       >
                         {activeInterest.tag}
@@ -229,7 +217,7 @@ export default function Research() {
                     className="research-domain-index"
                     style={{ color: activeTheme.secondary }}
                   >
-                    INVESTIGATION 0{activeIndex + 1} / 0{totalCards}
+                    INVESTIGATION 0{activeIndex + 1}
                   </span>
 
                   {/* Title */}
@@ -248,11 +236,7 @@ export default function Research() {
                           boxShadow: `0 0 8px ${activeTheme.secondary}`,
                         }}
                       />
-                      Active Theoretical Investigation
-                    </span>
-
-                    <span className="research-pause-hint">
-                      {isPaused ? '⏸ Paused for Reading' : '↻ Rotating (1s)'}
+                      Active Theoretical Exploration
                     </span>
                   </div>
                 </div>
@@ -308,7 +292,7 @@ export default function Research() {
               </svg>
             </button>
 
-            {/* 1-Second Timer Progress Bar */}
+            {/* 2-Second Timer Progress Bar (Internal) */}
             <div className="research-timer-bar" aria-hidden="true">
               <div
                 key={activeIndex}

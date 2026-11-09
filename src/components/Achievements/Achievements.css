@@ -22,7 +22,7 @@
 }
 
 .achievements-showcase {
-  max-width: 780px;
+  max-width: 724px;
   margin: 0 auto;
   perspective: 1200px;
 }
@@ -75,7 +75,7 @@
 .achievement-3d-inner {
   position: relative;
   z-index: 3;
-  padding: var(--space-3xl) var(--space-2xl);
+  padding: 34px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;

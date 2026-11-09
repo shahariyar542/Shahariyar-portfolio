@@ -89,7 +89,7 @@
   background: var(--color-bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-xl);
+  padding: 22px 24px;
   display: flex;
   flex-direction: column;
   transition: all var(--duration-normal) var(--ease-out-quart);

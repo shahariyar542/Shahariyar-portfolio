@@ -141,7 +141,7 @@
 /* ── Individual 3D Orbit Card ── */
 .skills-orbit-card {
   position: absolute;
-  width: 310px;
+  width: 288px;
   background: var(--color-bg-card);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-subtle);
@@ -152,8 +152,8 @@
               border-color 0.25s ease;
   overflow: hidden;
   box-shadow: var(--shadow-3d-card);
-  margin-left: -155px; /* center horizontally on origin */
-  margin-top: -190px;  /* center vertically on origin */
+  margin-left: -144px; /* center horizontally on origin */
+  margin-top: -176px;  /* center vertically on origin */
 }
 
 .skills-orbit-card--hovered {
@@ -189,7 +189,7 @@
 .skills-card-inner {
   position: relative;
   z-index: 3;
-  padding: var(--space-xl);
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
 }
@@ -424,9 +424,9 @@
     height: 480px;
   }
   .skills-orbit-card {
-    width: 260px;
-    margin-left: -130px;
-    margin-top: -160px;
+    width: 245px;
+    margin-left: -122px;
+    margin-top: -150px;
     padding: var(--space-md);
   }
   .skills-card-inner {
@@ -442,9 +442,9 @@
     height: 440px;
   }
   .skills-orbit-card {
-    width: 230px;
-    margin-left: -115px;
-    margin-top: -140px;
+    width: 218px;
+    margin-left: -109px;
+    margin-top: -130px;
   }
   .skills-card-summary {
     display: none;
