@@ -31,9 +31,15 @@ export default function Contact() {
   const formRef = useRef(null);
 
   const [copied, setCopied] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({
+    from_name: '',
+    from_email: '',
+    subject: '',
+    message: '',
+  });
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState('idle'); // idle | sending | success | error | no-config
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleCopyEmail = async () => {
     const ok = await copyToClipboard(personalInfo.email);
@@ -49,19 +55,35 @@ export default function Contact() {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: null }));
     }
+    if (submitStatus === 'error') {
+      setSubmitStatus('idle');
+      setErrorMessage('');
+    }
   };
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    else if (!isValidEmail(formData.email)) newErrors.email = 'Please enter a valid email';
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    if (!formData.from_name.trim()) {
+      newErrors.from_name = 'Name is required';
+    }
+    if (!formData.from_email.trim()) {
+      newErrors.from_email = 'Email is required';
+    } else if (!isValidEmail(formData.from_email)) {
+      newErrors.from_email = 'Please enter a valid email address';
+    }
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitStatus === 'sending') return;
+
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -78,14 +100,37 @@ export default function Contact() {
     }
 
     setSubmitStatus('sending');
+    setErrorMessage('');
+
+    const templateParams = {
+      from_name: formData.from_name.trim(),
+      from_email: formData.from_email.trim(),
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+    };
 
     try {
-      await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
+      await emailjs.send(serviceId, templateId, templateParams, {
+        publicKey,
+      });
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    } catch {
+      setFormData({ from_name: '', from_email: '', subject: '', message: '' });
+      setErrors({});
+    } catch (err) {
       setSubmitStatus('error');
+      const msg =
+        (err && typeof err.text === 'string' && err.text) ||
+        (err && typeof err.message === 'string' && err.message) ||
+        'Failed to send message. Please try again or reach out directly via email.';
+      setErrorMessage(msg);
     }
+  };
+
+  const handleReset = () => {
+    setSubmitStatus('idle');
+    setFormData({ from_name: '', from_email: '', subject: '', message: '' });
+    setErrors({});
+    setErrorMessage('');
   };
 
   const socials = [
@@ -189,12 +234,13 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="contact-success-icon">✓</span>
+                <span className="contact-success-icon" aria-hidden="true">✓</span>
                 <p className="contact-success-title">Message sent!</p>
-                <p className="contact-success-text">I'll get back to you soon.</p>
+                <p className="contact-success-text">Thank you for reaching out. I'll get back to you soon.</p>
                 <button
+                  type="button"
                   className="contact-success-reset"
-                  onClick={() => setSubmitStatus('idle')}
+                  onClick={handleReset}
                 >
                   Send another message
                 </button>
@@ -202,35 +248,53 @@ export default function Contact() {
             ) : (
               <form ref={formRef} className="contact-form" onSubmit={handleSubmit} noValidate>
                 {/* Name */}
-                <div className={`contact-field${errors.name ? ' contact-field--error' : ''}`}>
+                <div className={`contact-field${errors.from_name ? ' contact-field--error' : ''}`}>
                   <input
                     type="text"
-                    name="name"
+                    name="from_name"
                     id="contact-name"
-                    value={formData.name}
+                    value={formData.from_name}
                     onChange={handleChange}
+                    disabled={submitStatus === 'sending'}
                     required
                     autoComplete="name"
                     placeholder=" "
                   />
                   <label htmlFor="contact-name">Your Name</label>
-                  {errors.name && <span className="contact-field-error">{errors.name}</span>}
+                  {errors.from_name && <span className="contact-field-error">{errors.from_name}</span>}
                 </div>
 
                 {/* Email */}
-                <div className={`contact-field${errors.email ? ' contact-field--error' : ''}`}>
+                <div className={`contact-field${errors.from_email ? ' contact-field--error' : ''}`}>
                   <input
                     type="email"
-                    name="email"
+                    name="from_email"
                     id="contact-email"
-                    value={formData.email}
+                    value={formData.from_email}
                     onChange={handleChange}
+                    disabled={submitStatus === 'sending'}
                     required
                     autoComplete="email"
                     placeholder=" "
                   />
                   <label htmlFor="contact-email">Your Email</label>
-                  {errors.email && <span className="contact-field-error">{errors.email}</span>}
+                  {errors.from_email && <span className="contact-field-error">{errors.from_email}</span>}
+                </div>
+
+                {/* Subject */}
+                <div className={`contact-field${errors.subject ? ' contact-field--error' : ''}`}>
+                  <input
+                    type="text"
+                    name="subject"
+                    id="contact-subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    disabled={submitStatus === 'sending'}
+                    required
+                    placeholder=" "
+                  />
+                  <label htmlFor="contact-subject">Subject</label>
+                  {errors.subject && <span className="contact-field-error">{errors.subject}</span>}
                 </div>
 
                 {/* Message */}
@@ -241,6 +305,7 @@ export default function Contact() {
                     rows="5"
                     value={formData.message}
                     onChange={handleChange}
+                    disabled={submitStatus === 'sending'}
                     required
                     placeholder=" "
                   />
@@ -250,13 +315,13 @@ export default function Contact() {
 
                 {/* Error / No-config messages */}
                 {submitStatus === 'error' && (
-                  <p className="contact-form-error">
-                    Something went wrong. Please try again or email me directly.
+                  <p className="contact-form-error" role="alert">
+                    {errorMessage || 'Something went wrong. Please try again or email me directly.'}
                   </p>
                 )}
                 {submitStatus === 'no-config' && (
-                  <p className="contact-form-notice">
-                    Contact form is being set up. Please email me directly at{' '}
+                  <p className="contact-form-notice" role="alert">
+                    Contact form service is currently unconfigured. Please email me directly at{' '}
                     <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
                   </p>
                 )}
@@ -266,10 +331,11 @@ export default function Contact() {
                   type="submit"
                   className="contact-submit"
                   disabled={submitStatus === 'sending'}
+                  aria-busy={submitStatus === 'sending'}
                 >
                   {submitStatus === 'sending' ? (
                     <>
-                      <span className="contact-spinner" />
+                      <span className="contact-spinner" aria-hidden="true" />
                       Sending...
                     </>
                   ) : (
