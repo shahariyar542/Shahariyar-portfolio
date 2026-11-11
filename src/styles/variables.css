@@ -99,6 +99,7 @@
   --duration-fast: 0.15s;
   --duration-normal: 0.25s;
   --duration-slow: 0.45s;
+  --theme-transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
 
   /* ── Z-Index Hierarchy ── */
   --z-canvas-bg: -1;
@@ -109,6 +110,58 @@
   --z-modal: 1000;
   --z-iris: 1100;
   --z-cursor: 9999;
+}
+
+/* ============================================================
+   DAY MODE DESIGN TOKENS — Crystal Glassmorphism
+   Luminous crystal glass, transparent architecture, WCAG contrast
+   ============================================================ */
+[data-theme="light"] {
+  /* ── Core Color System (Day Mode Crystal) ── */
+  --color-bg-main: #F4F7FB;          /* Soft Crystal Pearl White */
+  --color-bg-secondary: #EBF1F8;     /* Luminous Ice Pearl secondary */
+  --color-bg-card: rgba(255, 255, 255, 0.78); /* Crystal Frosted Card */
+  --color-bg-card-glass: rgba(255, 255, 255, 0.75);
+  --color-bg-elevated: rgba(255, 255, 255, 0.94);
+
+  /* ── High-Contrast Typography Palette (WCAG AA/AAA) ── */
+  --color-text-heading: #0F172A;     /* Deep rich slate-charcoal */
+  --color-text-body: #334155;        /* Crisp slate-gray readable text */
+  --color-text-secondary: #475569;   /* Elegant secondary captions */
+  --color-text-muted: #64748B;       /* Refined meta text */
+
+  /* ── Crystal Accents ── */
+  --color-accent-electric: #2563EB;  /* Deep Electric Blue */
+  --color-accent-primary: #1D4ED8;   /* Royal Cobalt Blue */
+  --color-accent-cyan: #0284C7;      /* Vivid Icy Sky Cyan */
+
+  /* ── Borders & Glass Lighting ── */
+  --border-subtle: rgba(203, 213, 225, 0.75);
+  --border-hover: rgba(59, 130, 246, 0.45);
+  --border-active: rgba(2, 132, 199, 0.55);
+  --border-gradient-3d: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.55) 100%);
+
+  /* ── Crystal Soft Shadows ── */
+  --shadow-sm: 0 4px 16px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 10px 24px rgba(15, 23, 42, 0.07);
+  --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.09);
+  --shadow-3d-card: 0 16px 36px -8px rgba(15, 23, 42, 0.08), 0 0 20px rgba(37, 99, 235, 0.06);
+  --shadow-3d-hover: 0 24px 48px -8px rgba(15, 23, 42, 0.12), 0 0 28px rgba(2, 132, 199, 0.12);
+
+  /* ── Backward-compatible Aliases ── */
+  --color-bg-primary: var(--color-bg-main);
+  --color-text-main: var(--color-text-heading);
+  --color-accent-blue: var(--color-accent-electric);
+  --color-ivory: var(--color-bg-main);
+  --color-espresso: var(--color-bg-secondary);
+  --color-gold: var(--color-accent-primary);
+  --color-gold-hover: #2563EB;
+  --color-gold-muted: rgba(37, 99, 235, 0.15);
+  --color-butter: var(--color-accent-cyan);
+  --color-charcoal: var(--color-text-heading);
+  --color-warm-white: #FFFFFF;
+  --color-espresso-light: var(--color-bg-elevated);
+  --color-divider: var(--border-subtle);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -126,6 +126,30 @@ export default function ThreeHeroCanvas() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     // ── 5. Resize Handling ──
+    // ── 5. Theme Color Synchronization ──
+    const updateThemeColors = () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        wireframeMat.color.set(0x2563eb);
+        wireframeMat.opacity = 0.38;
+        innerMat.color.set(0xe2e8f0);
+        innerMat.emissive.set(0x2563eb);
+        innerMat.emissiveIntensity = 0.55;
+        ringMat.color.set(0x0284c7);
+      } else {
+        wireframeMat.color.set(0x60a5fa);
+        wireframeMat.opacity = 0.28;
+        innerMat.color.set(0x0d1528);
+        innerMat.emissive.set(0x3b82f6);
+        innerMat.emissiveIntensity = 0.45;
+        ringMat.color.set(0x22d3ee);
+      }
+    };
+    updateThemeColors();
+
+    const themeObserver = new MutationObserver(updateThemeColors);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     const handleResize = () => {
       if (!container) return;
       const width = container.clientWidth;
@@ -165,6 +189,7 @@ export default function ThreeHeroCanvas() {
 
     // ── Cleanup ──
     return () => {
+      themeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);

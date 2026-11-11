@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navItems, socialLinks } from '../../data/portfolio';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import './Navigation.css';
 
 /* ── Animation Variants ── */
@@ -143,7 +144,7 @@ export default function Navigation() {
             })}
           </nav>
 
-          {/* CTA + Mobile Toggle */}
+          {/* CTA + Mobile Toggle + Theme Toggle (Extreme Top-Right) */}
           <div className="nav-actions">
             <button
               className="nav-cta-btn"
@@ -163,6 +164,8 @@ export default function Navigation() {
               <span className="nav-hamburger-line" />
               <span className="nav-hamburger-line" />
             </button>
+
+            <ThemeToggle />
           </div>
         </div>
       </header>

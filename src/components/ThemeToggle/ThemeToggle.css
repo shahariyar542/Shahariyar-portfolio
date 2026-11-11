@@ -1,0 +1,104 @@
+/* ============================================================
+   SHAHARIYAR.EXE — Theme Toggle Button Styles
+   Extreme Top-Right Header Placement with Glass Finish
+   ============================================================ */
+
+.theme-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  flex-shrink: 0;
+  z-index: 105;
+}
+
+.theme-toggle-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all var(--duration-normal) var(--ease-out-quart);
+}
+
+/* Night Mode Style (Sun Icon visible) */
+.theme-toggle-btn--dark {
+  background: rgba(13, 21, 40, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  color: #FBBF24;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.theme-toggle-btn--dark:hover {
+  background: rgba(22, 36, 68, 0.9);
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 16px rgba(251, 191, 36, 0.28);
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* Day Mode Style (Moon Icon visible) */
+.theme-toggle-btn--light {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  color: #2563EB;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.theme-toggle-btn--light:hover {
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12), 0 0 16px rgba(37, 99, 235, 0.2);
+  transform: translateY(-1px) scale(1.05);
+}
+
+.theme-toggle-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, transparent 100%);
+  border-radius: var(--radius-full) var(--radius-full) 0 0;
+  pointer-events: none;
+}
+
+.theme-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.theme-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--duration-fast);
+}
+
+.theme-toggle-btn:hover .theme-icon--sun {
+  transform: rotate(25deg);
+}
+
+.theme-toggle-btn:hover .theme-icon--moon {
+  transform: rotate(-15deg);
+}
+
+/* Mobile & Touch */
+@media (max-width: 480px) {
+  .theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .theme-icon {
+    width: 18px;
+    height: 18px;
+  }
+}

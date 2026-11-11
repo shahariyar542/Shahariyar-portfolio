@@ -1,0 +1,760 @@
+/* ============================================================
+   SHAHARIYAR.EXE — Day Mode (Crystal Glassmorphism) Stylesheet
+   Luminous crystal glass, transparent architecture, WCAG contrast
+   ============================================================ */
+
+/* ── Smooth Theme Transitions ── */
+html,
+body,
+main,
+section,
+header,
+nav,
+article,
+footer,
+.glass-card,
+.exp-card,
+.role-card,
+.cert-card,
+.award-3d-card,
+.about-card-3d,
+.education-3d-card,
+.research-active-3d-card,
+.skills-orbit-card,
+.project-roadway-card,
+.sh-glass-capsule,
+.nav-topbar,
+.nav-desktop-menu,
+.iris-chat {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* ============================================================
+   1. GLOBAL & AMBIENT ENVIRONMENT IN DAY MODE
+   ============================================================ */
+[data-theme="light"] body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-body);
+}
+
+[data-theme="light"] .cyber-bg-grid {
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+}
+
+[data-theme="light"] .cyber-glow-1 {
+  background: radial-gradient(circle, rgba(186, 230, 253, 0.6) 0%, transparent 70%);
+  opacity: 0.35;
+}
+
+[data-theme="light"] .cyber-glow-2 {
+  background: radial-gradient(circle, rgba(199, 210, 254, 0.5) 0%, transparent 70%);
+  opacity: 0.3;
+}
+
+[data-theme="light"] .section-dark {
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ============================================================
+   2. NAVIGATION IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .nav-topbar--scrolled {
+  background: rgba(244, 247, 251, 0.9);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .nav-desktop-menu {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .nav-desktop-link {
+  color: #334155;
+}
+
+[data-theme="light"] .nav-desktop-link:hover,
+[data-theme="light"] .nav-desktop-link--active {
+  color: #0F172A;
+}
+
+[data-theme="light"] .nav-active-indicator {
+  background: rgba(37, 99, 235, 0.09);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+[data-theme="light"] .nav-hamburger-line {
+  background: #0F172A;
+}
+
+[data-theme="light"] .nav-overlay {
+  background: rgba(244, 247, 251, 0.98);
+}
+
+[data-theme="light"] .nav-overlay-link {
+  color: #334155;
+}
+
+[data-theme="light"] .nav-overlay-link--active {
+  color: #0F172A;
+}
+
+[data-theme="light"] .nav-dot-btn {
+  background: rgba(15, 23, 42, 0.2);
+}
+
+[data-theme="light"] .nav-dot-btn--active {
+  background: var(--color-accent-electric);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+}
+
+[data-theme="light"] .nav-dot-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0F172A;
+  border-color: rgba(203, 213, 225, 0.85);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+/* ============================================================
+   3. HERO / HOME IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .hero-identity-capsule {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(2, 132, 199, 0.35);
+  box-shadow: 0 2px 12px rgba(2, 132, 199, 0.12);
+}
+
+[data-theme="light"] .hero-identity-text {
+  color: #0F172A;
+}
+
+[data-theme="light"] .hero-badge {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .hero-badge-text {
+  color: #1D4ED8;
+}
+
+[data-theme="light"] .hero-name {
+  color: #0F172A;
+}
+
+[data-theme="light"] .hero-title {
+  color: #334155;
+}
+
+[data-theme="light"] .hero-description {
+  color: #475569;
+}
+
+[data-theme="light"] .btn-accent {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(203, 213, 225, 0.9);
+  color: #0F172A;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .btn-accent:hover {
+  background: #FFFFFF;
+  border-color: var(--color-accent-electric);
+  color: var(--color-accent-electric);
+}
+
+[data-theme="light"] .hero-stat-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .hero-stat-value {
+  color: #0F172A;
+}
+
+[data-theme="light"] .hero-stat-label {
+  color: #64748B;
+}
+
+/* ============================================================
+   4. SECTION HEADERS IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .sh-glass-capsule {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .sh-glass-capsule:hover {
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 6px 22px rgba(15, 23, 42, 0.08), 0 0 16px rgba(37, 99, 235, 0.12);
+}
+
+[data-theme="light"] .sh-visual {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(203, 213, 225, 0.8);
+}
+
+[data-theme="light"] .sh-badge-text {
+  color: #475569;
+}
+
+[data-theme="light"] .sh-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .sh-description {
+  color: #334155;
+}
+
+[data-theme="light"] .sh-ambient-refractor {
+  background: radial-gradient(circle, rgba(186, 230, 253, 0.45) 0%, transparent 70%);
+}
+
+/* ============================================================
+   5. ABOUT ME IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .about-pullquote-text {
+  color: #0F172A;
+  border-left-color: #2563EB;
+}
+
+[data-theme="light"] .about-paragraph {
+  color: #334155;
+}
+
+[data-theme="light"] .about-card-3d {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .about-card-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .about-card-text {
+  color: #334155;
+}
+
+[data-theme="light"] .about-card-number {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+/* ============================================================
+   6. SKILLS & TECHNOLOGIES (3D ORBIT) IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .skills-orbit-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .skills-card-heading {
+  color: #0F172A;
+}
+
+[data-theme="light"] .skills-card-summary {
+  color: #475569;
+}
+
+[data-theme="light"] .skills-card-index {
+  color: #1D4ED8;
+}
+
+[data-theme="light"] .skills-pill-item {
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+}
+
+[data-theme="light"] .skills-pill-item:hover {
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.4);
+}
+
+[data-theme="light"] .skills-pill-item--highlight {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+[data-theme="light"] .skills-pill-name {
+  color: #0F172A;
+}
+
+[data-theme="light"] .skills-orbit-controls {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .orbit-nav-btn {
+  background: rgba(241, 245, 249, 0.8);
+  border-color: rgba(203, 213, 225, 0.8);
+  color: #334155;
+}
+
+[data-theme="light"] .orbit-nav-btn:hover {
+  background: #FFFFFF;
+  color: #0F172A;
+  border-color: #2563EB;
+}
+
+[data-theme="light"] .orbit-drag-cue {
+  color: #64748B;
+}
+
+[data-theme="light"] .skills-orbit-nucleus .nucleus-orb {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  box-shadow: 0 0 24px rgba(37, 99, 235, 0.2);
+}
+
+[data-theme="light"] .nucleus-text {
+  color: #1D4ED8;
+}
+
+/* ============================================================
+   7. EXPERIENCE IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .exp-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .exp-card:hover {
+  background: #FFFFFF;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12), 0 0 20px rgba(37, 99, 235, 0.08);
+}
+
+[data-theme="light"] .exp-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .exp-role {
+  color: #1D4ED8;
+}
+
+[data-theme="light"] .exp-desc {
+  color: #334155;
+}
+
+[data-theme="light"] .exp-highlight-item {
+  color: #475569;
+}
+
+[data-theme="light"] .exp-org-tag {
+  color: #64748B;
+}
+
+[data-theme="light"] .exp-period {
+  color: #64748B;
+}
+
+[data-theme="light"] .exp-tech-tag {
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  color: #334155;
+}
+
+[data-theme="light"] .exp-card:hover .exp-tech-tag {
+  background: #FFFFFF;
+  color: #0F172A;
+}
+
+/* ============================================================
+   8. PROJECTS IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .project-roadway-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .project-card-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .project-card-desc {
+  color: #334155;
+}
+
+[data-theme="light"] .project-tag {
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  color: #334155;
+}
+
+[data-theme="light"] .project-metric-pill {
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.75);
+}
+
+[data-theme="light"] .metric-label {
+  color: #0F172A;
+}
+
+[data-theme="light"] .coming-soon-portal {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(2, 132, 199, 0.35);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.12);
+}
+
+[data-theme="light"] .coming-soon-title {
+  color: #0F172A;
+  text-shadow: none;
+}
+
+/* ============================================================
+   9. RESEARCH & EXPLORATION (3D CAROUSEL) IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .research-active-3d-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .research-card-heading {
+  color: #0F172A;
+}
+
+[data-theme="light"] .research-card-body {
+  color: #334155;
+}
+
+[data-theme="light"] .research-status-cue {
+  color: #475569;
+}
+
+[data-theme="light"] .research-controls-wrap {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .research-nav-arrow {
+  background: rgba(241, 245, 249, 0.85);
+  border-color: rgba(203, 213, 225, 0.8);
+  color: #334155;
+}
+
+[data-theme="light"] .research-nav-arrow:hover {
+  background: #FFFFFF;
+  color: #0F172A;
+  border-color: #2563EB;
+}
+
+[data-theme="light"] .indicator-dot-inner {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+[data-theme="light"] .indicator-dot-inner--active {
+  background: var(--color-accent-electric);
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+}
+
+/* ============================================================
+   10. ROLES & RESPONSIBILITIES IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .role-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .role-card:hover {
+  background: #FFFFFF;
+  border-color: rgba(203, 213, 225, 0.95);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+[data-theme="light"] .role-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .role-resp-item {
+  color: #334155;
+}
+
+[data-theme="light"] .role-resp-heading {
+  color: #64748B;
+}
+
+[data-theme="light"] .role-category-badge {
+  background: rgba(241, 245, 249, 0.85);
+  border-color: rgba(203, 213, 225, 0.8);
+  color: #475569;
+}
+
+[data-theme="light"] .role-icon-box {
+  background: rgba(241, 245, 249, 0.85);
+  border-color: rgba(203, 213, 225, 0.8);
+}
+
+/* ============================================================
+   11. EDUCATION IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .education-3d-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .education-degree {
+  color: #0F172A;
+}
+
+[data-theme="light"] .education-institution {
+  color: #1D4ED8;
+}
+
+[data-theme="light"] .education-summary {
+  color: #334155;
+}
+
+[data-theme="light"] .education-detail-label {
+  color: #64748B;
+}
+
+[data-theme="light"] .education-detail-value {
+  color: #0F172A;
+}
+
+[data-theme="light"] .education-quote {
+  background: rgba(241, 245, 249, 0.7);
+  border-left-color: #2563EB;
+  color: #334155;
+}
+
+/* ============================================================
+   12. CERTIFICATES & RECOGNITION + MODAL IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .award-3d-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08), 0 0 24px rgba(251, 191, 36, 0.1);
+}
+
+[data-theme="light"] .award-main-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .award-desc {
+  color: #334155;
+}
+
+[data-theme="light"] .cert-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .cert-card:hover {
+  background: #FFFFFF;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+[data-theme="light"] .cert-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .cert-desc {
+  color: #334155;
+}
+
+[data-theme="light"] .cert-issuer {
+  color: #475569;
+}
+
+[data-theme="light"] .cert-issuer strong {
+  color: #0F172A;
+}
+
+[data-theme="light"] .cert-tag {
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  color: #334155;
+}
+
+[data-theme="light"] .cert-preview-wrap {
+  background: #F1F5F9;
+}
+
+[data-theme="light"] .cert-modal-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+}
+
+[data-theme="light"] .cert-modal-header {
+  background: rgba(248, 250, 252, 0.92);
+  border-bottom-color: rgba(203, 213, 225, 0.8);
+}
+
+[data-theme="light"] .cert-modal-issuer {
+  color: #0F172A;
+}
+
+[data-theme="light"] .cert-modal-media {
+  background: #F8FAFC;
+  border-right-color: rgba(203, 213, 225, 0.8);
+}
+
+[data-theme="light"] .cert-modal-title {
+  color: #0F172A;
+}
+
+[data-theme="light"] .cert-modal-desc {
+  color: #334155;
+}
+
+[data-theme="light"] .cert-meta-grid {
+  background: rgba(241, 245, 249, 0.8);
+  border-color: rgba(203, 213, 225, 0.8);
+}
+
+[data-theme="light"] .cert-meta-val {
+  color: #0F172A;
+}
+
+[data-theme="light"] .cert-btn-secondary {
+  background: rgba(241, 245, 249, 0.9);
+  border-color: rgba(203, 213, 225, 0.8);
+  color: #0F172A;
+}
+
+/* ============================================================
+   13. CONTACT IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .contact-input,
+[data-theme="light"] .contact-textarea {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  color: #0F172A;
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .contact-input:focus,
+[data-theme="light"] .contact-textarea:focus {
+  background: #FFFFFF;
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="light"] .contact-input::placeholder,
+[data-theme="light"] .contact-textarea::placeholder {
+  color: #94A3B8;
+}
+
+[data-theme="light"] .contact-label {
+  color: #334155;
+}
+
+[data-theme="light"] .contact-info-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
+}
+
+[data-theme="light"] .contact-statement {
+  color: #334155;
+}
+
+[data-theme="light"] .contact-social-btn {
+  background: rgba(241, 245, 249, 0.85);
+  border-color: rgba(203, 213, 225, 0.8);
+  color: #334155;
+}
+
+[data-theme="light"] .contact-social-btn:hover {
+  background: #FFFFFF;
+  color: #2563EB;
+  border-color: #2563EB;
+}
+
+/* ============================================================
+   14. IRIS AI ASSISTANT IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .iris-chat {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.14);
+}
+
+[data-theme="light"] .iris-chat-header {
+  background: rgba(241, 245, 249, 0.95);
+  border-bottom-color: rgba(203, 213, 225, 0.8);
+}
+
+[data-theme="light"] .iris-chat-name {
+  color: #0F172A;
+}
+
+[data-theme="light"] .iris-chat-close {
+  color: #64748B;
+}
+
+[data-theme="light"] .iris-chat-close:hover {
+  color: #0F172A;
+}
+
+[data-theme="light"] .iris-message--iris .iris-message-bubble {
+  background: #F1F5F9;
+  color: #0F172A;
+  border-color: rgba(203, 213, 225, 0.8);
+}
+
+[data-theme="light"] .iris-suggestion-chip {
+  background: #F1F5F9;
+  border-color: rgba(203, 213, 225, 0.8);
+  color: #1D4ED8;
+}
+
+[data-theme="light"] .iris-suggestion-chip:hover {
+  background: #FFFFFF;
+  border-color: #2563EB;
+}
+
+[data-theme="light"] .iris-chat-input {
+  background: #FFFFFF;
+  border-color: rgba(203, 213, 225, 0.8);
+  color: #0F172A;
+}
+
+[data-theme="light"] .iris-chat-input::placeholder {
+  color: #94A3B8;
+}
+
+/* ============================================================
+   15. FOOTER & MISC IN DAY MODE
+   ============================================================ */
+[data-theme="light"] .footer {
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  color: #475569;
+}
+
+[data-theme="light"] .footer-name {
+  color: #0F172A;
+}
+
+[data-theme="light"] .cursor-dot {
+  background-color: #1D4ED8;
+  box-shadow: 0 0 6px rgba(29, 78, 216, 0.4);
+}
+
+[data-theme="light"] .cursor-ring {
+  border-color: rgba(37, 99, 235, 0.45);
+}
+
+[data-theme="light"] .cursor-ring.cursor-ring--hover {
+  border-color: var(--color-accent-cyan);
+  background: rgba(2, 132, 199, 0.08);
+}
