@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { certificatesData, achievements } from '../../data/portfolio.js';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Recognition.css';
 
 /* ── Interactive 3D Award Trophy Card ── */
@@ -348,7 +349,6 @@ function CertificateLightbox({ cert, onClose }) {
 
 export default function Recognition() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
   const [selectedCert, setSelectedCert] = useState(null);
   const awardItem = achievements[0];
 
@@ -359,20 +359,14 @@ export default function Recognition() {
 
       <div className="container">
         {/* Section Header */}
-        <motion.header
-          className="section-header recognition-header"
-          initial={{ opacity: 0, y: 25 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="section-label">08 — Milestones &amp; Honors</p>
-          <h2 className="section-title">
-            Certificates &amp; <em>Recognition</em>
-          </h2>
-          <p className="section-subtitle">
-            Milestones, Achievements &amp; Continuous Learning
-          </p>
-        </motion.header>
+        <SectionHeader
+          theme="recognition"
+          badgeText="Honors &amp; Distinctions"
+          title="Certificates &amp;"
+          highlightWord="Recognition"
+          subtitle="Celebrating achievements, recognizing progress, and documenting milestones."
+          align="center"
+        />
 
         {/* Subsection A: Prestigious Award Showcase */}
         <div className="recognition-awards-wrap">

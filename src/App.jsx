@@ -10,7 +10,6 @@ import Experience from './components/Experience/Experience';
 import Roles from './components/Roles/Roles';
 import Skills from './components/Skills/Skills';
 import Projects from './components/Projects/Projects';
-import Research from './components/Research/Research';
 import Recognition from './components/Recognition/Recognition';
 import Contact from './components/Contact/Contact';
 import IRIS from './components/IRIS/IRIS';
@@ -45,12 +44,11 @@ function App() {
           <main>
             <Hero />
             <About />
-            <Education />
-            <Experience />
-            <Roles />
             <Skills />
+            <Experience />
             <Projects />
-            <Research />
+            <Roles />
+            <Education />
             <Recognition />
             <Contact />
           </main>

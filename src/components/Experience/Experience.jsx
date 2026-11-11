@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { experienceData } from '../../data/portfolio.js';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Experience.css';
 
 function ExperienceTimelineCard({ item, index }) {
@@ -74,26 +75,18 @@ function ExperienceTimelineCard({ item, index }) {
 
 export default function Experience() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
   return (
     <section id="experience" className="experience section" ref={sectionRef}>
       <div className="container">
         {/* Section Header */}
-        <motion.header
-          className="section-header experience-header"
-          initial={{ opacity: 0, y: 25 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="section-label">03 — Professional Journey</p>
-          <h2 className="section-title">
-            <em>Experience</em>
-          </h2>
-          <p className="section-subtitle">
-            My Journey Through Technology, Development &amp; Innovation
-          </p>
-        </motion.header>
+        <SectionHeader
+          theme="experience"
+          badgeText="Professional Journey"
+          highlightWord="Experience"
+          subtitle="Every experience is a step forward in my journey of learning and growth."
+          align="center"
+        />
 
         {/* Timeline Spine Container */}
         <div className="exp-timeline-wrap">

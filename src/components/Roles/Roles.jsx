@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { rolesData } from '../../data/portfolio.js';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Roles.css';
 
 /* ── Interactive Role Card ── */
@@ -125,26 +126,19 @@ function RoleCard({ role, index }) {
 
 export default function Roles() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
   return (
     <section id="roles" className="roles section" ref={sectionRef}>
       <div className="container">
         {/* Section Header */}
-        <motion.header
-          className="section-header roles-header"
-          initial={{ opacity: 0, y: 25 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="section-label">04 — Multi-Disciplinary Focus</p>
-          <h2 className="section-title">
-            Roles &amp; <em>Responsibilities</em>
-          </h2>
-          <p className="section-subtitle">
-            The Roles I Take, The Responsibilities I Embrace
-          </p>
-        </motion.header>
+        <SectionHeader
+          theme="roles"
+          badgeText="Focus &amp; Contributions"
+          title="Roles &amp;"
+          highlightWord="Responsibilities"
+          subtitle="The roles I embrace, the contributions I make, and the responsibilities I value."
+          align="center"
+        />
 
         {/* Roles 2x2 Grid */}
         <div className="roles-grid">

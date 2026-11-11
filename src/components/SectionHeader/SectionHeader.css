@@ -1,0 +1,275 @@
+/* ============================================================
+   SHAHARIYAR.EXE — Premium Unconventional Section Heading Engine
+   Sophisticated Glassmorphism, Personality & Visual Storytelling
+   ============================================================ */
+
+.section-header-glass {
+  position: relative;
+  width: 100%;
+  margin: 0 auto var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+/* Alignments */
+.section-header-glass--center {
+  align-items: center;
+  text-align: center;
+  max-width: 780px;
+}
+
+.section-header-glass--left {
+  align-items: flex-start;
+  text-align: left;
+  max-width: 820px;
+}
+
+/* ── Glass Capsule Eyebrow ── */
+.sh-glass-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 18px 6px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(13, 21, 40, 0.62);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  margin-bottom: 1.25rem;
+  transition: all var(--duration-normal) var(--ease-out-quart);
+}
+
+.sh-glass-capsule:hover {
+  border-color: rgba(96, 165, 250, 0.45);
+  background: rgba(17, 29, 53, 0.75);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px rgba(96, 165, 250, 0.15);
+  transform: translateY(-2px);
+}
+
+.sh-badge-text {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  transition: color var(--duration-fast);
+}
+
+.sh-glass-capsule:hover .sh-badge-text {
+  color: var(--color-text-heading);
+}
+
+/* ── Visual Artwork Box ── */
+.sh-visual {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--duration-fast);
+}
+
+.sh-glass-capsule:hover .sh-visual {
+  transform: scale(1.08);
+}
+
+/* Visual Micro-Animations */
+.sh-orbit-bead {
+  animation: shOrbitPulse 3s infinite ease-in-out;
+}
+@keyframes shOrbitPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.sh-pip-active {
+  animation: shPipGlow 2.5s infinite ease-in-out;
+}
+@keyframes shPipGlow {
+  0%, 100% { fill: #3B82F6; filter: drop-shadow(0 0 2px #3B82F6); }
+  50% { fill: #60A5FA; filter: drop-shadow(0 0 8px #60A5FA); }
+}
+
+.sh-radar-wave {
+  transform-origin: center;
+  animation: shRadarPing 3s infinite cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sh-radar-wave--2 {
+  animation-delay: 1.5s;
+}
+@keyframes shRadarPing {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+/* ── Heading Typography ── */
+.sh-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 1.8rem + 1.8vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-text-heading);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.85rem;
+}
+
+.sh-highlight {
+  font-style: normal;
+  color: #60A5FA;
+  background: linear-gradient(135deg, #60A5FA 0%, #22D3EE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ── Description Typography ── */
+.sh-description {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.08rem);
+  line-height: 1.65;
+  color: var(--color-text-body);
+  max-width: 680px;
+  font-weight: 400;
+}
+
+/* ── Ambient Refractor Subtle Flare ── */
+.sh-ambient-refractor {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── Individual Theme Customizations (Part 3) ── */
+
+/* ABOUT: Orbital glass nuance */
+.section-header-glass--about .sh-visual {
+  background: rgba(96, 165, 250, 0.08);
+  border-color: rgba(96, 165, 250, 0.25);
+}
+.section-header-glass--about .sh-highlight {
+  background: linear-gradient(135deg, #60A5FA 0%, #818CF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* SKILLS: Technical cyber-cyan grid */
+.section-header-glass--skills .sh-visual {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.28);
+}
+.section-header-glass--skills .sh-highlight {
+  background: linear-gradient(135deg, #22D3EE 0%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* EXPERIENCE: Timeline capsule */
+.section-header-glass--experience .sh-visual {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.28);
+}
+.section-header-glass--experience .sh-highlight {
+  background: linear-gradient(135deg, #3B82F6 0%, #22D3EE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* PROJECTS: Bold editorial innovation */
+.section-header-glass--projects .sh-visual {
+  background: rgba(96, 165, 250, 0.08);
+  border-color: rgba(96, 165, 250, 0.25);
+}
+.section-header-glass--projects .sh-highlight {
+  background: linear-gradient(135deg, #FDE047 0%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ROLES: Interconnected network node */
+.section-header-glass--roles .sh-visual {
+  background: rgba(167, 139, 250, 0.08);
+  border-color: rgba(167, 139, 250, 0.28);
+}
+.section-header-glass--roles .sh-highlight {
+  background: linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* EDUCATION: Architectural cornerstone */
+.section-header-glass--education .sh-visual {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.28);
+}
+.section-header-glass--education .sh-highlight {
+  background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* RECOGNITION: Restrained luxury gold trophy */
+.section-header-glass--recognition .sh-visual {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.32);
+}
+.section-header-glass--recognition .sh-glass-capsule {
+  border-color: rgba(251, 191, 36, 0.2);
+}
+.section-header-glass--recognition .sh-glass-capsule:hover {
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 20px rgba(251, 191, 36, 0.12);
+}
+.section-header-glass--recognition .sh-highlight {
+  background: linear-gradient(135deg, #FDE047 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CONTACT: Transmission beacon */
+.section-header-glass--contact .sh-visual {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.28);
+}
+.section-header-glass--contact .sh-highlight {
+  background: linear-gradient(135deg, #22D3EE 0%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Responsive Adaptations ── */
+@media (max-width: 768px) {
+  .section-header-glass {
+    margin-bottom: var(--space-2xl);
+  }
+  .sh-title {
+    font-size: clamp(1.8rem, 1.5rem + 2vw, 2.3rem);
+  }
+  .sh-description {
+    font-size: 0.92rem;
+  }
+  .sh-glass-capsule {
+    padding: 5px 14px 5px 8px;
+    gap: 8px;
+  }
+  .sh-visual {
+    width: 32px;
+    height: 32px;
+  }
+  .sh-badge-text {
+    font-size: 0.72rem;
+  }
+}

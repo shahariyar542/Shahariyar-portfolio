@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { socialLinks, personalInfo } from '../../data/portfolio';
 import { copyToClipboard, isValidEmail } from '../../utils/helpers';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Contact.css';
 
 /* ── Social Icon SVGs ── */
@@ -151,18 +152,15 @@ export default function Contact() {
   return (
     <section id="contact" className="section section-dark contact-section" ref={sectionRef}>
       <div className="contact-container">
-        {/* Header */}
-        <motion.header
-          className="contact-header"
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          variants={fadeUp}
-        >
-          <p className="section-label">06 — Contact</p>
-          <h2 className="section-title">
-            Let's <em>Connect</em>
-          </h2>
-        </motion.header>
+        {/* Section Header */}
+        <SectionHeader
+          theme="contact"
+          badgeText="Get In Touch"
+          title="Let's"
+          highlightWord="Connect"
+          subtitle="Have an idea or an opportunity? Let's connect and create something meaningful."
+          align="center"
+        />
 
         <div className="contact-grid">
           {/* ── Left: Info ── */}

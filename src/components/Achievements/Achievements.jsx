@@ -133,7 +133,7 @@ export default function Achievements() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="section-label">05 — Honors & Recognition</p>
+          <p className="section-label">Honors &amp; Recognition</p>
           <h2 className="section-title">
             Awards & <em>Distinctions</em>
           </h2>

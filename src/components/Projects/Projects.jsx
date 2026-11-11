@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useInView } from 'framer-motion';
 import { projects } from '../../data/portfolio';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Projects.css';
 
 const statusClassMap = {
@@ -209,17 +210,14 @@ export default function Projects() {
     >
       <div className="container">
         {/* Section Header */}
-        <motion.header
-          className="projects-header"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="section-label">01 — Interactive 3D Journey</div>
-          <h2 className="section-title">
-            Engineering <em>Showcase</em>
-          </h2>
-        </motion.header>
+        <SectionHeader
+          theme="projects"
+          badgeText="Engineering Showcase"
+          title="Featured"
+          highlightWord="Projects"
+          subtitle="Transforming ideas into practical solutions through creativity and engineering."
+          align="center"
+        />
 
         {/* ── 3D Roadway Journey Container ── */}
         <div className={`roadway-container ${isSectionHovered || isInView ? 'roadway-container--active' : ''}`}>

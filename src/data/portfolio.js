@@ -30,12 +30,11 @@ export const socialLinks = {
 export const navItems = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'education', label: 'Education' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'roles', label: 'Roles' },
   { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
-  { id: 'research', label: 'Research' },
+  { id: 'roles', label: 'Roles' },
+  { id: 'education', label: 'Education' },
   { id: 'recognition', label: 'Recognition' },
   { id: 'contact', label: 'Contact' },
 ];

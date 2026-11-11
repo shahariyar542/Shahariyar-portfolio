@@ -111,8 +111,6 @@ export default function Navigation() {
     }, 80);
   }, []);
 
-  const formatNum = (i) => String(i + 1).padStart(2, '0');
-
   return (
     <>
       {/* ── Premium Sticky Navigation Bar ── */}
@@ -204,7 +202,7 @@ export default function Navigation() {
               animate="visible"
               exit="exit"
             >
-              {navItems.map((item, i) => (
+              {navItems.map((item) => (
                 <motion.a
                   key={item.id}
                   href={`#${item.id}`}
@@ -215,7 +213,6 @@ export default function Navigation() {
                     scrollTo(item.id);
                   }}
                 >
-                  <span className="nav-overlay-link-number">{formatNum(i)}</span>
                   <span className="nav-overlay-link-label">{item.label}</span>
                   {activeSection === item.id && <span className="nav-overlay-active-tag">Active</span>}
                 </motion.a>

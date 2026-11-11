@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useInView } from 'framer-motion';
 import { skills } from '../../data/portfolio.js';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Skills.css';
 
 const categoryKeys = Object.keys(skills);
@@ -155,23 +156,14 @@ export default function Skills() {
     <section id="skills" className="skills section section-dark" ref={sectionRef}>
       <div className="container">
         {/* Section Header */}
-        <motion.div
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          02 — Technical Matrix
-        </motion.div>
-
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Skills &amp; <em>Competencies</em>
-        </motion.h2>
+        <SectionHeader
+          theme="skills"
+          badgeText="Technical Capabilities"
+          title="Skills &amp;"
+          highlightWord="Technologies"
+          subtitle="The tools, technologies, and capabilities I use to turn ideas into reality."
+          align="center"
+        />
 
         {/* ── 3D Orbit Viewport ── */}
         <div

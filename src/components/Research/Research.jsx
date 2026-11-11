@@ -137,7 +137,7 @@ export default function Research() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="section-label">04 — Research Directions</p>
+          <p className="section-label">Research &amp; Exploration</p>
           <h2 className="section-title">
             Research &amp; <em>Exploration</em>
           </h2>

@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { aboutData } from '../../data/portfolio.js';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './About.css';
 
 // Original 3 Identity Cards preserved exactly as designed
@@ -132,25 +133,15 @@ function About() {
   return (
     <section id="about" className="about section" ref={sectionRef}>
       <div className="container">
-        {/* Section Label */}
-        <motion.div
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          01 — About
-        </motion.div>
-
-        {/* Section Title */}
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          The <em>Story</em>
-        </motion.h2>
+        {/* Section Header */}
+        <SectionHeader
+          theme="about"
+          badgeText="Identity &amp; Vision"
+          title="About"
+          highlightWord="Me"
+          subtitle="A glimpse into the person, passion, and vision behind the code."
+          align="left"
+        />
 
         {/* Asymmetric Content Grid */}
         <div className="about-grid">

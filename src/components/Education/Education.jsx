@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { personalInfo } from '../../data/portfolio.js';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Education.css';
 
 /* ── Interactive 3D Education Card ── */
@@ -87,30 +88,19 @@ function EducationCard3D() {
 
 export default function Education() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
   return (
     <section id="education" className="education section" ref={sectionRef}>
       <div className="container">
-        {/* Section Label */}
-        <motion.div
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          03 — Academic Foundation
-        </motion.div>
-
-        {/* Section Title */}
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Formal <em>Education</em>
-        </motion.h2>
+        {/* Section Header */}
+        <SectionHeader
+          theme="education"
+          badgeText="Academic Foundation"
+          title="Formal"
+          highlightWord="Education"
+          subtitle="Building knowledge, strengthening fundamentals, and growing through continuous learning."
+          align="center"
+        />
 
         {/* 3D Education Card Container */}
         <div className="education-editorial-container">
