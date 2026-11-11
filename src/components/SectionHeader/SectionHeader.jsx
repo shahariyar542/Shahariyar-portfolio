@@ -77,6 +77,18 @@ function HeaderVisual({ theme }) {
         </div>
       );
 
+    case 'research':
+      /* Abstract Inquiry & Astrolabe Geometry */
+      return (
+        <div className="sh-visual sh-visual--research" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="16" stroke="rgba(167, 139, 250, 0.35)" strokeWidth="1" strokeDasharray="3 3" />
+            <polygon points="20,8 24,18 32,20 24,22 20,32 16,22 8,20 16,18" fill="rgba(167, 139, 250, 0.18)" stroke="#A78BFA" strokeWidth="1.2" />
+            <circle cx="20" cy="20" r="2.5" fill="#22D3EE" />
+          </svg>
+        </div>
+      );
+
     case 'education':
       /* Minimal Architectural Isometric Pillar */
       return (

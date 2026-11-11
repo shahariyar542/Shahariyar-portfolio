@@ -210,6 +210,17 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* RESEARCH: Astrolabe & Inquiry */
+.section-header-glass--research .sh-visual {
+  background: rgba(167, 139, 250, 0.08);
+  border-color: rgba(167, 139, 250, 0.28);
+}
+.section-header-glass--research .sh-highlight {
+  background: linear-gradient(135deg, #A78BFA 0%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* EDUCATION: Architectural cornerstone */
 .section-header-glass--education .sh-visual {
   background: rgba(148, 163, 184, 0.08);

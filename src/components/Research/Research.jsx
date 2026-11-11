@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { researchInterests } from '../../data/portfolio';
+import SectionHeader from '../SectionHeader/SectionHeader';
 import './Research.css';
 
 // 4 Distinct coordinated accent color systems
@@ -131,17 +132,14 @@ export default function Research() {
     <section id="research" className="section section-dark research-section" ref={sectionRef}>
       <div className="research-container">
         {/* Section Header */}
-        <motion.header
-          className="research-header"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="section-label">Research &amp; Exploration</p>
-          <h2 className="section-title">
-            Research &amp; <em>Exploration</em>
-          </h2>
-        </motion.header>
+        <SectionHeader
+          theme="research"
+          badgeText="Theoretical Inquiries"
+          title="Research &amp;"
+          highlightWord="Exploration"
+          subtitle="Investigating emerging paradigms in artificial intelligence and intelligent systems."
+          align="center"
+        />
 
         {/* ── 3D Auto-Rotating Carousel Stage ── */}
         <div
