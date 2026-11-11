@@ -86,7 +86,6 @@ footer,
    ============================================================ */
 /* Core Liquid Glass Card Definition */
 [data-theme="light"] .about-card-3d,
-[data-theme="light"] .skills-orbit-card,
 [data-theme="light"] .exp-card,
 [data-theme="light"] .project-roadway-card,
 [data-theme="light"] .research-active-3d-card,
@@ -110,7 +109,6 @@ footer,
 
 /* Advanced Top Specular Glass Curvature Sweep */
 [data-theme="light"] .about-card-3d::before,
-[data-theme="light"] .skills-orbit-card::before,
 [data-theme="light"] .exp-card::before,
 [data-theme="light"] .project-roadway-card::before,
 [data-theme="light"] .research-active-3d-card::before,
@@ -419,14 +417,66 @@ footer,
 /* ============================================================
    8. SKILLS & TECHNOLOGIES (3D CONTINUOUS ORBIT) IN DAY MODE
    ============================================================ */
-[data-theme="light"] .skills-orbit-container {
-  /* Orbit container perspective preserved */
+[data-theme="light"] .skills-orbit-viewport {
+  height: 560px !important;
+  overflow: visible !important;
+}
+
+/* Dedicated Absolute 3D Orbit Card Styling */
+[data-theme="light"] .skills-orbit-card {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 288px !important;
+  margin-left: -144px !important;
+  margin-top: -160px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.84) 0%, rgba(220, 242, 255, 0.65) 45%, rgba(200, 234, 255, 0.5) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 0 16px 42px -8px rgba(35, 115, 190, 0.18),
+              0 4px 16px rgba(14, 165, 233, 0.08),
+              inset 0 1.5px 1.5px 0 #FFFFFF,
+              inset 0 -1.5px 2px 0 rgba(96, 165, 250, 0.25) !important;
+  overflow: hidden !important;
+}
+
+[data-theme="light"] .skills-orbit-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.12) 45%, transparent 100%);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="light"] .skills-orbit-card:hover,
+[data-theme="light"] .skills-orbit-card--hovered {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(225, 245, 255, 0.8) 45%, rgba(205, 238, 255, 0.65) 100%) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 24px 50px -10px rgba(37, 99, 235, 0.25),
+              0 0 35px rgba(56, 189, 248, 0.35),
+              inset 0 2px 2px 0 #FFFFFF !important;
 }
 
 /* Crystalline Orbit Path Ellipse */
-[data-theme="light"] .skills-orbit-ellipse {
+[data-theme="light"] .skills-orbit-ellipse,
+[data-theme="light"] .skills-orbit-ring {
   border-color: rgba(56, 189, 248, 0.35) !important;
   box-shadow: 0 0 25px rgba(56, 189, 248, 0.15), inset 0 0 25px rgba(56, 189, 248, 0.15) !important;
+}
+
+[data-theme="light"] .skills-card-icon-box {
+  background: rgba(220, 242, 255, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 12px rgba(56, 130, 205, 0.12) !important;
+}
+
+[data-theme="light"] .skills-card-glyph {
+  color: #0284C7 !important;
 }
 
 [data-theme="light"] .skills-card-heading {
@@ -444,26 +494,70 @@ footer,
 
 /* Frosted Liquid Glass Skill Pills */
 [data-theme="light"] .skills-pill-item {
-  background: rgba(220, 242, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
   backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(203, 213, 225, 0.85) !important;
   box-shadow: 0 2px 8px rgba(56, 130, 205, 0.08) !important;
 }
 
 [data-theme="light"] .skills-pill-item:hover {
-  background: rgba(235, 248, 255, 0.75) !important;
-  border-color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2), 0 0 12px rgba(56, 189, 248, 0.25) !important;
+  background: #FFFFFF !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.18), 0 0 12px rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="light"] .skills-pill-item--highlight {
-  background: rgba(215, 240, 255, 0.7) !important;
-  border-color: rgba(2, 132, 199, 0.5) !important;
+  background: rgba(235, 248, 255, 0.85) !important;
+  border-color: rgba(2, 132, 199, 0.45) !important;
 }
 
 [data-theme="light"] .skills-pill-name {
   color: #081A36 !important;
   font-weight: 600;
+}
+
+[data-theme="light"] .skills-pill-level {
+  background: rgba(220, 242, 255, 0.85) !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  color: #0284C7 !important;
+  font-weight: 700 !important;
+}
+
+/* Responsive Overrides to guarantee cards are 100% visible on all viewports */
+@media (max-width: 768px) {
+  [data-theme="light"] .skills-orbit-viewport {
+    height: 520px !important;
+    overflow: visible !important;
+  }
+  [data-theme="light"] .skills-orbit-card {
+    width: 268px !important;
+    margin-left: -134px !important;
+    margin-top: -150px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-theme="light"] .skills-orbit-viewport {
+    height: 500px !important;
+    overflow: visible !important;
+  }
+  [data-theme="light"] .skills-orbit-card {
+    width: 236px !important;
+    margin-left: -118px !important;
+    margin-top: -145px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  [data-theme="light"] .skills-orbit-viewport {
+    height: 480px !important;
+    overflow: visible !important;
+  }
+  [data-theme="light"] .skills-orbit-card {
+    width: 222px !important;
+    margin-left: -111px !important;
+    margin-top: -140px !important;
+  }
 }
 
 [data-theme="light"] .skills-orbit-controls {
