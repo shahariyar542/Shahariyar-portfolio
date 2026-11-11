@@ -6,10 +6,12 @@ import Navigation from './components/Navigation/Navigation';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
 import Education from './components/Education/Education';
+import Experience from './components/Experience/Experience';
+import Roles from './components/Roles/Roles';
 import Skills from './components/Skills/Skills';
 import Projects from './components/Projects/Projects';
 import Research from './components/Research/Research';
-import Achievements from './components/Achievements/Achievements';
+import Recognition from './components/Recognition/Recognition';
 import Contact from './components/Contact/Contact';
 import IRIS from './components/IRIS/IRIS';
 import Footer from './components/Footer/Footer';
@@ -44,10 +46,12 @@ function App() {
             <Hero />
             <About />
             <Education />
+            <Experience />
+            <Roles />
             <Skills />
             <Projects />
             <Research />
-            <Achievements />
+            <Recognition />
             <Contact />
           </main>
 

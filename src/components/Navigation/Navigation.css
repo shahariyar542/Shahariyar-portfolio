@@ -292,7 +292,14 @@
   text-decoration: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1140px) {
+  .nav-desktop-link {
+    font-size: 0.78rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 980px) {
   .nav-desktop-menu {
     display: none;
   }
