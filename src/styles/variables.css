@@ -113,40 +113,40 @@
 }
 
 /* ============================================================
-   DAY MODE DESIGN TOKENS — Crystal Glassmorphism
-   Luminous crystal glass, transparent architecture, WCAG contrast
+   DAY MODE DESIGN TOKENS — Crystal Blue Liquid Glass
+   Ultra-premium transparent ice-blue crystal glass, VisionOS aesthetics, WCAG contrast
    ============================================================ */
 [data-theme="light"] {
-  /* ── Core Color System (Day Mode Crystal) ── */
-  --color-bg-main: #F4F7FB;          /* Soft Crystal Pearl White */
-  --color-bg-secondary: #EBF1F8;     /* Luminous Ice Pearl secondary */
-  --color-bg-card: rgba(255, 255, 255, 0.78); /* Crystal Frosted Card */
-  --color-bg-card-glass: rgba(255, 255, 255, 0.75);
-  --color-bg-elevated: rgba(255, 255, 255, 0.94);
+  /* ── Core Color System (Crystal Blue Liquid Glass) ── */
+  --color-bg-main: #EAF3FB;          /* Luminous Ice-Blue Pearl Canvas */
+  --color-bg-secondary: rgba(215, 238, 255, 0.35); /* Translucent Frosted Glass Layer */
+  --color-bg-card: rgba(185, 225, 255, 0.18);      /* Liquid Glass Translucent Card */
+  --color-bg-card-glass: rgba(185, 225, 255, 0.16);/* Core Liquid Glass */
+  --color-bg-elevated: rgba(215, 242, 255, 0.32);  /* Luminous Elevated Glass */
 
-  /* ── High-Contrast Typography Palette (WCAG AA/AAA) ── */
-  --color-text-heading: #0F172A;     /* Deep rich slate-charcoal */
-  --color-text-body: #334155;        /* Crisp slate-gray readable text */
-  --color-text-secondary: #475569;   /* Elegant secondary captions */
-  --color-text-muted: #64748B;       /* Refined meta text */
+  /* ── High-Contrast Deep Navy / Midnight Blue Typography (WCAG AA/AAA) ── */
+  --color-text-heading: #081A36;     /* Deep Midnight Navy Ink */
+  --color-text-body: #1E3A5F;        /* Crisp Midnight Slate Text */
+  --color-text-secondary: #2B4C7E;   /* Rich Cerulean Secondary */
+  --color-text-muted: #4B6B94;       /* Balanced Slate Muted */
 
-  /* ── Crystal Accents ── */
-  --color-accent-electric: #2563EB;  /* Deep Electric Blue */
+  /* ── Crystal & Liquid Accents ── */
+  --color-accent-electric: #0284C7;  /* Vivid Icy Cyan */
   --color-accent-primary: #1D4ED8;   /* Royal Cobalt Blue */
   --color-accent-cyan: #0284C7;      /* Vivid Icy Sky Cyan */
 
-  /* ── Borders & Glass Lighting ── */
-  --border-subtle: rgba(203, 213, 225, 0.75);
-  --border-hover: rgba(59, 130, 246, 0.45);
-  --border-active: rgba(2, 132, 199, 0.55);
-  --border-gradient-3d: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.55) 100%);
+  /* ── Glass Borders & Specular Lighting ── */
+  --border-subtle: rgba(255, 255, 255, 0.72);
+  --border-hover: rgba(56, 189, 248, 0.65);
+  --border-active: rgba(2, 132, 199, 0.75);
+  --border-gradient-3d: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.6) 50%, rgba(147, 197, 253, 0.35) 100%);
 
-  /* ── Crystal Soft Shadows ── */
-  --shadow-sm: 0 4px 16px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 10px 24px rgba(15, 23, 42, 0.07);
-  --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.09);
-  --shadow-3d-card: 0 16px 36px -8px rgba(15, 23, 42, 0.08), 0 0 20px rgba(37, 99, 235, 0.06);
-  --shadow-3d-hover: 0 24px 48px -8px rgba(15, 23, 42, 0.12), 0 0 28px rgba(2, 132, 199, 0.12);
+  /* ── Liquid Glass Shadows & Inner Bevels ── */
+  --shadow-sm: 0 4px 16px rgba(35, 115, 190, 0.08);
+  --shadow-md: 0 10px 28px rgba(35, 115, 190, 0.12);
+  --shadow-lg: 0 20px 44px rgba(35, 115, 190, 0.16);
+  --shadow-3d-card: 0 14px 40px -8px rgba(35, 115, 190, 0.14), 0 4px 16px rgba(14, 165, 233, 0.08);
+  --shadow-3d-hover: 0 24px 50px -10px rgba(37, 99, 235, 0.22), 0 0 32px rgba(56, 189, 248, 0.28);
 
   /* ── Backward-compatible Aliases ── */
   --color-bg-primary: var(--color-bg-main);

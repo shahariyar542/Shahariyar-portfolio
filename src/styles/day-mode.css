@@ -1,6 +1,8 @@
 /* ============================================================
-   SHAHARIYAR.EXE — Day Mode (Crystal Glassmorphism) Stylesheet
-   Luminous crystal glass, transparent architecture, WCAG contrast
+   SHAHARIYAR.EXE — Day Mode (Crystal Blue Liquid Glass)
+   Ultra-premium transparent Ice-Blue Crystal Glass UI
+   VisionOS-inspired glass interfaces, realistic reflections,
+   dimensional 3D interactions, and high-contrast typography
    ============================================================ */
 
 /* ── Smooth Theme Transitions ── */
@@ -26,735 +28,1091 @@ footer,
 .nav-topbar,
 .nav-desktop-menu,
 .iris-chat {
-  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ============================================================
-   1. GLOBAL & AMBIENT ENVIRONMENT IN DAY MODE
+   1. ATMOSPHERIC CRYSTAL-BLUE ENVIRONMENT (DAY MODE)
    ============================================================ */
 [data-theme="light"] body {
-  background-color: var(--color-bg-main);
+  background-color: #EAF3FB;
+  background-image: 
+    radial-gradient(circle 900px at 85% -5%, rgba(186, 230, 253, 0.85) 0%, transparent 68%),
+    radial-gradient(circle 750px at 8% 22%, rgba(199, 232, 255, 0.75) 0%, transparent 62%),
+    radial-gradient(circle 950px at 92% 52%, rgba(165, 215, 255, 0.65) 0%, transparent 68%),
+    radial-gradient(circle 800px at 12% 82%, rgba(186, 225, 255, 0.7) 0%, transparent 62%),
+    radial-gradient(circle 700px at 65% 42%, rgba(224, 242, 254, 0.75) 0%, transparent 58%),
+    linear-gradient(180deg, #F0F6FD 0%, #E3F0FC 25%, #E9F4FE 50%, #DCEEFA 75%, #EBF4FC 100%);
+  background-attachment: fixed;
   color: var(--color-text-body);
 }
 
+/* Luminous Crystalline Grid Lattice */
 [data-theme="light"] .cyber-bg-grid {
   background-image: 
-    linear-gradient(to right, rgba(148, 163, 184, 0.14) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+    linear-gradient(to right, rgba(56, 189, 248, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.12) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, #000 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, #000 65%, transparent 100%);
 }
 
+/* Vibrant Ambient Ice-Blue Light Wells */
 [data-theme="light"] .cyber-glow-1 {
-  background: radial-gradient(circle, rgba(186, 230, 253, 0.6) 0%, transparent 70%);
-  opacity: 0.35;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.48) 0%, rgba(14, 165, 233, 0.22) 42%, transparent 72%);
+  opacity: 0.7;
+  filter: blur(85px);
 }
 
 [data-theme="light"] .cyber-glow-2 {
-  background: radial-gradient(circle, rgba(199, 210, 254, 0.5) 0%, transparent 70%);
-  opacity: 0.3;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.42) 0%, rgba(37, 99, 235, 0.2) 48%, transparent 72%);
+  opacity: 0.65;
+  filter: blur(90px);
 }
 
+/* Translucent Frosted Glass Depth Layer */
 [data-theme="light"] .section-dark {
-  background-color: var(--color-bg-secondary);
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, rgba(210, 235, 255, 0.38) 0%, rgba(225, 244, 255, 0.22) 50%, rgba(210, 235, 255, 0.38) 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.82) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.82) !important;
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 0 -1.5px 0 rgba(147, 197, 253, 0.35) !important;
 }
 
 /* ============================================================
-   2. NAVIGATION IN DAY MODE
+   2. UNIVERSAL ICE-BLUE LIQUID GLASS SYSTEM
    ============================================================ */
+/* Core Liquid Glass Card Definition */
+[data-theme="light"] .about-card-3d,
+[data-theme="light"] .skills-orbit-card,
+[data-theme="light"] .exp-card,
+[data-theme="light"] .project-roadway-card,
+[data-theme="light"] .research-active-3d-card,
+[data-theme="light"] .role-card,
+[data-theme="light"] .education-3d-card,
+[data-theme="light"] .award-3d-card,
+[data-theme="light"] .cert-card,
+[data-theme="light"] .hero-stat-card,
+[data-theme="light"] .contact-info-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(190, 228, 255, 0.22) 42%, rgba(160, 215, 255, 0.14) 100%) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 14px 38px -8px rgba(35, 115, 190, 0.14),
+              0 4px 16px rgba(14, 165, 233, 0.08),
+              inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+              inset 0 -1.5px 2px 0 rgba(96, 165, 250, 0.25) !important;
+  overflow: hidden;
+}
+
+/* Advanced Top Specular Glass Curvature Sweep */
+[data-theme="light"] .about-card-3d::before,
+[data-theme="light"] .skills-orbit-card::before,
+[data-theme="light"] .exp-card::before,
+[data-theme="light"] .project-roadway-card::before,
+[data-theme="light"] .research-active-3d-card::before,
+[data-theme="light"] .role-card::before,
+[data-theme="light"] .education-3d-card::before,
+[data-theme="light"] .award-3d-card::before,
+[data-theme="light"] .cert-card::before,
+[data-theme="light"] .hero-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 45%, transparent 100%);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hover Elevation & Luminous Liquid Glass Highlight */
+[data-theme="light"] .about-card-3d:hover,
+[data-theme="light"] .exp-card:hover,
+[data-theme="light"] .role-card:hover,
+[data-theme="light"] .cert-card:hover,
+[data-theme="light"] .project-roadway-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(200, 235, 255, 0.32) 42%, rgba(175, 225, 255, 0.2) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 22px 50px -10px rgba(37, 99, 235, 0.22),
+              0 0 32px rgba(56, 189, 248, 0.28),
+              inset 0 2px 2px 0 #FFFFFF,
+              inset 0 -2px 3px 0 rgba(56, 189, 248, 0.35) !important;
+}
+
+/* Interactive Cursor-Following Sheen Enhancement */
+[data-theme="light"] .about-card-sheen,
+[data-theme="light"] .role-card-sheen,
+[data-theme="light"] .education-3d-sheen,
+[data-theme="light"] .award-3d-sheen {
+  mix-blend-mode: overlay;
+  opacity: 0.85 !important;
+}
+
+/* ============================================================
+   3. LIQUID GLASS NAVIGATION & THEME TOGGLE
+   ============================================================ */
+[data-theme="light"] .nav-topbar {
+  background: transparent;
+}
+
 [data-theme="light"] .nav-topbar--scrolled {
-  background: rgba(244, 247, 251, 0.9);
-  border-bottom: 1px solid rgba(203, 213, 225, 0.7);
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+  background: rgba(215, 238, 255, 0.38) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 8px 32px rgba(56, 130, 205, 0.12),
+              inset 0 -1px 0 rgba(255, 255, 255, 0.6) !important;
 }
 
 [data-theme="light"] .nav-desktop-menu {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+  background: rgba(225, 242, 255, 0.42) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 30px rgba(56, 130, 205, 0.12),
+              inset 0 1.5px 1px 0 #FFFFFF,
+              inset 0 -1px 2px 0 rgba(96, 165, 250, 0.2) !important;
 }
 
 [data-theme="light"] .nav-desktop-link {
-  color: #334155;
+  color: #1E3A5F !important;
+  font-weight: 500;
 }
 
-[data-theme="light"] .nav-desktop-link:hover,
+[data-theme="light"] .nav-desktop-link:hover {
+  color: #081A36 !important;
+}
+
 [data-theme="light"] .nav-desktop-link--active {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .nav-active-indicator {
-  background: rgba(37, 99, 235, 0.09);
-  border: 1px solid rgba(37, 99, 235, 0.25);
+  background: rgba(37, 99, 235, 0.12) !important;
+  border: 1px solid rgba(37, 99, 235, 0.3) !important;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 [data-theme="light"] .nav-hamburger-line {
-  background: #0F172A;
+  background: #081A36 !important;
 }
 
 [data-theme="light"] .nav-overlay {
-  background: rgba(244, 247, 251, 0.98);
+  background: rgba(225, 242, 255, 0.88) !important;
+  backdrop-filter: blur(30px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(190%) !important;
 }
 
 [data-theme="light"] .nav-overlay-link {
-  color: #334155;
+  color: #1E3A5F !important;
 }
 
 [data-theme="light"] .nav-overlay-link--active {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .nav-dot-btn {
-  background: rgba(15, 23, 42, 0.2);
+  background: rgba(30, 58, 95, 0.25) !important;
 }
 
 [data-theme="light"] .nav-dot-btn--active {
-  background: var(--color-accent-electric);
-  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+  background: #0284C7 !important;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.6) !important;
 }
 
 [data-theme="light"] .nav-dot-tooltip {
-  background: rgba(255, 255, 255, 0.95);
-  color: #0F172A;
-  border-color: rgba(203, 213, 225, 0.85);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  background: rgba(225, 242, 255, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  color: #081A36 !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 6px 20px rgba(35, 115, 190, 0.15) !important;
+}
+
+/* Liquid Glass Theme Toggle Button */
+[data-theme="light"] .theme-toggle-btn {
+  background: rgba(220, 242, 255, 0.45) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 24px rgba(56, 130, 205, 0.18),
+              inset 0 1.5px 1px 0 #FFFFFF,
+              inset 0 -1px 2px 0 rgba(96, 165, 250, 0.25) !important;
+}
+
+[data-theme="light"] .theme-toggle-btn:hover {
+  background: rgba(235, 248, 255, 0.65) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25),
+              0 0 20px rgba(56, 189, 248, 0.35),
+              inset 0 1.5px 1.5px 0 #FFFFFF !important;
 }
 
 /* ============================================================
-   3. HERO / HOME IN DAY MODE
+   4. LIQUID GLASS BUTTONS
+   ============================================================ */
+[data-theme="light"] .btn-accent,
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-secondary,
+[data-theme="light"] .project-action-btn,
+[data-theme="light"] .contact-submit-btn,
+[data-theme="light"] .cert-btn-primary,
+[data-theme="light"] .cert-btn-secondary {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(186, 230, 253, 0.28) 100%) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 24px -4px rgba(37, 99, 235, 0.16),
+              inset 0 1.5px 1px #FFFFFF,
+              inset 0 -1px 2px rgba(96, 165, 250, 0.25) !important;
+  color: #0A2540 !important;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .btn-accent:hover,
+[data-theme="light"] .btn-primary:hover,
+[data-theme="light"] .project-action-btn:hover,
+[data-theme="light"] .contact-submit-btn:hover,
+[data-theme="light"] .cert-btn-primary:hover,
+[data-theme="light"] .cert-btn-secondary:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(186, 230, 253, 0.45) 100%) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 12px 32px -4px rgba(37, 99, 235, 0.28),
+              0 0 24px rgba(56, 189, 248, 0.35),
+              inset 0 1.5px 1.5px #FFFFFF !important;
+  color: #0284C7 !important;
+}
+
+/* ============================================================
+   5. HERO SECTION (DAY MODE)
    ============================================================ */
 [data-theme="light"] .hero-identity-capsule {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(2, 132, 199, 0.35);
-  box-shadow: 0 2px 12px rgba(2, 132, 199, 0.12);
+  background: rgba(220, 242, 255, 0.45) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 6px 20px rgba(56, 130, 205, 0.14),
+              inset 0 1px 1px #FFFFFF !important;
 }
 
 [data-theme="light"] .hero-identity-text {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .hero-badge {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  background: rgba(225, 244, 255, 0.4) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 16px rgba(56, 130, 205, 0.1) !important;
 }
 
 [data-theme="light"] .hero-badge-text {
-  color: #1D4ED8;
+  color: #1D4ED8 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .hero-name {
-  color: #0F172A;
+  color: #081A36 !important;
+  text-shadow: 0 2px 20px rgba(186, 230, 253, 0.8);
 }
 
 [data-theme="light"] .hero-title {
-  color: #334155;
+  color: #1E3A5F !important;
 }
 
 [data-theme="light"] .hero-description {
-  color: #475569;
-}
-
-[data-theme="light"] .btn-accent {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(203, 213, 225, 0.9);
-  color: #0F172A;
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
-}
-
-[data-theme="light"] .btn-accent:hover {
-  background: #FFFFFF;
-  border-color: var(--color-accent-electric);
-  color: var(--color-accent-electric);
+  color: #2B4C7E !important;
 }
 
 [data-theme="light"] .hero-stat-card {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  /* Liquid glass style applied from universal rules */
 }
 
 [data-theme="light"] .hero-stat-value {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 700;
 }
 
 [data-theme="light"] .hero-stat-label {
-  color: #64748B;
+  color: #4B6B94 !important;
+  font-weight: 500;
 }
 
 /* ============================================================
-   4. SECTION HEADERS IN DAY MODE
+   6. SECTION HEADERS IN DAY MODE
    ============================================================ */
 [data-theme="light"] .sh-glass-capsule {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  background: rgba(220, 242, 255, 0.42) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 6px 22px rgba(56, 130, 205, 0.12),
+              inset 0 1.5px 1px #FFFFFF,
+              inset 0 -1px 2px rgba(96, 165, 250, 0.2) !important;
 }
 
 [data-theme="light"] .sh-glass-capsule:hover {
-  background: #FFFFFF;
-  border-color: rgba(37, 99, 235, 0.4);
-  box-shadow: 0 6px 22px rgba(15, 23, 42, 0.08), 0 0 16px rgba(37, 99, 235, 0.12);
+  background: rgba(235, 248, 255, 0.6) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.18), 0 0 20px rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="light"] .sh-visual {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(203, 213, 225, 0.8);
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.9) !important;
 }
 
 [data-theme="light"] .sh-badge-text {
-  color: #475569;
+  color: #1E3A5F !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .sh-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .sh-description {
-  color: #334155;
+  color: #2B4C7E !important;
 }
 
 [data-theme="light"] .sh-ambient-refractor {
-  background: radial-gradient(circle, rgba(186, 230, 253, 0.45) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(186, 230, 253, 0.6) 0%, transparent 70%) !important;
 }
 
 /* ============================================================
-   5. ABOUT ME IN DAY MODE
+   7. ABOUT ME IN DAY MODE
    ============================================================ */
 [data-theme="light"] .about-pullquote-text {
-  color: #0F172A;
-  border-left-color: #2563EB;
+  color: #081A36 !important;
+  border-left-color: #0284C7 !important;
 }
 
 [data-theme="light"] .about-paragraph {
-  color: #334155;
-}
-
-[data-theme="light"] .about-card-3d {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  color: #1E3A5F !important;
 }
 
 [data-theme="light"] .about-card-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .about-card-text {
-  color: #334155;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .about-card-number {
-  color: rgba(148, 163, 184, 0.5);
+  color: rgba(30, 58, 95, 0.3) !important;
+}
+
+[data-theme="light"] .about-card-icon {
+  background: rgba(225, 244, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 12px rgba(56, 130, 205, 0.15) !important;
 }
 
 /* ============================================================
-   6. SKILLS & TECHNOLOGIES (3D ORBIT) IN DAY MODE
+   8. SKILLS & TECHNOLOGIES (3D CONTINUOUS ORBIT) IN DAY MODE
    ============================================================ */
-[data-theme="light"] .skills-orbit-card {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+[data-theme="light"] .skills-orbit-container {
+  /* Orbit container perspective preserved */
+}
+
+/* Crystalline Orbit Path Ellipse */
+[data-theme="light"] .skills-orbit-ellipse {
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.15), inset 0 0 25px rgba(56, 189, 248, 0.15) !important;
 }
 
 [data-theme="light"] .skills-card-heading {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .skills-card-summary {
-  color: #475569;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .skills-card-index {
-  color: #1D4ED8;
+  color: #0284C7 !important;
+  font-weight: 700;
 }
 
+/* Frosted Liquid Glass Skill Pills */
 [data-theme="light"] .skills-pill-item {
-  background: rgba(241, 245, 249, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.7);
+  background: rgba(220, 242, 255, 0.5) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 2px 8px rgba(56, 130, 205, 0.08) !important;
 }
 
 [data-theme="light"] .skills-pill-item:hover {
-  background: #FFFFFF;
-  border-color: rgba(37, 99, 235, 0.4);
+  background: rgba(235, 248, 255, 0.75) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2), 0 0 12px rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="light"] .skills-pill-item--highlight {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(37, 99, 235, 0.35);
+  background: rgba(215, 240, 255, 0.7) !important;
+  border-color: rgba(2, 132, 199, 0.5) !important;
 }
 
 [data-theme="light"] .skills-pill-name {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .skills-orbit-controls {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.8);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  background: rgba(220, 242, 255, 0.45) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 26px rgba(56, 130, 205, 0.14) !important;
 }
 
 [data-theme="light"] .orbit-nav-btn {
-  background: rgba(241, 245, 249, 0.8);
-  border-color: rgba(203, 213, 225, 0.8);
-  color: #334155;
+  background: rgba(225, 244, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1E3A5F !important;
 }
 
 [data-theme="light"] .orbit-nav-btn:hover {
-  background: #FFFFFF;
-  color: #0F172A;
-  border-color: #2563EB;
+  background: #FFFFFF !important;
+  color: #081A36 !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.4) !important;
+}
+
+[data-theme="light"] .orbit-toggle-btn {
+  background: rgba(225, 244, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1E3A5F !important;
+}
+
+[data-theme="light"] .orbit-toggle-btn:hover {
+  background: #FFFFFF !important;
+  color: #081A36 !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.4) !important;
+}
+
+[data-theme="light"] .orbit-dot .orbit-dot-fill {
+  background: rgba(30, 58, 95, 0.25) !important;
+}
+
+[data-theme="light"] .orbit-dot--active .orbit-dot-fill {
+  background: #0284C7 !important;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.6) !important;
 }
 
 [data-theme="light"] .orbit-drag-cue {
-  color: #64748B;
+  color: #4B6B94 !important;
 }
 
 [data-theme="light"] .skills-orbit-nucleus .nucleus-orb {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(37, 99, 235, 0.35);
-  box-shadow: 0 0 24px rgba(37, 99, 235, 0.2);
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9) 0%, rgba(186, 230, 253, 0.6) 60%, rgba(56, 189, 248, 0.4) 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.35), inset 0 2px 2px #fff !important;
 }
 
 [data-theme="light"] .nucleus-text {
-  color: #1D4ED8;
+  color: #081A36 !important;
+  font-weight: 700;
 }
 
 /* ============================================================
-   7. EXPERIENCE IN DAY MODE
+   9. EXPERIENCE IN DAY MODE
    ============================================================ */
-[data-theme="light"] .exp-card {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+/* Radiant Timeline Energy Spine */
+[data-theme="light"] .exp-timeline-spine {
+  background: linear-gradient(180deg, #38BDF8 0%, #2563EB 50%, #0284C7 100%) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
 }
 
-[data-theme="light"] .exp-card:hover {
-  background: #FFFFFF;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12), 0 0 20px rgba(37, 99, 235, 0.08);
+[data-theme="light"] .exp-node-core {
+  background: #FFFFFF !important;
+  border: 2px solid #0284C7 !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6) !important;
+}
+
+[data-theme="light"] .exp-node-halo {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.45) 0%, transparent 70%) !important;
 }
 
 [data-theme="light"] .exp-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .exp-role {
-  color: #1D4ED8;
+  color: #1D4ED8 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .exp-desc {
-  color: #334155;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .exp-highlight-item {
-  color: #475569;
+  color: #2B4C7E !important;
+}
+
+[data-theme="light"] .exp-highlight-bullet {
+  color: #0284C7 !important;
 }
 
 [data-theme="light"] .exp-org-tag {
-  color: #64748B;
+  color: #4B6B94 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .exp-period {
-  color: #64748B;
+  color: #4B6B94 !important;
+}
+
+[data-theme="light"] .exp-badge {
+  background: rgba(220, 242, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .exp-tech-tag {
-  background: rgba(241, 245, 249, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.7);
-  color: #334155;
+  background: rgba(220, 242, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #1E3A5F !important;
 }
 
 [data-theme="light"] .exp-card:hover .exp-tech-tag {
-  background: #FFFFFF;
-  color: #0F172A;
+  background: rgba(235, 248, 255, 0.8) !important;
+  color: #081A36 !important;
 }
 
 /* ============================================================
-   8. PROJECTS IN DAY MODE
+   10. ENGINEERING SHOWCASE (PROJECTS ROADWAY) IN DAY MODE
    ============================================================ */
+/* Crystalline Highway / Roadway Corridor */
+[data-theme="light"] .projects-road-svg path {
+  stroke: rgba(56, 189, 248, 0.5) !important;
+}
+
+[data-theme="light"] .projects-road-line {
+  stroke: rgba(37, 99, 235, 0.55) !important;
+}
+
+[data-theme="light"] .road-dash-line {
+  stroke: rgba(2, 132, 199, 0.65) !important;
+}
+
+[data-theme="light"] .car-headlight-beam {
+  fill: url(#carLightGradLight) !important;
+  opacity: 0.85;
+}
+
+[data-theme="light"] .roadway-project-card,
 [data-theme="light"] .project-roadway-card {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(190, 228, 255, 0.22) 42%, rgba(160, 215, 255, 0.14) 100%) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 14px 38px -8px rgba(35, 115, 190, 0.14),
+              0 4px 16px rgba(14, 165, 233, 0.08),
+              inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+              inset 0 -1.5px 2px 0 rgba(96, 165, 250, 0.25) !important;
 }
 
+[data-theme="light"] .project-road-title,
 [data-theme="light"] .project-card-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
+[data-theme="light"] .project-road-description,
 [data-theme="light"] .project-card-desc {
-  color: #334155;
+  color: #24456F !important;
 }
 
+[data-theme="light"] .project-road-tag,
 [data-theme="light"] .project-tag {
-  background: rgba(241, 245, 249, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.7);
-  color: #334155;
+  background: rgba(220, 242, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #1E3A5F !important;
+}
+
+[data-theme="light"] .project-road-index {
+  color: #0284C7 !important;
+  font-weight: 700;
+}
+
+[data-theme="light"] .project-road-category {
+  color: #4B6B94 !important;
+}
+
+[data-theme="light"] .road-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(186, 230, 253, 0.28) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12), inset 0 1px 1px #FFFFFF !important;
+  color: #0A2540 !important;
+}
+
+[data-theme="light"] .road-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(186, 230, 253, 0.45) 100%) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.22), 0 0 16px rgba(56, 189, 248, 0.3) !important;
+  color: #0284C7 !important;
 }
 
 [data-theme="light"] .project-metric-pill {
-  background: rgba(241, 245, 249, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.75);
+  background: rgba(220, 242, 255, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
 }
 
 [data-theme="light"] .metric-label {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 700;
 }
 
 [data-theme="light"] .coming-soon-portal {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(2, 132, 199, 0.35);
-  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.12);
+  background: rgba(220, 242, 255, 0.45) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 10px 30px rgba(56, 130, 205, 0.16) !important;
 }
 
 [data-theme="light"] .coming-soon-title {
-  color: #0F172A;
+  color: #081A36 !important;
   text-shadow: none;
 }
 
 /* ============================================================
-   9. RESEARCH & EXPLORATION (3D CAROUSEL) IN DAY MODE
+   11. RESEARCH & EXPLORATION (ORIGINAL 3D CARDS) IN DAY MODE
    ============================================================ */
+/* 100% Preserved 3D interactive flipping & carousel mechanics */
 [data-theme="light"] .research-active-3d-card {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  /* Liquid glass style applied from universal rules */
+}
+
+[data-theme="light"] .research-dynamic-aura {
+  opacity: 0.7 !important;
+  filter: blur(65px) !important;
 }
 
 [data-theme="light"] .research-card-heading {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .research-card-body {
-  color: #334155;
+  color: #24456F !important;
+}
+
+[data-theme="light"] .research-domain-index {
+  color: #0284C7 !important;
+  font-weight: 700;
+}
+
+[data-theme="light"] .research-topic-tag {
+  background: rgba(220, 242, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #081A36 !important;
+}
+
+[data-theme="light"] .research-card-iconbox {
+  background: rgba(225, 244, 255, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
 }
 
 [data-theme="light"] .research-status-cue {
-  color: #475569;
+  color: #4B6B94 !important;
 }
 
 [data-theme="light"] .research-controls-wrap {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  background: rgba(220, 242, 255, 0.45) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 24px rgba(56, 130, 205, 0.14) !important;
 }
 
 [data-theme="light"] .research-nav-arrow {
-  background: rgba(241, 245, 249, 0.85);
-  border-color: rgba(203, 213, 225, 0.8);
-  color: #334155;
+  background: rgba(225, 244, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1E3A5F !important;
 }
 
 [data-theme="light"] .research-nav-arrow:hover {
-  background: #FFFFFF;
-  color: #0F172A;
-  border-color: #2563EB;
+  background: #FFFFFF !important;
+  color: #081A36 !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.4) !important;
 }
 
 [data-theme="light"] .indicator-dot-inner {
-  background: rgba(148, 163, 184, 0.4);
+  background: rgba(30, 58, 95, 0.3) !important;
 }
 
 [data-theme="light"] .indicator-dot-inner--active {
-  background: var(--color-accent-electric);
-  box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+  background: #0284C7 !important;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.6) !important;
+}
+
+[data-theme="light"] .research-tag-pill {
+  background: rgba(220, 242, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #1E3A5F !important;
+}
+
+[data-theme="light"] .research-metric-box {
+  background: rgba(220, 242, 255, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="light"] .research-metric-num {
+  color: #081A36 !important;
+  font-weight: 700;
+}
+
+[data-theme="light"] .research-metric-lbl {
+  color: #4B6B94 !important;
 }
 
 /* ============================================================
-   10. ROLES & RESPONSIBILITIES IN DAY MODE
+   12. ROLES & RESPONSIBILITIES IN DAY MODE
    ============================================================ */
-[data-theme="light"] .role-card {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-}
-
-[data-theme="light"] .role-card:hover {
-  background: #FFFFFF;
-  border-color: rgba(203, 213, 225, 0.95);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-}
-
 [data-theme="light"] .role-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .role-resp-item {
-  color: #334155;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .role-resp-heading {
-  color: #64748B;
+  color: #4B6B94 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .role-category-badge {
-  background: rgba(241, 245, 249, 0.85);
-  border-color: rgba(203, 213, 225, 0.8);
-  color: #475569;
+  background: rgba(220, 242, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1D4ED8 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .role-icon-box {
-  background: rgba(241, 245, 249, 0.85);
-  border-color: rgba(203, 213, 225, 0.8);
+  background: rgba(225, 244, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 14px rgba(56, 130, 205, 0.15) !important;
 }
 
 /* ============================================================
-   11. EDUCATION IN DAY MODE
+   13. EDUCATION IN DAY MODE
    ============================================================ */
-[data-theme="light"] .education-3d-card {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-}
-
 [data-theme="light"] .education-degree {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .education-institution {
-  color: #1D4ED8;
+  color: #1D4ED8 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .education-summary {
-  color: #334155;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .education-detail-label {
-  color: #64748B;
+  color: #4B6B94 !important;
 }
 
 [data-theme="light"] .education-detail-value {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .education-quote {
-  background: rgba(241, 245, 249, 0.7);
-  border-left-color: #2563EB;
-  color: #334155;
+  background: rgba(220, 242, 255, 0.45) !important;
+  border-left-color: #0284C7 !important;
+  color: #24456F !important;
+}
+
+[data-theme="light"] .education-icon-box {
+  background: rgba(225, 244, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 14px rgba(56, 130, 205, 0.15) !important;
 }
 
 /* ============================================================
-   12. CERTIFICATES & RECOGNITION + MODAL IN DAY MODE
+   14. CERTIFICATES & RECOGNITION + MODAL IN DAY MODE
    ============================================================ */
+[data-theme="light"] .recognition-subheading {
+  color: #081A36 !important;
+}
+
+[data-theme="light"] .recognition-subheading-tag {
+  color: #0284C7 !important;
+}
+
 [data-theme="light"] .award-3d-card {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(251, 191, 36, 0.45);
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08), 0 0 24px rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.55) !important;
+  box-shadow: 0 16px 42px -8px rgba(35, 115, 190, 0.16),
+              0 0 28px rgba(251, 191, 36, 0.18),
+              inset 0 1.5px 1.5px #FFFFFF,
+              inset 0 -1.5px 2px rgba(96, 165, 250, 0.25) !important;
 }
 
 [data-theme="light"] .award-main-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .award-desc {
-  color: #334155;
+  color: #24456F !important;
 }
 
-[data-theme="light"] .cert-card {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+[data-theme="light"] .award-detail-item {
+  background: rgba(220, 242, 255, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
 }
 
-[data-theme="light"] .cert-card:hover {
-  background: #FFFFFF;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+[data-theme="light"] .award-detail-val {
+  color: #081A36 !important;
+  font-weight: 700;
+}
+
+[data-theme="light"] .award-detail-lbl {
+  color: #4B6B94 !important;
 }
 
 [data-theme="light"] .cert-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .cert-desc {
-  color: #334155;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .cert-issuer {
-  color: #475569;
+  color: #4B6B94 !important;
 }
 
 [data-theme="light"] .cert-issuer strong {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .cert-tag {
-  background: rgba(241, 245, 249, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.7);
-  color: #334155;
+  background: rgba(220, 242, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #1E3A5F !important;
 }
 
 [data-theme="light"] .cert-preview-wrap {
-  background: #F1F5F9;
+  background: rgba(215, 238, 255, 0.35) !important;
+}
+
+/* Lightbox Modal (Crystal Frosted Backdrop & Liquid Glass Card) */
+[data-theme="light"] .cert-modal-overlay {
+  background: rgba(185, 225, 255, 0.45) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
 }
 
 [data-theme="light"] .cert-modal-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(203, 213, 225, 0.9);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(215, 240, 255, 0.65) 100%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 28px 65px -10px rgba(35, 115, 190, 0.28),
+              0 0 35px rgba(56, 189, 248, 0.3),
+              inset 0 1.5px 1.5px #FFFFFF !important;
 }
 
 [data-theme="light"] .cert-modal-header {
-  background: rgba(248, 250, 252, 0.92);
-  border-bottom-color: rgba(203, 213, 225, 0.8);
+  background: rgba(225, 244, 255, 0.55) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85) !important;
 }
 
 [data-theme="light"] .cert-modal-issuer {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .cert-modal-media {
-  background: #F8FAFC;
-  border-right-color: rgba(203, 213, 225, 0.8);
+  background: rgba(215, 238, 255, 0.35) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.85) !important;
 }
 
 [data-theme="light"] .cert-modal-title {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .cert-modal-desc {
-  color: #334155;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .cert-meta-grid {
-  background: rgba(241, 245, 249, 0.8);
-  border-color: rgba(203, 213, 225, 0.8);
+  background: rgba(220, 242, 255, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
 }
 
 [data-theme="light"] .cert-meta-val {
-  color: #0F172A;
-}
-
-[data-theme="light"] .cert-btn-secondary {
-  background: rgba(241, 245, 249, 0.9);
-  border-color: rgba(203, 213, 225, 0.8);
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 600;
 }
 
 /* ============================================================
-   13. CONTACT IN DAY MODE
+   15. CONTACT IN DAY MODE
    ============================================================ */
 [data-theme="light"] .contact-input,
 [data-theme="light"] .contact-textarea {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  color: #0F172A;
-  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.04);
+  background: rgba(225, 244, 255, 0.45) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #081A36 !important;
+  box-shadow: inset 0 1.5px 3px rgba(35, 115, 190, 0.08),
+              inset 0 -1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 [data-theme="light"] .contact-input:focus,
 [data-theme="light"] .contact-textarea:focus {
-  background: #FFFFFF;
-  border-color: #2563EB;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: rgba(235, 248, 255, 0.7) !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.22),
+              0 0 20px rgba(56, 189, 248, 0.35),
+              inset 0 1px 1px #FFFFFF !important;
 }
 
 [data-theme="light"] .contact-input::placeholder,
 [data-theme="light"] .contact-textarea::placeholder {
-  color: #94A3B8;
+  color: #4B6B94 !important;
 }
 
 [data-theme="light"] .contact-label {
-  color: #334155;
-}
-
-[data-theme="light"] .contact-info-card {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
+  color: #1E3A5F !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .contact-statement {
-  color: #334155;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .contact-social-btn {
-  background: rgba(241, 245, 249, 0.85);
-  border-color: rgba(203, 213, 225, 0.8);
-  color: #334155;
+  background: rgba(220, 242, 255, 0.5) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1E3A5F !important;
+  box-shadow: 0 4px 14px rgba(56, 130, 205, 0.1) !important;
 }
 
 [data-theme="light"] .contact-social-btn:hover {
-  background: #FFFFFF;
-  color: #2563EB;
-  border-color: #2563EB;
+  background: rgba(235, 248, 255, 0.8) !important;
+  color: #0284C7 !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2), 0 0 16px rgba(56, 189, 248, 0.3) !important;
 }
 
 /* ============================================================
-   14. IRIS AI ASSISTANT IN DAY MODE
+   16. IRIS AI ASSISTANT (VISIONOS LIQUID GLASS) IN DAY MODE
    ============================================================ */
+/* Floating Trigger Sphere */
+[data-theme="light"] .iris-trigger-btn {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.65) 50%, rgba(56, 189, 248, 0.45) 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 10px 30px rgba(56, 130, 205, 0.3),
+              0 0 25px rgba(56, 189, 248, 0.4),
+              inset 0 2px 3px #FFFFFF !important;
+}
+
+/* VisionOS Liquid Glass Chat Drawer */
 [data-theme="light"] .iris-chat {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.14);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(215, 240, 255, 0.48) 100%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 24px 60px rgba(35, 115, 190, 0.22),
+              0 0 35px rgba(56, 189, 248, 0.25),
+              inset 0 1.5px 1.5px #FFFFFF !important;
 }
 
 [data-theme="light"] .iris-chat-header {
-  background: rgba(241, 245, 249, 0.95);
-  border-bottom-color: rgba(203, 213, 225, 0.8);
+  background: rgba(225, 244, 255, 0.5) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85) !important;
 }
 
 [data-theme="light"] .iris-chat-name {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 700;
 }
 
 [data-theme="light"] .iris-chat-close {
-  color: #64748B;
+  color: #4B6B94 !important;
 }
 
 [data-theme="light"] .iris-chat-close:hover {
-  color: #0F172A;
+  color: #081A36 !important;
 }
 
+/* Translucent Glass Message Bubbles */
 [data-theme="light"] .iris-message--iris .iris-message-bubble {
-  background: #F1F5F9;
-  color: #0F172A;
-  border-color: rgba(203, 213, 225, 0.8);
+  background: rgba(220, 242, 255, 0.55) !important;
+  backdrop-filter: blur(14px) !important;
+  color: #081A36 !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 14px rgba(56, 130, 205, 0.08) !important;
 }
 
 [data-theme="light"] .iris-suggestion-chip {
-  background: #F1F5F9;
-  border-color: rgba(203, 213, 225, 0.8);
-  color: #1D4ED8;
+  background: rgba(220, 242, 255, 0.5) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1D4ED8 !important;
+  font-weight: 600;
 }
 
 [data-theme="light"] .iris-suggestion-chip:hover {
-  background: #FFFFFF;
-  border-color: #2563EB;
+  background: rgba(235, 248, 255, 0.8) !important;
+  border-color: #0284C7 !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2) !important;
 }
 
 [data-theme="light"] .iris-chat-input {
-  background: #FFFFFF;
-  border-color: rgba(203, 213, 225, 0.8);
-  color: #0F172A;
+  background: rgba(225, 244, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #081A36 !important;
 }
 
 [data-theme="light"] .iris-chat-input::placeholder {
-  color: #94A3B8;
+  color: #4B6B94 !important;
 }
 
 /* ============================================================
-   15. FOOTER & MISC IN DAY MODE
+   17. FOOTER & CUSTOM CURSOR IN DAY MODE
    ============================================================ */
 [data-theme="light"] .footer {
-  background-color: var(--color-bg-secondary);
-  border-top: 1px solid var(--border-subtle);
-  color: #475569;
+  background: linear-gradient(180deg, rgba(210, 235, 255, 0.45) 0%, rgba(225, 244, 255, 0.3) 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: inset 0 1.5px 0 #FFFFFF !important;
+  color: #24456F !important;
 }
 
 [data-theme="light"] .footer-name {
-  color: #0F172A;
+  color: #081A36 !important;
+  font-weight: 700;
 }
 
+/* Liquid Ice-Blue Cursor */
 [data-theme="light"] .cursor-dot {
-  background-color: #1D4ED8;
-  box-shadow: 0 0 6px rgba(29, 78, 216, 0.4);
+  background-color: #0284C7 !important;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.8), 0 0 20px rgba(56, 189, 248, 0.5) !important;
 }
 
 [data-theme="light"] .cursor-ring {
-  border-color: rgba(37, 99, 235, 0.45);
+  border-color: rgba(2, 132, 199, 0.55) !important;
+  background: rgba(186, 230, 253, 0.12) !important;
 }
 
 [data-theme="light"] .cursor-ring.cursor-ring--hover {
-  border-color: var(--color-accent-cyan);
-  background: rgba(2, 132, 199, 0.08);
+  border-color: #0284C7 !important;
+  background: rgba(56, 189, 248, 0.22) !important;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.4) !important;
 }
