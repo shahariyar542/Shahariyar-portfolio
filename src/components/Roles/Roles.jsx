@@ -1,36 +1,53 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { rolesData } from '../../data/portfolio.js';
 import SectionHeader from '../SectionHeader/SectionHeader';
+import CuteAnimeBot from './CuteAnimeBot';
 import './Roles.css';
 
-/* ── Interactive Role Card ── */
-function RoleCard({ role, index }) {
+/* ── Interactive Floating Role Card ── */
+function RoleCard({
+  role,
+  positionClass,
+  isTargeted,
+  onHover,
+  onLeave,
+  index,
+}) {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, margin: '-40px' });
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-  const [isHovered, setIsHovered] = useState(false);
+  const [mouseTilt, setMouseTilt] = useState({ x: 0, y: 0 });
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current || window.innerWidth < 1024) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const xPct = ((e.clientX - rect.left) / rect.width) * 100;
-    const yPct = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePos({ x: xPct, y: yPct });
+    const xPct = ((e.clientX - rect.left) / rect.width - 0.5) * 16;
+    const yPct = ((e.clientY - rect.top) / rect.height - 0.5) * -16;
+    setMouseTilt({ x: xPct, y: yPct });
+  };
+
+  const handleMouseEnter = () => {
+    onHover(role.id);
+  };
+
+  const handleMouseLeave = () => {
+    setMouseTilt({ x: 0, y: 0 });
+    onLeave();
   };
 
   const renderIcon = (type) => {
     switch (type) {
       case 'code':
         return (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="16 18 22 12 16 6" />
             <polyline points="8 6 2 12 8 18" />
           </svg>
         );
       case 'layers':
         return (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2" />
             <polyline points="2 17 12 22 22 17" />
             <polyline points="2 12 12 17 22 12" />
@@ -38,7 +55,7 @@ function RoleCard({ role, index }) {
         );
       case 'search':
         return (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
@@ -46,7 +63,7 @@ function RoleCard({ role, index }) {
       case 'cpu':
       default:
         return (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="4" y="4" width="16" height="16" rx="2" />
             <rect x="9" y="9" width="6" height="6" />
             <line x1="9" y1="1" x2="9" y2="4" />
@@ -65,50 +82,64 @@ function RoleCard({ role, index }) {
   return (
     <motion.article
       ref={cardRef}
-      className={`role-card ${isHovered ? 'role-card--hovered' : ''}`}
+      className={`floating-role-card ${positionClass} ${isTargeted ? 'floating-role-card--targeted' : ''}`}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleMouseEnter}
+      onBlur={handleMouseLeave}
+      tabIndex={0}
+      initial={{ opacity: 0, y: 35 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+      transition={{ duration: 0.65, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        '--role-accent': role.accentColor,
+        '--card-accent': role.accentColor,
+        transform: `perspective(800px) rotateX(${mouseTilt.y}deg) rotateY(${mouseTilt.x}deg)`,
       }}
     >
       {/* Specular Sheen */}
-      <div
-        className="role-card-sheen"
-        style={{
-          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(255, 255, 255, 0.08) 0%, transparent 60%)`,
-          opacity: isHovered ? 1 : 0,
-        }}
-        aria-hidden="true"
-      />
+      <div className="floating-card-sheen" aria-hidden="true" />
 
-      {/* Ambient Accent Glow */}
-      <div className="role-card-accent-glow" aria-hidden="true" />
+      {/* Target Focus Radar Ping */}
+      {isTargeted && <div className="card-target-ping" aria-hidden="true" />}
 
-      {/* Role Card Header */}
-      <div className="role-card-top">
-        <div className="role-icon-box">
+      {/* Card Header */}
+      <div className="floating-card-header">
+        <div className="floating-card-icon-box">
           {renderIcon(role.icon)}
         </div>
-        <span className="role-category-badge">{role.category}</span>
+        <div className="floating-card-badge-wrap">
+          <span className="floating-card-badge">{role.category}</span>
+          {isTargeted && <span className="floating-card-active-pill">LOCKED</span>}
+        </div>
       </div>
 
-      {/* Role Title & Tagline */}
-      <h3 className="role-title">{role.role}</h3>
-      <p className="role-tagline">{role.tagline}</p>
+      {/* Title & Tagline */}
+      <h3 className="floating-card-title">{role.role}</h3>
+      <p className="floating-card-tagline">{role.tagline}</p>
 
-      {/* Responsibilities list */}
-      <div className="role-responsibilities">
-        <h4 className="role-resp-heading">Key Focus &amp; Responsibilities</h4>
-        <ul className="role-resp-list">
-          {role.responsibilities.map((resp, i) => (
-            <li key={i} className="role-resp-item">
-              <span className="role-resp-check">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8">
+      {/* Key Responsibilities */}
+      <div className="floating-card-resp">
+        <div className="floating-card-resp-header">
+          <span className="floating-card-resp-title">Core Responsibilities</span>
+          <button
+            type="button"
+            className="floating-card-expand-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(!isExpanded);
+            }}
+            aria-expanded={isExpanded}
+          >
+            {isExpanded ? 'Less' : 'Details'}
+          </button>
+        </div>
+
+        <ul className="floating-card-list">
+          {role.responsibilities.slice(0, isExpanded ? 4 : 2).map((resp, i) => (
+            <li key={i} className="floating-card-item">
+              <span className="floating-card-bullet">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </span>
@@ -118,17 +149,82 @@ function RoleCard({ role, index }) {
         </ul>
       </div>
 
-      {/* Card Base Accent Line */}
-      <div className="role-bottom-line" aria-hidden="true" />
+      {/* Base Accent Glow Line */}
+      <div className="floating-card-line" aria-hidden="true" />
     </motion.article>
   );
 }
 
+/* ── Main Roles Component ── */
 export default function Roles() {
   const sectionRef = useRef(null);
+  const [activeCardId, setActiveCardId] = useState(null);
+  const [targetGaze, setTargetGaze] = useState({ x: 0, y: 0 });
+
+  // Map 4 roles to 4 quadrant positions
+  const cardPositions = [
+    { posClass: 'card-pos--upper-left', defaultGaze: { x: -0.85, y: -0.7 } },
+    { posClass: 'card-pos--upper-right', defaultGaze: { x: 0.85, y: -0.7 } },
+    { posClass: 'card-pos--lower-left', defaultGaze: { x: -0.85, y: 0.7 } },
+    { posClass: 'card-pos--lower-right', defaultGaze: { x: 0.85, y: 0.7 } },
+  ];
+
+  // Mouse move across entire section tracks eyes dynamically
+  const handleSectionMouseMove = useCallback((e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const nx = (e.clientX - centerX) / (rect.width * 0.42);
+    const ny = (e.clientY - centerY) / (rect.height * 0.42);
+
+    // If activeCardId is null, follow mouse freely within [-1, 1]
+    if (!activeCardId) {
+      setTargetGaze({
+        x: Math.max(-1, Math.min(1, nx)),
+        y: Math.max(-1, Math.min(1, ny)),
+      });
+    }
+  }, [activeCardId]);
+
+  const handleCardHover = useCallback((cardId) => {
+    setActiveCardId(cardId);
+    switch (cardId) {
+      case 'role-1':
+        setTargetGaze({ x: -1.0, y: -0.88 });
+        break;
+      case 'role-2':
+        setTargetGaze({ x: 1.0, y: -0.88 });
+        break;
+      case 'role-3':
+        setTargetGaze({ x: -1.0, y: 0.88 });
+        break;
+      case 'role-4':
+        setTargetGaze({ x: 1.0, y: 0.88 });
+        break;
+      default:
+        break;
+    }
+  }, []);
+
+  const handleCardLeave = useCallback(() => {
+    setActiveCardId(null);
+  }, []);
+
+  const handleSectionMouseLeave = useCallback(() => {
+    setActiveCardId(null);
+    setTargetGaze({ x: 0, y: 0 });
+  }, []);
 
   return (
-    <section id="roles" className="roles section" ref={sectionRef}>
+    <section
+      id="roles"
+      className="roles section"
+      ref={sectionRef}
+      onMouseMove={handleSectionMouseMove}
+      onMouseLeave={handleSectionMouseLeave}
+    >
       <div className="container">
         {/* Section Header */}
         <SectionHeader
@@ -140,11 +236,107 @@ export default function Roles() {
           align="center"
         />
 
-        {/* Roles 2x2 Grid */}
-        <div className="roles-grid">
-          {rolesData.map((role, index) => (
-            <RoleCard key={role.id} role={role} index={index} />
-          ))}
+        {/* 3D Experience Matrix Stage */}
+        <div className="roles-portrait-experience-matrix">
+          {/* Card 1: Upper Left (Software Engineering Student) */}
+          <div className="roles-matrix-cell cell--upper-left">
+            {rolesData[0] && (
+              <RoleCard
+                role={rolesData[0]}
+                positionClass={cardPositions[0].posClass}
+                isTargeted={activeCardId === rolesData[0].id}
+                onHover={handleCardHover}
+                onLeave={handleCardLeave}
+                index={0}
+              />
+            )}
+          </div>
+
+          {/* Central 3D Interactive Cute Anime Bot */}
+          <div className="roles-matrix-cell cell--center">
+            <CuteAnimeBot
+              targetGaze={targetGaze}
+              activeCard={activeCardId}
+            />
+
+            {/* Optical Laser Beams linking portrait to hovered card */}
+            <svg className="roles-optical-tethers" aria-hidden="true" viewBox="0 0 1000 600">
+              {/* Beam to Upper Left */}
+              <line
+                x1="500"
+                y1="300"
+                x2="150"
+                y2="150"
+                className={`optical-tether optical-tether--ul ${activeCardId === 'role-1' ? 'optical-tether--active' : ''}`}
+              />
+              {/* Beam to Upper Right */}
+              <line
+                x1="500"
+                y1="300"
+                x2="850"
+                y2="150"
+                className={`optical-tether optical-tether--ur ${activeCardId === 'role-2' ? 'optical-tether--active' : ''}`}
+              />
+              {/* Beam to Lower Left */}
+              <line
+                x1="500"
+                y1="300"
+                x2="150"
+                y2="450"
+                className={`optical-tether optical-tether--ll ${activeCardId === 'role-3' ? 'optical-tether--active' : ''}`}
+              />
+              {/* Beam to Lower Right */}
+              <line
+                x1="500"
+                y1="300"
+                x2="850"
+                y2="450"
+                className={`optical-tether optical-tether--lr ${activeCardId === 'role-4' ? 'optical-tether--active' : ''}`}
+              />
+            </svg>
+          </div>
+
+          {/* Card 2: Upper Right (Project Contributor & Builder) */}
+          <div className="roles-matrix-cell cell--upper-right">
+            {rolesData[1] && (
+              <RoleCard
+                role={rolesData[1]}
+                positionClass={cardPositions[1].posClass}
+                isTargeted={activeCardId === rolesData[1].id}
+                onHover={handleCardHover}
+                onLeave={handleCardLeave}
+                index={1}
+              />
+            )}
+          </div>
+
+          {/* Card 3: Lower Left (Research Enthusiast) */}
+          <div className="roles-matrix-cell cell--lower-left">
+            {rolesData[2] && (
+              <RoleCard
+                role={rolesData[2]}
+                positionClass={cardPositions[2].posClass}
+                isTargeted={activeCardId === rolesData[2].id}
+                onHover={handleCardHover}
+                onLeave={handleCardLeave}
+                index={2}
+              />
+            )}
+          </div>
+
+          {/* Card 4: Lower Right (AI Technology Explorer) */}
+          <div className="roles-matrix-cell cell--lower-right">
+            {rolesData[3] && (
+              <RoleCard
+                role={rolesData[3]}
+                positionClass={cardPositions[3].posClass}
+                isTargeted={activeCardId === rolesData[3].id}
+                onHover={handleCardHover}
+                onLeave={handleCardLeave}
+                index={3}
+              />
+            )}
+          </div>
         </div>
       </div>
     </section>

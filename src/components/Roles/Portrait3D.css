@@ -1,0 +1,444 @@
+/* ============================================================
+   SHAHARIYAR.EXE — Cyber Terminal Holographic 3D Portrait Styles
+   Matches the Cyberpunk Neon Monitor Terminal Reference
+   ============================================================ */
+
+.cyber-terminal-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  user-select: none;
+  z-index: 10;
+}
+
+/* ── Cyber Ambient Backdrop & Overhead Lights ── */
+.cyber-ambient-backdrop {
+  position: absolute;
+  inset: -60px -80px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.cyber-radial-glow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: 460px;
+  height: 460px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.28) 0%, rgba(168, 85, 247, 0.16) 45%, transparent 70%);
+  filter: blur(40px);
+  transition: transform 0.2s ease-out;
+}
+
+.cyber-light-beam {
+  position: absolute;
+  top: -80px;
+  width: 80px;
+  height: 220px;
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.35) 0%, transparent 100%);
+  filter: blur(20px);
+  transform: rotate(-15deg);
+  opacity: 0.6;
+}
+
+.cyber-light-beam--left {
+  left: 20%;
+}
+
+.cyber-light-beam--right {
+  right: 20%;
+  transform: rotate(15deg);
+}
+
+/* ── 3D Perspective Stage ── */
+.cyber-3d-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 750px;
+  z-index: 5;
+}
+
+/* ── The 3D Pivoting Cyber Monitor Terminal ── */
+.cyber-terminal-monitor {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  aspect-ratio: 1 / 1;
+  background: #090e17;
+  border-radius: 36px;
+  padding: 14px;
+  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.85),
+              0 0 50px rgba(0, 240, 255, 0.35),
+              0 0 80px rgba(168, 85, 247, 0.2);
+  border: 3px solid #1e293b;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: box-shadow 0.35s ease;
+  z-index: 6;
+}
+
+.cyber-terminal-wrapper--locked .cyber-terminal-monitor {
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.95),
+              0 0 65px rgba(0, 240, 255, 0.65),
+              0 0 100px rgba(168, 85, 247, 0.4);
+}
+
+/* ── External Metallic Grab Handles (Left & Right) ── */
+.cyber-handle {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 110px;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #334155 0%, #0f172a 50%, #334155 100%);
+  border: 2px solid #475569;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 3px rgba(255, 255, 255, 0.2);
+  z-index: 4;
+}
+
+.cyber-handle--left {
+  left: -22px;
+}
+
+.cyber-handle--right {
+  right: -22px;
+}
+
+/* ── Glowing Outer Neon Cyan Tube Rim ── */
+.cyber-neon-bezel {
+  position: absolute;
+  inset: 10px;
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.cyber-neon-tube {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  border: 3.5px solid #00f0ff;
+  box-shadow: 0 0 20px #00f0ff,
+              0 0 40px rgba(0, 240, 255, 0.6),
+              inset 0 0 18px rgba(0, 240, 255, 0.5);
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px #00f0ff, 0 0 40px rgba(0, 240, 255, 0.6), inset 0 0 18px rgba(0, 240, 255, 0.5);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 28px #00f0ff, 0 0 55px rgba(0, 240, 255, 0.85), inset 0 0 25px rgba(0, 240, 255, 0.7);
+  }
+}
+
+/* ── Display Screen Viewport ── */
+.cyber-screen-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #020617;
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.9);
+}
+
+/* ── Cyber Portrait Image Layer (Internal Parallax) ── */
+.cyber-portrait-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+
+/* ── Neural Circuit Energy Lightning Overlay ── */
+.cyber-lightning-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, rgba(0, 240, 255, 0.12) 0%, rgba(217, 70, 239, 0.08) 40%, transparent 70%);
+  mix-blend-mode: screen;
+  z-index: 8;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-lightning--boosted {
+  opacity: 1;
+  animation: energyFlicker 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes energyFlicker {
+  0% { filter: brightness(1) drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); }
+  100% { filter: brightness(1.25) drop-shadow(0 0 16px rgba(0, 240, 255, 0.8)); }
+}
+
+/* ── Dynamic Directional Glare ── */
+.cyber-directional-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: screen;
+  transition: background 0.15s ease-out;
+}
+
+/* ── Screen Blink Shadow ── */
+.cyber-screen-blink {
+  position: absolute;
+  inset: 0;
+  background: #020617;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 11;
+  transition: opacity 0.08s ease-in-out;
+}
+
+.cyber-screen-blink--active {
+  opacity: 0.85;
+}
+
+/* ── Screen Corner Brackets ── */
+.cyber-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: #00f0ff;
+  border-style: solid;
+  pointer-events: none;
+  z-index: 13;
+}
+
+.cyber-corner--tl {
+  top: 14px;
+  left: 14px;
+  border-width: 2.5px 0 0 2.5px;
+  border-top-left-radius: 8px;
+}
+
+.cyber-corner--tr {
+  top: 14px;
+  right: 14px;
+  border-width: 2.5px 2.5px 0 0;
+  border-top-right-radius: 8px;
+}
+
+.cyber-corner--bl {
+  bottom: 14px;
+  left: 14px;
+  border-width: 0 0 2.5px 2.5px;
+  border-bottom-left-radius: 8px;
+}
+
+.cyber-corner--br {
+  bottom: 14px;
+  right: 14px;
+  border-width: 0 2.5px 2.5px 0;
+  border-bottom-right-radius: 8px;
+}
+
+/* ── Realtime HUD Banner ── */
+.cyber-hud-banner {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 14;
+  font-family: var(--font-mono, monospace);
+  pointer-events: none;
+}
+
+.cyber-hud-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cyber-hud-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+  transition: all 0.25s ease;
+}
+
+.cyber-hud-dot--active {
+  background: #ec4899;
+  box-shadow: 0 0 12px #ec4899;
+  animation: hudPing 1s ease-in-out infinite;
+}
+
+@keyframes hudPing {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.cyber-hud-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cyber-hud-metrics {
+  display: flex;
+  gap: 10px;
+  font-size: 0.64rem;
+  color: #00f0ff;
+  font-weight: 600;
+}
+
+/* ── Industrial Tiered Pedestal Base ── */
+.cyber-pedestal-stand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: -6px;
+  z-index: 5;
+}
+
+.cyber-pedestal-neck {
+  width: 90px;
+  height: 18px;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border: 2px solid #334155;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+}
+
+.cyber-pedestal-plate-upper {
+  width: 190px;
+  height: 14px;
+  background: linear-gradient(180deg, #334155 0%, #0f172a 100%);
+  border: 2px solid #475569;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+}
+
+.cyber-pedestal-plate-lower {
+  width: 240px;
+  height: 16px;
+  background: linear-gradient(180deg, #1e293b 0%, #020617 100%);
+  border: 2px solid #334155;
+  border-radius: 8px 8px 4px 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.3);
+}
+
+.cyber-pedestal-glow {
+  position: absolute;
+  bottom: 0;
+  width: 220px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+  filter: drop-shadow(0 0 10px #00f0ff);
+}
+
+/* ── Identity Tag Label ── */
+.cyber-identity-tag {
+  position: relative;
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 5;
+}
+
+.cyber-tag-name {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  color: #f8fafc;
+}
+
+.cyber-tag-role {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  color: #00f0ff;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* ── Responsive Adaptations ── */
+@media (max-width: 1080px) {
+  .cyber-terminal-wrapper {
+    max-width: 360px;
+  }
+  .cyber-terminal-monitor {
+    max-width: 330px;
+    border-radius: 28px;
+  }
+  .cyber-neon-bezel {
+    border-radius: 22px;
+  }
+  .cyber-neon-tube {
+    border-radius: 22px;
+  }
+  .cyber-handle {
+    height: 90px;
+    width: 14px;
+  }
+}
+
+@media (max-width: 860px) {
+  .cyber-terminal-wrapper {
+    max-width: 320px;
+    margin-bottom: 2rem;
+  }
+  .cyber-terminal-monitor {
+    max-width: 290px;
+    border-radius: 24px;
+    padding: 10px;
+  }
+  .cyber-hud-banner {
+    padding: 6px 10px;
+  }
+  .cyber-hud-text {
+    font-size: 0.6rem;
+  }
+  .cyber-hud-metrics {
+    font-size: 0.58rem;
+  }
+}

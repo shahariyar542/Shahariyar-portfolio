@@ -957,32 +957,127 @@ footer,
 }
 
 /* ============================================================
-   12. ROLES & RESPONSIBILITIES IN DAY MODE
+   12. ROLES & RESPONSIBILITIES (3D PORTRAIT & FLOATING GLASS CARDS) IN DAY MODE
    ============================================================ */
-[data-theme="light"] .role-title {
+[data-theme="light"] .floating-role-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(215, 238, 255, 0.42) 50%, rgba(185, 225, 255, 0.28) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 16px 36px -10px rgba(37, 99, 235, 0.16),
+              0 0 0 1px rgba(186, 230, 253, 0.5) inset !important;
+}
+
+[data-theme="light"] .floating-role-card:hover,
+[data-theme="light"] .floating-role-card--targeted {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(200, 235, 255, 0.52) 50%, rgba(175, 220, 255, 0.35) 100%) !important;
+  border-color: rgba(56, 189, 248, 0.8) !important;
+  box-shadow: 0 24px 48px -8px rgba(37, 99, 235, 0.25),
+              0 0 32px rgba(56, 189, 248, 0.25),
+              0 0 0 1px rgba(255, 255, 255, 0.9) inset !important;
+}
+
+[data-theme="light"] .floating-card-title {
   color: #081A36 !important;
 }
 
-[data-theme="light"] .role-resp-item {
+[data-theme="light"] .floating-card-tagline {
+  color: #0284C7 !important;
+}
+
+[data-theme="light"] .floating-card-item {
   color: #24456F !important;
 }
 
-[data-theme="light"] .role-resp-heading {
+[data-theme="light"] .floating-card-resp-title {
   color: #4B6B94 !important;
   font-weight: 600;
 }
 
-[data-theme="light"] .role-category-badge {
-  background: rgba(220, 242, 255, 0.6) !important;
-  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+[data-theme="light"] .floating-card-badge {
+  background: rgba(220, 242, 255, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
   color: #1D4ED8 !important;
   font-weight: 600;
 }
 
-[data-theme="light"] .role-icon-box {
-  background: rgba(225, 244, 255, 0.6) !important;
-  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+[data-theme="light"] .floating-card-icon-box {
+  background: rgba(225, 244, 255, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
   box-shadow: 0 4px 14px rgba(56, 130, 205, 0.15) !important;
+}
+
+[data-theme="light"] .floating-card-bullet {
+  background: rgba(220, 242, 255, 0.8) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+}
+
+[data-theme="light"] .floating-card-expand-btn {
+  color: #0284C7 !important;
+}
+
+/* 3D Cyber Terminal in Day Mode */
+[data-theme="light"] .cyber-terminal-monitor {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(220, 242, 255, 0.6) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 28px 65px rgba(37, 99, 235, 0.22),
+              0 0 50px rgba(56, 189, 248, 0.4),
+              0 0 80px rgba(147, 197, 253, 0.3) !important;
+}
+
+[data-theme="light"] .cyber-neon-tube {
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 20px #38BDF8,
+              0 0 40px rgba(56, 189, 248, 0.7),
+              inset 0 0 18px rgba(56, 189, 248, 0.5) !important;
+}
+
+[data-theme="light"] .cyber-handle {
+  background: linear-gradient(180deg, #BAE6FD 0%, #E0F2FE 50%, #BAE6FD 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+[data-theme="light"] .cyber-radial-glow {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(147, 197, 253, 0.2) 45%, transparent 70%) !important;
+}
+
+[data-theme="light"] .cyber-hud-banner {
+  background: rgba(240, 249, 255, 0.92) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.16) !important;
+}
+
+[data-theme="light"] .cyber-hud-text {
+  color: #081A36 !important;
+}
+
+[data-theme="light"] .cyber-hud-metrics {
+  color: #0284C7 !important;
+}
+
+[data-theme="light"] .cyber-pedestal-neck,
+[data-theme="light"] .cyber-pedestal-plate-upper,
+[data-theme="light"] .cyber-pedestal-plate-lower {
+  background: linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+[data-theme="light"] .cyber-pedestal-glow {
+  background: linear-gradient(90deg, transparent, #0284C7, transparent) !important;
+  filter: drop-shadow(0 0 10px #38BDF8) !important;
+}
+
+[data-theme="light"] .cyber-tag-name {
+  color: #081A36 !important;
+}
+
+[data-theme="light"] .cyber-tag-role {
+  color: #0284C7 !important;
+}
+
+[data-theme="light"] .optical-tether--active {
+  stroke: #0284C7 !important;
+  filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.6)) !important;
 }
 
 /* ============================================================
