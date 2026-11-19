@@ -413,7 +413,7 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
 
     // 11. Animation Loop
     let animId;
-    let clock = new THREE.Clock();
+    let lastTime = performance.now();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
@@ -421,7 +421,9 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
       const state = stateRef.current;
       if (state.isVisible === false) return;
 
-      const delta = clock.getDelta();
+      const now = performance.now();
+      const delta = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
 
       // Smooth progress interpolation towards target
       state.progress += (state.targetProgress - state.progress) * 0.08;

@@ -20,45 +20,41 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate minimum loading time for the premium feel
+    // Fast, crisp entrance boot (850ms)
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2200);
+    }, 850);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isLoading && <Loader key="loader" />}
       </AnimatePresence>
 
-      {!isLoading && (
-        <>
-          <CustomCursor />
-          <div className="cyber-bg-grid" aria-hidden="true" />
-          <div className="cyber-glow-orb cyber-glow-1" aria-hidden="true" />
-          <div className="cyber-glow-orb cyber-glow-2" aria-hidden="true" />
-          <Navigation />
-          
-          <main>
-            <Hero />
-            <About />
-            <Skills />
-            <Experience />
-            <Projects />
-            <Research />
-            <Roles />
-            <Education />
-            <Recognition />
-            <Contact />
-          </main>
+      <CustomCursor />
+      <div className="cyber-bg-grid" aria-hidden="true" />
+      <div className="cyber-glow-orb cyber-glow-1" aria-hidden="true" />
+      <div className="cyber-glow-orb cyber-glow-2" aria-hidden="true" />
+      <Navigation />
+      
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Research />
+        <Roles />
+        <Education />
+        <Recognition />
+        <Contact />
+      </main>
 
-          <Footer />
-          <IRIS />
-        </>
-      )}
+      <Footer />
+      <IRIS />
     </>
   );
 }

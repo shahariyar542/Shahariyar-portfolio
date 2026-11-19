@@ -96,6 +96,23 @@ export default function Projects() {
     let currentAngle = 90;
     let lastProgress = 0;
     let scrollDirection = 'down';
+    let isMoving = true;
+    let isSectionVisible = true;
+
+    // Visibility observer to sleep the loop when Projects is off-screen
+    const sectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isSectionVisible = entry.isIntersecting;
+        if (isSectionVisible) {
+          isMoving = true;
+        }
+      },
+      { rootMargin: '250px 0px 250px 0px' }
+    );
+
+    if (sectionRef.current) {
+      sectionObserver.observe(sectionRef.current);
+    }
 
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -107,13 +124,18 @@ export default function Projects() {
       const scrolled = windowH - rect.top;
       const rawProgress = Math.max(0, Math.min(1, scrolled / totalDist));
       targetProgress = rawProgress;
+      isMoving = true;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    // 60fps Physical Lerp Loop
+    // 60fps Physical Lerp Loop (sleeps automatically when settled or offscreen)
     const updateCar = () => {
+      animId = requestAnimationFrame(updateCar);
+
+      if (!isSectionVisible || !isMoving) return;
+
       if (roadPathRef.current) {
         const pDiff = targetProgress - currentProgress;
         currentProgress += pDiff * 0.08;
@@ -150,12 +172,15 @@ export default function Projects() {
 
         setCarPos({ x: pt.x, y: pt.y, angle: currentAngle });
 
+        // Settle when car has reached target destination
+        if (Math.abs(pDiff) < 0.0001 && Math.abs(angleDiff) < 0.05) {
+          isMoving = false;
+        }
+
         const currentMobile = isMobileRef.current;
         const currentWps = activeWaypointsRef.current;
 
         // ── 1. One-by-one Progressive Card Reveal ──
-        // Cards stay completely hidden until the vehicle approaches.
-        // Once vehicle reaches/passes the waypoint, card remains visible.
         const approachWindow = currentMobile ? 180 : 220;
         const newReveals = currentWps.map((wp) => {
           const startY = wp.y - approachWindow;
@@ -169,7 +194,6 @@ export default function Projects() {
         setReveals(newReveals);
 
         // ── 2. Realistic Warm Golden Headlight Illumination ──
-        // When vehicle is close to a card, headlights illuminate the card & surroundings
         const maxDist = currentMobile ? 200 : 240;
         const newIlluminations = currentWps.map((wp) => {
           const distY = Math.abs(pt.y - wp.y);
@@ -188,12 +212,12 @@ export default function Projects() {
           setComingSoonReveal(rev);
         }
       }
-      animId = requestAnimationFrame(updateCar);
     };
 
     animId = requestAnimationFrame(updateCar);
 
     return () => {
+      sectionObserver.disconnect();
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animId);
     };

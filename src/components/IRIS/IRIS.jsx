@@ -185,7 +185,14 @@ async function getIrisResponse(userMessage, conversationHistory) {
 /* ── IRIS Main Component ── */
 export default function IRIS() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(() => [
+    {
+      id: 'iris-greeting-0',
+      sender: 'iris',
+      text: "Heyyy! 💙 I'm Iris, Shahariyar's personal AI portfolio assistant! I can tell you all about his projects, skills, education at DIU, research, and how to get in touch (or download his CV).\n\nবাংলা, English, or Banglish — ask me anything!",
+      timestamp: Date.now(),
+    },
+  ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
@@ -203,20 +210,6 @@ export default function IRIS() {
       setTimeout(() => inputRef.current?.focus(), 400);
     }
   }, [isOpen]);
-
-  // Initial greeting
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      setMessages([
-        {
-          id: generateId(),
-          sender: 'iris',
-          text: "Heyyy! 💙 I'm Iris, Shahariyar's personal AI portfolio assistant! I can tell you all about his projects, skills, education at DIU, research, and how to get in touch (or download his CV).\n\nবাংলা, English, or Banglish — ask me anything!",
-          timestamp: Date.now(),
-        },
-      ]);
-    }
-  }, [isOpen, messages.length]);
 
   const sendMessage = useCallback(
     async (text) => {

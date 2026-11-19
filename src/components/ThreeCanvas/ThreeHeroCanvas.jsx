@@ -22,13 +22,14 @@ export default function ThreeHeroCanvas() {
     );
     camera.position.z = 6.5;
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !isMobile,
       powerPreference: 'high-performance',
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     container.appendChild(renderer.domElement);
 
     const group = new THREE.Group();
@@ -167,11 +168,23 @@ export default function ThreeHeroCanvas() {
 
     window.addEventListener('resize', handleResize);
 
-    // ── 6. Animation Loop ──
+    // ── 6. Visibility Observer & Animation Loop ──
+    let isCanvasVisible = true;
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isCanvasVisible = entry.isIntersecting;
+      },
+      { threshold: 0.02 }
+    );
+    visibilityObserver.observe(container);
+
     let animationFrameId;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+
+      // Sleep loop entirely when Hero is off-screen to preserve GPU & battery
+      if (!isCanvasVisible) return;
 
       if (!prefersReducedMotion) {
         outerMesh.rotation.x += 0.002;
@@ -195,6 +208,7 @@ export default function ThreeHeroCanvas() {
 
     // ── Cleanup ──
     return () => {
+      visibilityObserver.disconnect();
       themeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);

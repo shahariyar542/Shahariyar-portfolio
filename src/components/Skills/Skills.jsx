@@ -88,7 +88,7 @@ export default function Skills() {
   // Animation loop with requestAnimationFrame
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced || !isAutoRotate) return;
+    if (prefersReduced || !isAutoRotate || !isInView) return;
 
     let animId;
     let lastTime = performance.now();

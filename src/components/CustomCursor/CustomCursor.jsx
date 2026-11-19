@@ -5,7 +5,14 @@ import './CustomCursor.css';
 const springConfig = { damping: 25, stiffness: 250, mass: 0.5 };
 
 export default function CustomCursor() {
-  const [isTouch, setIsTouch] = useState(false);
+  const [isTouch] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return (
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia('(pointer: coarse)').matches
+    );
+  });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -17,23 +24,16 @@ export default function CustomCursor() {
   const ringX = useSpring(dotX, springConfig);
   const ringY = useSpring(dotY, springConfig);
 
-  /* ── Detect touch devices ── */
+  /* ── Desktop body class sync ── */
   useEffect(() => {
-    const isTouchDevice =
-      'ontouchstart' in window ||
-      navigator.maxTouchPoints > 0 ||
-      window.matchMedia('(pointer: coarse)').matches;
-
-    setIsTouch(isTouchDevice);
-
-    if (!isTouchDevice) {
+    if (!isTouch) {
       document.body.classList.add('custom-cursor-active');
     }
 
     return () => {
       document.body.classList.remove('custom-cursor-active');
     };
-  }, []);
+  }, [isTouch]);
 
   /* ── Mouse move handler ── */
   const handleMouseMove = useCallback(

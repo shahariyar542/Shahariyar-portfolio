@@ -26,13 +26,13 @@ const barVariants = {
   hidden: { scaleX: 0 },
   visible: {
     scaleX: 1,
-    transition: { duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.6 },
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.1 },
   },
 };
 
 const screenExit = {
   y: '-100%',
-  transition: { duration: 0.8, ease: [0.65, 0, 0.35, 1] },
+  transition: { duration: 0.5, ease: [0.65, 0, 0.35, 1] },
 };
 
 export default function Loader({ isLoading }) {

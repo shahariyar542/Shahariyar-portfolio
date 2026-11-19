@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '../../context/useTheme';
 import './ThemeToggle.css';
 
 /* ── Refined Sun Icon (Night Mode Active -> Click for Day) ── */
