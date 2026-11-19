@@ -13,6 +13,7 @@ const glyphMap = {
 export default function Education() {
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
+  const switcherBarRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -31,15 +32,13 @@ export default function Education() {
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  // Ensure active milestone tab is smoothly scrolled into view on mobile
+  // Keep switcher bar container horizontally aligned on mobile (NEVER scrolls page window!)
   useEffect(() => {
+    const container = switcherBarRef.current;
     const el = tabRefs.current[activeIndex];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
-      });
+    if (container && el && container.scrollWidth > container.clientWidth) {
+      const scrollLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
     }
   }, [activeIndex]);
 
@@ -93,7 +92,7 @@ export default function Education() {
         {/* ── Interactive 3D Flipper Deck Container ── */}
         <div className="education-flipper-container">
           {/* Milestone Switcher Pills */}
-          <div className="education-switcher-bar" role="tablist" aria-label="Education Milestones">
+          <div ref={switcherBarRef} className="education-switcher-bar" role="tablist" aria-label="Education Milestones">
             {educationData.map((item, idx) => {
               const isActive = idx === activeIndex;
               return (
