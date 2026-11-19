@@ -24,6 +24,9 @@
 
 @media (max-width: 768px) {
   .three-hero-container {
-    opacity: 0.45;
+    opacity: 0.5;
+  }
+  [data-theme="light"] .three-hero-container {
+    opacity: 0.35;
   }
 }

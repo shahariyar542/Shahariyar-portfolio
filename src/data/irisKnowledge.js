@@ -30,6 +30,26 @@ export const portfolioFacts = {
       'Software Architecture & System Design',
       'Artificial Intelligence & Machine Learning Foundations',
     ],
+    milestones: [
+      {
+        degree: 'B.Sc. in Software Engineering',
+        institution: 'Daffodil International University',
+        period: '2023 — Present',
+        status: 'Undergraduate (Batch 44)',
+      },
+      {
+        degree: 'Higher Secondary Certificate (HSC)',
+        institution: 'Keshabpur Govt College',
+        division: 'Science',
+        result: 'GPA 5.00 / 5.00',
+      },
+      {
+        degree: 'Secondary School Certificate (SSC)',
+        institution: 'Keshabpur Govt Pilot Higher Secondary School',
+        division: 'Science',
+        result: 'GPA 5.00 / 5.00',
+      },
+    ],
   },
 
   skills: {

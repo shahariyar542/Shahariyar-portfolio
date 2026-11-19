@@ -69,8 +69,8 @@ export default function ThreeHeroCanvas() {
     ringMesh.rotation.y = Math.PI / 6;
     group.add(ringMesh);
 
-    // ── 2. Subtle Micro Particles ──
-    const particleCount = 80;
+    // ── 2. Subtle Orbiting Micro Particles (confined neatly to central crystal aura) ──
+    const particleCount = 70;
     const particleGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -79,9 +79,12 @@ export default function ThreeHeroCanvas() {
     const c2 = new THREE.Color(0x22d3ee);
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 14;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
+      const r = 2.2 + Math.random() * 1.6;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = (Math.random() - 0.5) * Math.PI * 0.8;
+      positions[i * 3] = r * Math.cos(theta) * Math.cos(phi);
+      positions[i * 3 + 1] = r * Math.sin(phi);
+      positions[i * 3 + 2] = r * Math.sin(theta) * Math.cos(phi);
 
       const c = Math.random() > 0.5 ? c1 : c2;
       colors[i * 3] = c.r;
@@ -131,23 +134,29 @@ export default function ThreeHeroCanvas() {
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
       if (isLight) {
         wireframeMat.color.set(0x0284c7);
-        wireframeMat.opacity = 0.42;
-        innerMat.color.set(0xdbeafe);
-        innerMat.emissive.set(0x0284c7);
-        innerMat.emissiveIntensity = 0.45;
+        wireframeMat.opacity = 0.22;
+        innerMat.transparent = true;
+        innerMat.opacity = 0.20; // Translucent glowing crystal core in day mode
+        innerMat.color.set(0xbae6fd);
+        innerMat.emissive.set(0x38bdf8);
+        innerMat.emissiveIntensity = 0.25;
         ringMat.color.set(0x0284c7);
-        ringMat.opacity = 0.45;
-        pointLight.color.set(0x0284c7);
-        particleMat.opacity = 0.7;
+        ringMat.opacity = 0.25;
+        pointLight.color.set(0x38bdf8);
+        pointLight.intensity = 1.0;
+        particleMat.opacity = 0.25;
       } else {
         wireframeMat.color.set(0x60a5fa);
         wireframeMat.opacity = 0.28;
+        innerMat.transparent = false;
+        innerMat.opacity = 1.0;
         innerMat.color.set(0x0d1528);
         innerMat.emissive.set(0x3b82f6);
         innerMat.emissiveIntensity = 0.45;
         ringMat.color.set(0x22d3ee);
         ringMat.opacity = 0.35;
         pointLight.color.set(0x3b82f6);
+        pointLight.intensity = 1.8;
         particleMat.opacity = 0.6;
       }
     };
@@ -156,15 +165,31 @@ export default function ThreeHeroCanvas() {
     const themeObserver = new MutationObserver(updateThemeColors);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
+    // ── 6. Mobile Portrait Aspect Ratio & Dynamic Framing ──
     const handleResize = () => {
       if (!container) return;
       const width = container.clientWidth;
       const height = container.clientHeight;
+      const isMobileScreen = width < 768;
+
       camera.aspect = width / height;
+
+      if (isMobileScreen) {
+        // In mobile portrait, push camera back and scale down so crystal acts as a background halo behind photo
+        camera.position.z = 10.5;
+        group.scale.set(0.65, 0.65, 0.65);
+        group.position.set(0, 0.35, 0);
+      } else {
+        camera.position.z = 6.5;
+        group.scale.set(1.0, 1.0, 1.0);
+        group.position.set(0, 0, 0);
+      }
+
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     // ── 6. Visibility Observer & Animation Loop ──

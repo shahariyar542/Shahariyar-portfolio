@@ -91,19 +91,41 @@ doc.fillColor(TEXT_DARK)
 drawSectionHeader('Education');
 doc.fillColor(TEXT_DARK)
    .font('Helvetica-Bold')
-   .fontSize(10)
+   .fontSize(9.5)
    .text('Daffodil International University', 40, doc.y);
 
 doc.fillColor(TEXT_MUTED)
    .font('Helvetica-Oblique')
    .fontSize(8.5)
-   .text('Bachelor of Science in Software Engineering — Batch 44  |  Dhaka, Bangladesh', 40, doc.y + 1);
+   .text('Bachelor of Science in Software Engineering — Batch 44 (2023 — Present)  |  Dhaka, Bangladesh', 40, doc.y + 1);
 
-doc.moveDown(0.3);
+doc.moveDown(0.25);
 doc.fillColor(TEXT_DARK)
    .font('Helvetica')
+   .fontSize(8)
+   .text('• Core Focus: Software Design & Architecture, Data Structures & Algorithms, Object-Oriented Programming, Database Systems.', { lineGap: 1.5 });
+
+doc.moveDown(0.4);
+doc.fillColor(TEXT_DARK)
+   .font('Helvetica-Bold')
+   .fontSize(9.5)
+   .text('Keshabpur Govt College', 40, doc.y);
+
+doc.fillColor(TEXT_MUTED)
+   .font('Helvetica-Oblique')
    .fontSize(8.5)
-   .text('• Core Academic Focus: Software Design & Architecture, Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Computational Logic.', { lineGap: 1.5 });
+   .text('Higher Secondary Certificate (HSC) — Science  |  Result: GPA 5.00 / 5.00', 40, doc.y + 1);
+
+doc.moveDown(0.4);
+doc.fillColor(TEXT_DARK)
+   .font('Helvetica-Bold')
+   .fontSize(9.5)
+   .text('Keshabpur Govt Pilot Higher Secondary School', 40, doc.y);
+
+doc.fillColor(TEXT_MUTED)
+   .font('Helvetica-Oblique')
+   .fontSize(8.5)
+   .text('Secondary School Certificate (SSC) — Science  |  Result: GPA 5.00 / 5.00', 40, doc.y + 1);
 
 // ── 3. TECHNICAL SKILLS ──
 drawSectionHeader('Technical Skills & Competencies');

@@ -489,7 +489,7 @@
   /* Two separate visual areas: Col 1 = 68px Road corridor, Col 2 = 1fr Project Card beside the road */
   .roadway-station-row {
     display: grid;
-    grid-template-columns: 68px 1fr;
+    grid-template-columns: 84px 1fr;
     align-items: center;
     gap: 12px;
     min-height: 340px;
@@ -556,7 +556,7 @@
   }
 
   .roadway-station-row {
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 76px 1fr;
     gap: 10px;
     min-height: 330px;
   }

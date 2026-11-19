@@ -22,10 +22,10 @@ const desktopWaypoints = [
 
 // Mobile Waypoints (curvy side highway corridor beside project cards)
 const mobileWaypoints = [
-  { id: 0, x: 108, y: 250, side: 'right' },
-  { id: 1, x: 110, y: 725, side: 'right' },
-  { id: 2, x: 108, y: 1187, side: 'right' },
-  { id: 3, x: 110, y: 1648, side: 'right' },
+  { id: 0, x: 175, y: 207, side: 'right' },
+  { id: 1, x: 175, y: 683, side: 'right' },
+  { id: 2, x: 175, y: 1159, side: 'right' },
+  { id: 3, x: 175, y: 1611, side: 'right' },
 ];
 
 const desktopPathD = `M 500 0 
@@ -37,21 +37,20 @@ const desktopPathD = `M 500 0
   C 500 1840, 560 1930, 500 1980
   C 440 1930, 440 1840, 480 1760`;
 
-const mobilePathD = `M 80 0 
-  C 80 70, 32 120, 32 170 
-  C 32 210, 80 215, 108 250 
-  C 130 280, 125 360, 85 430 
-  C 45 500, 28 570, 30 630 
-  C 32 680, 75 695, 110 725 
-  C 130 755, 125 835, 85 905 
-  C 45 975, 28 1045, 30 1100 
-  C 32 1145, 75 1160, 108 1187 
-  C 130 1217, 125 1297, 85 1367 
-  C 45 1437, 28 1507, 30 1560 
-  C 32 1605, 75 1620, 110 1648 
-  C 130 1680, 125 1740, 85 1800 
-  C 45 1860, 30 1910, 45 1970 
-  C 60 2020, 75 2050, 75 2050`;
+const mobilePathD = `M 75 0 
+  C 75 60, 42 110, 42 150 
+  C 42 185, 105 195, 175 207 
+  C 175 265, 45 355, 42 445 
+  C 38 535, 75 615, 115 650 
+  C 145 670, 170 675, 175 683 
+  C 175 745, 45 835, 42 925 
+  C 38 1015, 75 1095, 115 1125 
+  C 145 1145, 170 1150, 175 1159 
+  C 175 1220, 45 1310, 42 1395 
+  C 38 1485, 75 1555, 115 1585 
+  C 145 1600, 170 1605, 175 1611 
+  C 175 1675, 45 1765, 55 1850 
+  C 65 1920, 85 1950, 100 1972`;
 
 export default function Projects() {
   const sectionRef = useRef(null);
@@ -118,10 +117,15 @@ export default function Projects() {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const windowH = window.innerHeight;
+      const currentMobile = isMobileRef.current;
 
-      // Progress: 0 when top enters, 1 when bottom leaves
-      const totalDist = rect.height + windowH;
-      const scrolled = windowH - rect.top;
+      // Dynamic responsive travel mapping:
+      // Journey completes as Coming Soon enters comfortable view,
+      // without needing to scroll out of the section into the next section!
+      const startOffset = windowH * (currentMobile ? 0.55 : 0.65);
+      const endOffset = currentMobile ? -1880 : (windowH * 0.75 - rect.height);
+      const totalDist = startOffset - endOffset;
+      const scrolled = startOffset - rect.top;
       const rawProgress = Math.max(0, Math.min(1, scrolled / totalDist));
       targetProgress = rawProgress;
       isMoving = true;
@@ -149,8 +153,12 @@ export default function Projects() {
       if (!isSectionVisible || !isMoving) return;
 
       if (roadPathRef.current) {
+        const currentMobile = isMobileRef.current;
+        const currentWps = activeWaypointsRef.current;
+
         const pDiff = targetProgress - currentProgress;
-        currentProgress += pDiff * 0.08;
+        const lerpSpeed = currentMobile ? 0.18 : 0.12;
+        currentProgress += pDiff * lerpSpeed;
 
         // Detect scroll direction with deadband
         if (targetProgress - lastProgress > 0.0008) {
@@ -180,7 +188,8 @@ export default function Projects() {
 
         // Shortest angular distance to prevent any jumping or teleporting
         const angleDiff = ((targetHeading - currentAngle + 540) % 360) - 180;
-        currentAngle += angleDiff * 0.12;
+        const angleLerp = currentMobile ? 0.20 : 0.14;
+        currentAngle += angleDiff * angleLerp;
 
         setCarPos({ x: pt.x, y: pt.y, angle: currentAngle });
 
@@ -188,9 +197,6 @@ export default function Projects() {
         if (Math.abs(pDiff) < 0.0001 && Math.abs(angleDiff) < 0.05) {
           isMoving = false;
         }
-
-        const currentMobile = isMobileRef.current;
-        const currentWps = activeWaypointsRef.current;
 
         // ── 1. One-by-one Progressive Card Reveal ──
         const approachWindow = currentMobile ? 180 : 220;
@@ -216,11 +222,11 @@ export default function Projects() {
         setIlluminations(newIlluminations);
 
         // ── 3. "COMING SOON" Reveal (after Project 4) ──
-        const comingSoonY = currentMobile ? 1680 : 1460;
+        const comingSoonY = currentMobile ? 1480 : 1420;
         if (pt.y < comingSoonY) {
           setComingSoonReveal(0);
         } else {
-          const rev = Math.min(1, Math.max(0, (pt.y - comingSoonY) / 200));
+          const rev = Math.min(1, Math.max(0, (pt.y - comingSoonY) / 160));
           setComingSoonReveal(rev);
         }
       }
@@ -312,7 +318,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="rgba(0, 0, 0, 0.65)"
-                strokeWidth={isMobile ? 85 : 105}
+                strokeWidth={isMobile ? 62 : 105}
                 strokeLinecap="round"
               />
 
@@ -321,7 +327,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="url(#roadAsphalt)"
-                strokeWidth={isMobile ? 64 : 74}
+                strokeWidth={isMobile ? 48 : 74}
                 strokeLinecap="round"
               />
 
@@ -330,7 +336,7 @@ export default function Projects() {
                 d={pathD}
                 fill="none"
                 stroke="rgba(59, 130, 246, 0.32)"
-                strokeWidth={isMobile ? 66 : 76}
+                strokeWidth={isMobile ? 50 : 76}
                 strokeLinecap="round"
               />
 
