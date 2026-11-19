@@ -10,18 +10,28 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   margin: 0 auto;
   user-select: none;
   cursor: pointer;
   z-index: 10;
+  transition: transform 0.25s ease;
+}
+
+.cute-anime-bot-container:hover {
+  transform: scale(1.02);
+}
+
+.cute-anime-bot-container:active,
+.cute-anime-bot--happy {
+  transform: scale(1.06);
 }
 
 /* 3D WebGL Canvas */
 .cute-anime-bot-canvas {
   position: relative;
-  width: 380px;
-  height: 420px;
+  width: 400px;
+  height: 440px;
   border-radius: 28px;
   overflow: visible;
   z-index: 3;
@@ -32,24 +42,26 @@
   height: 100% !important;
   display: block;
   outline: none;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.45));
 }
 
-/* Reticle Ring Behind Bot */
+/* Cyber Reticle Aura Behind Bot */
 .cute-bot-reticle-ring {
   position: absolute;
-  top: 42%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 360px;
-  height: 360px;
+  width: 380px;
+  height: 380px;
   pointer-events: none;
   z-index: 1;
   opacity: 0.55;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .cute-anime-bot-container:hover .cute-bot-reticle-ring {
   opacity: 0.9;
+  transform: translate(-50%, -50%) scale(1.06);
 }
 
 .cute-reticle-svg {
@@ -66,147 +78,94 @@
 
 .cute-reticle-circle {
   fill: none;
-  stroke: rgba(0, 240, 255, 0.35);
+  stroke: rgba(0, 240, 255, 0.32);
   stroke-width: 1.5;
   stroke-dasharray: 8 16;
 }
 
 .cute-reticle-mark {
-  stroke: rgba(168, 85, 247, 0.6);
+  stroke: rgba(168, 85, 247, 0.55);
   stroke-width: 2;
 }
 
-/* Status HUD Pill */
-.cute-bot-hud-pill {
-  position: relative;
-  margin-top: -12px;
-  padding: 7px 16px;
-  border-radius: 9999px;
-  background: rgba(8, 14, 28, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(0, 240, 255, 0.4);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 240, 255, 0.25);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 6;
+/* ── Interactive Floating Click Particles (Hearts & Sparkles) ── */
+.cute-bot-particle {
+  position: absolute;
   pointer-events: none;
+  font-size: 1.35rem;
+  z-index: 20;
+  animation: floatUpFade 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: drop-shadow(0 2px 8px rgba(244, 63, 94, 0.6));
 }
 
-.cute-bot-status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #00f0ff;
-  box-shadow: 0 0 10px #00f0ff;
-  animation: botStatusPulse 2s ease-in-out infinite;
-}
-
-@keyframes botStatusPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(0.8); opacity: 0.5; }
-}
-
-.cute-bot-status-text {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #f8fafc;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* Pedestal Label */
-.cute-bot-pedestal-label {
-  position: relative;
-  margin-top: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  z-index: 5;
-}
-
-.cute-bot-name {
-  font-family: var(--font-heading, sans-serif);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #f8fafc;
-}
-
-.cute-bot-sub {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #00f0ff;
-  margin-top: 3px;
-  text-transform: uppercase;
+@keyframes floatUpFade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4) rotate(-15deg);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -90%) scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -190%) scale(0.9) rotate(25deg);
+  }
 }
 
 /* ── Day Mode Crystal Glass Adaptations ── */
-[data-theme="light"] .cute-bot-hud-pill {
-  background: rgba(240, 249, 255, 0.88) !important;
-  border-color: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.16) !important;
-}
-
-[data-theme="light"] .cute-bot-status-text {
-  color: #081a36 !important;
-}
-
-[data-theme="light"] .cute-bot-status-dot {
-  background: #0284c7 !important;
-  box-shadow: 0 0 10px #0284c7 !important;
+[data-theme="light"] .cute-anime-bot-canvas canvas {
+  filter: drop-shadow(0 14px 32px rgba(37, 99, 235, 0.22));
 }
 
 [data-theme="light"] .cute-reticle-circle {
-  stroke: rgba(56, 189, 248, 0.5) !important;
+  stroke: rgba(56, 189, 248, 0.45) !important;
 }
 
 [data-theme="light"] .cute-reticle-mark {
-  stroke: rgba(37, 99, 235, 0.45) !important;
-}
-
-[data-theme="light"] .cute-bot-name {
-  color: #081a36 !important;
-}
-
-[data-theme="light"] .cute-bot-sub {
-  color: #0284c7 !important;
+  stroke: rgba(37, 99, 235, 0.4) !important;
 }
 
 /* ── Responsive Adaptations ── */
-@media (max-width: 1080px) {
+@media (max-width: 1080px) and (min-width: 769px) {
+  .cute-anime-bot-container {
+    max-width: 320px;
+  }
   .cute-anime-bot-canvas {
-    width: 320px;
-    height: 360px;
+    width: 300px;
+    height: 340px;
   }
   .cute-bot-reticle-ring {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 768px) {
   .cute-anime-bot-container {
-    max-width: 300px;
-    margin-bottom: 2rem;
+    max-width: 270px;
+    margin: 0 auto;
   }
   .cute-anime-bot-canvas {
-    width: 280px;
-    height: 320px;
+    width: 250px;
+    height: 280px;
   }
   .cute-bot-reticle-ring {
-    width: 260px;
-    height: 260px;
+    width: 240px;
+    height: 240px;
   }
-  .cute-bot-hud-pill {
-    padding: 5px 12px;
+}
+
+@media (max-width: 480px) {
+  .cute-anime-bot-container {
+    max-width: 220px;
   }
-  .cute-bot-status-text {
-    font-size: 0.62rem;
+  .cute-anime-bot-canvas {
+    width: 210px;
+    height: 240px;
+  }
+  .cute-bot-reticle-ring {
+    width: 200px;
+    height: 200px;
   }
 }

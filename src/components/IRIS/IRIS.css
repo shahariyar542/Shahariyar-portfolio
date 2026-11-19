@@ -9,8 +9,8 @@
   bottom: 2rem;
   right: 2rem;
   z-index: var(--z-iris);
-  width: 58px;
-  height: 58px;
+  width: 68px;
+  height: 68px;
   border-radius: var(--radius-full);
   background: transparent;
   border: none;
@@ -20,84 +20,52 @@
   justify-content: center;
   padding: 0;
   outline: none;
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.45));
 }
 
-.iris-mascot-body {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 60%, #2563EB 100%);
+.iris-mascot-bot-wrapper {
+  width: 68px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(59, 130, 246, 0.35);
   animation: iris-float 3.5s ease-in-out infinite;
   transition: transform var(--duration-fast);
 }
 
-.iris-mascot:hover .iris-mascot-body {
-  transform: scale(1.06);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
-}
-
-.iris-mascot-face {
-  position: relative;
-  width: 26px;
-  height: 16px;
-}
-
-.iris-mascot-eye {
-  position: absolute;
-  top: 3px;
-  width: 5px;
-  height: 5px;
-  background: #080D1B;
-  border-radius: 50%;
-  animation: iris-blink 4s infinite;
-}
-
-.iris-mascot-eye--left {
-  left: 4px;
-}
-
-.iris-mascot-eye--right {
-  right: 4px;
-}
-
-.iris-mascot-smile {
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 4px;
-  border-bottom: 2px solid #080D1B;
-  border-radius: 0 0 8px 8px;
+.iris-mascot:hover .iris-mascot-bot-wrapper {
+  transform: scale(1.08);
 }
 
 .iris-mascot-label {
   position: absolute;
   bottom: -6px;
   background: #080D1B;
-  color: #60A5FA;
+  color: #38bdf8;
   font-family: var(--font-heading);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(96, 165, 250, 0.4);
+  border: 1px solid rgba(56, 189, 248, 0.45);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.iris-mascot:hover .iris-mascot-label {
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+  transform: scale(1.05);
 }
 
 .iris-mascot-pulse {
   position: absolute;
-  inset: -4px;
+  inset: -6px;
   border-radius: 50%;
-  border: 1.5px solid rgba(96, 165, 250, 0.4);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
   animation: iris-pulse 2.8s ease-out infinite;
   pointer-events: none;
 }
@@ -107,13 +75,8 @@
   50% { transform: translateY(-6px); }
 }
 
-@keyframes iris-blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  94%, 98% { transform: scaleY(0.1); }
-}
-
 @keyframes iris-pulse {
-  0% { transform: scale(0.95); opacity: 0.6; }
+  0% { transform: scale(0.92); opacity: 0.7; }
   70% { transform: scale(1.3); opacity: 0; }
   100% { transform: scale(1.35); opacity: 0; }
 }
@@ -155,25 +118,14 @@
 }
 
 .iris-chat-avatar {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.iris-chat-avatar-face {
-  display: flex;
-  gap: 6px;
-}
-
-.iris-mini-eye {
-  width: 3.5px;
-  height: 4px;
-  background: #080D1B;
-  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .iris-chat-name {
@@ -276,6 +228,34 @@
   border-bottom-right-radius: 3px;
 }
 
+/* Clickable Links inside IRIS Messages */
+.iris-link {
+  color: #38bdf8 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all var(--duration-fast);
+}
+
+.iris-link:hover {
+  color: #60a5fa !important;
+  text-decoration-thickness: 2px !important;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
+}
+
+.iris-inline-code {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #38bdf8;
+}
+
 /* Typing bubble */
 .iris-typing-bubble {
   display: flex;
@@ -333,32 +313,57 @@
 .iris-chat-input {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.65rem 0.85rem;
   background: var(--color-bg-secondary);
   border-top: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.iris-input-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: rgba(10, 16, 30, 0.75);
+  border: 1px solid rgba(96, 165, 250, 0.22);
+  border-radius: var(--radius-lg);
+  padding: 0.35rem 0.45rem 0.35rem 0.85rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--duration-fast);
   gap: 0.5rem;
 }
 
-.iris-chat-input input {
+.iris-input-box:focus-within {
+  border-color: rgba(96, 165, 250, 0.65);
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.iris-textarea {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 0.4rem 0.5rem;
+  padding: 0.35rem 0.2rem;
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--color-text-heading);
   outline: none;
+  resize: none;
+  line-height: 1.4;
+  min-height: 24px;
+  max-height: 90px;
+  box-sizing: border-box;
 }
 
-.iris-chat-input input::placeholder {
-  color: var(--color-text-muted);
+.iris-textarea::placeholder {
+  display: none;
 }
 
 .iris-send-btn {
   width: 34px;
   height: 34px;
-  border-radius: var(--radius-sm);
-  background: var(--color-accent-electric);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
   color: #FFFFFF;
   border: none;
   cursor: pointer;
@@ -367,15 +372,41 @@
   justify-content: center;
   transition: all var(--duration-fast);
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 
 .iris-send-btn:hover:not(:disabled) {
-  background: #2563EB;
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.5);
 }
 
-.iris-send-btn:disabled {
-  opacity: 0.35;
+.iris-send-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.iris-send-btn:disabled,
+.iris-send-btn--disabled {
+  opacity: 0.32;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.iris-send-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: iris-spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes iris-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Mobile ── */

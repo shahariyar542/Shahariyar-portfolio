@@ -11,13 +11,15 @@ function RoleCard({
   positionClass,
   isTargeted,
   onHover,
+  onSelect,
   onLeave,
   index,
+  isExpanded = false,
+  onToggleExpand,
 }) {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, margin: '-40px' });
   const [mouseTilt, setMouseTilt] = useState({ x: 0, y: 0 });
-  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current || window.innerWidth < 1024) return;
@@ -27,11 +29,29 @@ function RoleCard({
     setMouseTilt({ x: xPct, y: yPct });
   };
 
-  const handleMouseEnter = () => {
+  // Immediate pointer down triggers on mobile touch & mouse click without delay
+  const handlePointerDown = (e) => {
+    if (e.target.closest('.floating-card-expand-btn')) return;
+    if (onSelect) {
+      onSelect(role.id);
+    }
+  };
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (e.target.closest('.floating-card-expand-btn')) return;
+    if (onSelect) {
+      onSelect(role.id);
+    }
+  };
+
+  const handleMouseEnter = (e) => {
+    if (e && e.pointerType === 'touch') return;
     onHover(role.id);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (e) => {
+    if (e && e.pointerType === 'touch') return;
     setMouseTilt({ x: 0, y: 0 });
     onLeave();
   };
@@ -83,11 +103,12 @@ function RoleCard({
     <motion.article
       ref={cardRef}
       className={`floating-role-card ${positionClass} ${isTargeted ? 'floating-role-card--targeted' : ''}`}
+      onPointerDown={handlePointerDown}
+      onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleMouseEnter}
-      onBlur={handleMouseLeave}
       tabIndex={0}
       initial={{ opacity: 0, y: 35 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
@@ -127,7 +148,7 @@ function RoleCard({
             className="floating-card-expand-btn"
             onClick={(e) => {
               e.stopPropagation();
-              setIsExpanded(!isExpanded);
+              if (onToggleExpand) onToggleExpand();
             }}
             aria-expanded={isExpanded}
           >
@@ -160,6 +181,17 @@ export default function Roles() {
   const sectionRef = useRef(null);
   const [activeCardId, setActiveCardId] = useState(null);
   const [targetGaze, setTargetGaze] = useState({ x: 0, y: 0 });
+  const [isExpandedAll, setIsExpandedAll] = useState(false);
+
+  const handleToggleExpand = useCallback(() => {
+    setIsExpandedAll((prev) => !prev);
+  }, []);
+
+  const isTouchDevice = typeof window !== 'undefined' && (
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia('(pointer: coarse)').matches
+  );
 
   // Map 4 roles to 4 quadrant positions
   const cardPositions = [
@@ -188,7 +220,27 @@ export default function Roles() {
     }
   }, [activeCardId]);
 
-  const handleCardHover = useCallback((cardId) => {
+  // Touch move across entire section tracks eyes dynamically on mobile
+  const handleSectionTouchMove = useCallback((e) => {
+    if (!sectionRef.current || !e.touches || e.touches.length === 0) return;
+    const touch = e.touches[0];
+    const rect = sectionRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const nx = (touch.clientX - centerX) / (rect.width * 0.45);
+    const ny = (touch.clientY - centerY) / (rect.height * 0.45);
+
+    if (!activeCardId) {
+      setTargetGaze({
+        x: Math.max(-1, Math.min(1, nx)),
+        y: Math.max(-1, Math.min(1, ny)),
+      });
+    }
+  }, [activeCardId]);
+
+  // Bulletproof lock onto card for both desktop hover & mobile tap
+  const lockCardGaze = useCallback((cardId) => {
     setActiveCardId(cardId);
     switch (cardId) {
       case 'role-1':
@@ -204,15 +256,43 @@ export default function Roles() {
         setTargetGaze({ x: 1.0, y: 0.88 });
         break;
       default:
+        setTargetGaze({ x: 0, y: 0 });
         break;
     }
   }, []);
 
+  const handleCardHover = useCallback((cardId) => {
+    lockCardGaze(cardId);
+  }, [lockCardGaze]);
+
+  const handleCardSelect = useCallback((cardId) => {
+    lockCardGaze(cardId);
+  }, [lockCardGaze]);
+
   const handleCardLeave = useCallback(() => {
+    // On touch devices / mobile, never clear gaze when finger lifts!
+    if (isTouchDevice) return;
     setActiveCardId(null);
-  }, []);
+    setTargetGaze({ x: 0, y: 0 });
+  }, [isTouchDevice]);
 
   const handleSectionMouseLeave = useCallback(() => {
+    if (isTouchDevice) return;
+    setActiveCardId(null);
+    setTargetGaze({ x: 0, y: 0 });
+  }, [isTouchDevice]);
+
+  // Clicking outside cards resets focus
+  const handleSectionClick = useCallback((e) => {
+    if (e.target.closest('.floating-role-card') || e.target.closest('.cute-anime-bot-container')) {
+      return;
+    }
+    setActiveCardId(null);
+    setTargetGaze({ x: 0, y: 0 });
+  }, []);
+
+  // Clicking bot clears locked card
+  const handleBotClick = useCallback(() => {
     setActiveCardId(null);
     setTargetGaze({ x: 0, y: 0 });
   }, []);
@@ -223,7 +303,9 @@ export default function Roles() {
       className="roles section"
       ref={sectionRef}
       onMouseMove={handleSectionMouseMove}
+      onTouchMove={handleSectionTouchMove}
       onMouseLeave={handleSectionMouseLeave}
+      onClick={handleSectionClick}
     >
       <div className="container">
         {/* Section Header */}
@@ -238,6 +320,42 @@ export default function Roles() {
 
         {/* 3D Experience Matrix Stage */}
         <div className="roles-portrait-experience-matrix">
+          {/* Optical Laser Beams linking portrait to hovered/targeted card */}
+          <svg className="roles-optical-tethers" aria-hidden="true" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            {/* Beam to Upper Left */}
+            <line
+              x1="500"
+              y1="500"
+              x2="220"
+              y2="220"
+              className={`optical-tether optical-tether--ul ${activeCardId === 'role-1' ? 'optical-tether--active' : ''}`}
+            />
+            {/* Beam to Upper Right */}
+            <line
+              x1="500"
+              y1="500"
+              x2="780"
+              y2="220"
+              className={`optical-tether optical-tether--ur ${activeCardId === 'role-2' ? 'optical-tether--active' : ''}`}
+            />
+            {/* Beam to Lower Left */}
+            <line
+              x1="500"
+              y1="500"
+              x2="220"
+              y2="780"
+              className={`optical-tether optical-tether--ll ${activeCardId === 'role-3' ? 'optical-tether--active' : ''}`}
+            />
+            {/* Beam to Lower Right */}
+            <line
+              x1="500"
+              y1="500"
+              x2="780"
+              y2="780"
+              className={`optical-tether optical-tether--lr ${activeCardId === 'role-4' ? 'optical-tether--active' : ''}`}
+            />
+          </svg>
+
           {/* Card 1: Upper Left (Software Engineering Student) */}
           <div className="roles-matrix-cell cell--upper-left">
             {rolesData[0] && (
@@ -246,8 +364,11 @@ export default function Roles() {
                 positionClass={cardPositions[0].posClass}
                 isTargeted={activeCardId === rolesData[0].id}
                 onHover={handleCardHover}
+                onSelect={handleCardSelect}
                 onLeave={handleCardLeave}
                 index={0}
+                isExpanded={isExpandedAll}
+                onToggleExpand={handleToggleExpand}
               />
             )}
           </div>
@@ -257,43 +378,8 @@ export default function Roles() {
             <CuteAnimeBot
               targetGaze={targetGaze}
               activeCard={activeCardId}
+              onBotClick={handleBotClick}
             />
-
-            {/* Optical Laser Beams linking portrait to hovered card */}
-            <svg className="roles-optical-tethers" aria-hidden="true" viewBox="0 0 1000 600">
-              {/* Beam to Upper Left */}
-              <line
-                x1="500"
-                y1="300"
-                x2="150"
-                y2="150"
-                className={`optical-tether optical-tether--ul ${activeCardId === 'role-1' ? 'optical-tether--active' : ''}`}
-              />
-              {/* Beam to Upper Right */}
-              <line
-                x1="500"
-                y1="300"
-                x2="850"
-                y2="150"
-                className={`optical-tether optical-tether--ur ${activeCardId === 'role-2' ? 'optical-tether--active' : ''}`}
-              />
-              {/* Beam to Lower Left */}
-              <line
-                x1="500"
-                y1="300"
-                x2="150"
-                y2="450"
-                className={`optical-tether optical-tether--ll ${activeCardId === 'role-3' ? 'optical-tether--active' : ''}`}
-              />
-              {/* Beam to Lower Right */}
-              <line
-                x1="500"
-                y1="300"
-                x2="850"
-                y2="450"
-                className={`optical-tether optical-tether--lr ${activeCardId === 'role-4' ? 'optical-tether--active' : ''}`}
-              />
-            </svg>
           </div>
 
           {/* Card 2: Upper Right (Project Contributor & Builder) */}
@@ -304,8 +390,11 @@ export default function Roles() {
                 positionClass={cardPositions[1].posClass}
                 isTargeted={activeCardId === rolesData[1].id}
                 onHover={handleCardHover}
+                onSelect={handleCardSelect}
                 onLeave={handleCardLeave}
                 index={1}
+                isExpanded={isExpandedAll}
+                onToggleExpand={handleToggleExpand}
               />
             )}
           </div>
@@ -318,8 +407,11 @@ export default function Roles() {
                 positionClass={cardPositions[2].posClass}
                 isTargeted={activeCardId === rolesData[2].id}
                 onHover={handleCardHover}
+                onSelect={handleCardSelect}
                 onLeave={handleCardLeave}
                 index={2}
+                isExpanded={isExpandedAll}
+                onToggleExpand={handleToggleExpand}
               />
             )}
           </div>
@@ -332,8 +424,11 @@ export default function Roles() {
                 positionClass={cardPositions[3].posClass}
                 isTargeted={activeCardId === rolesData[3].id}
                 onHover={handleCardHover}
+                onSelect={handleCardSelect}
                 onLeave={handleCardLeave}
                 index={3}
+                isExpanded={isExpandedAll}
+                onToggleExpand={handleToggleExpand}
               />
             )}
           </div>

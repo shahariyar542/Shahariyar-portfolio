@@ -176,6 +176,10 @@ footer,
               inset 0 -1px 2px 0 rgba(96, 165, 250, 0.2) !important;
 }
 
+[data-theme="light"] .nav-desktop-menu::before {
+  display: none !important;
+}
+
 [data-theme="light"] .nav-desktop-link {
   color: #1E3A5F !important;
   font-weight: 500;
@@ -314,6 +318,24 @@ footer,
 [data-theme="light"] .hero-badge-text {
   color: #1D4ED8 !important;
   font-weight: 600;
+}
+
+[data-theme="light"] .hero-greeting {
+  background: rgba(220, 242, 255, 0.55) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(56, 130, 205, 0.12),
+              inset 0 1px 1px #FFFFFF !important;
+}
+
+[data-theme="light"] .hero-greeting-text {
+  color: #0284C7 !important;
+  text-shadow: none !important;
+}
+
+[data-theme="light"] .hero-greeting-icon {
+  color: #0284C7 !important;
 }
 
 [data-theme="light"] .hero-name {
@@ -1336,6 +1358,21 @@ footer,
   box-shadow: 0 4px 14px rgba(56, 130, 205, 0.08) !important;
 }
 
+[data-theme="light"] .iris-link {
+  color: #0284c7 !important;
+  text-decoration-color: #0284c7 !important;
+}
+
+[data-theme="light"] .iris-link:hover {
+  color: #0369a1 !important;
+}
+
+[data-theme="light"] .iris-inline-code {
+  background: rgba(220, 242, 255, 0.85) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  color: #0369a1 !important;
+}
+
 [data-theme="light"] .iris-suggestion-chip {
   background: rgba(220, 242, 255, 0.5) !important;
   backdrop-filter: blur(14px) !important;
@@ -1351,13 +1388,23 @@ footer,
 }
 
 [data-theme="light"] .iris-chat-input {
-  background: rgba(225, 244, 255, 0.5) !important;
-  border: 1px solid rgba(255, 255, 255, 0.85) !important;
-  color: #081A36 !important;
+  background: rgba(225, 244, 255, 0.45) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
 }
 
-[data-theme="light"] .iris-chat-input::placeholder {
-  color: #4B6B94 !important;
+[data-theme="light"] .iris-input-box {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(147, 197, 253, 0.5) !important;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(37, 99, 235, 0.08) !important;
+}
+
+[data-theme="light"] .iris-input-box:focus-within {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="light"] .iris-textarea {
+  color: #081A36 !important;
 }
 
 /* ============================================================

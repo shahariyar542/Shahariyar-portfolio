@@ -486,12 +486,12 @@
     z-index: 4;
   }
 
-  /* Two separate visual areas: Col 1 = 48px Road corridor, Col 2 = 1fr Project Card beside the road */
+  /* Two separate visual areas: Col 1 = 68px Road corridor, Col 2 = 1fr Project Card beside the road */
   .roadway-station-row {
     display: grid;
-    grid-template-columns: 48px 1fr;
+    grid-template-columns: 68px 1fr;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     min-height: 340px;
   }
 
@@ -556,7 +556,7 @@
   }
 
   .roadway-station-row {
-    grid-template-columns: 44px 1fr;
+    grid-template-columns: 60px 1fr;
     gap: 10px;
     min-height: 330px;
   }

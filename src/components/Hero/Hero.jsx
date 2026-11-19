@@ -91,31 +91,26 @@ export default function Hero() {
       <div className="hero-inner">
         {/* ── LEFT: Typography & Clear Hierarchy ── */}
         <div className="hero-content">
-          {/* Main Identity & Status Badge */}
+          {/* Status Badge */}
           <motion.div
-            className="hero-badge-container"
+            className="hero-badge"
             variants={fadeUp(0)}
             initial="hidden"
             animate={animateState}
           >
-            <div className="hero-identity-capsule">
-              <span className="hero-identity-dot" />
-              <span className="hero-identity-text">SHAHARIYAR.EXE</span>
-            </div>
-            <div className="hero-badge">
-              <span className="hero-badge-dot" />
-              <span className="hero-badge-text">Available for AI &amp; Engineering Projects</span>
-            </div>
+            <span className="hero-badge-dot" />
+            <span className="hero-badge-text">Available for AI &amp; Engineering Projects</span>
           </motion.div>
 
-          {/* Subheading Greeting & Tagline */}
+          {/* Subheading Greeting */}
           <motion.div
-            className="hero-tagline-wrap"
+            className="hero-greeting"
             variants={fadeUp(0.1)}
             initial="hidden"
             animate={animateState}
           >
-            <span className="hero-tagline">Engineering ideas into intelligent experiences.</span>
+            <span className="hero-greeting-icon" aria-hidden="true">◈</span>
+            <span className="hero-greeting-text">HELLO, I AM</span>
           </motion.div>
 
           {/* Large Name */}

@@ -1,0 +1,124 @@
+/* ============================================================
+   IRIS Cute Anime Bot Avatar Styles
+   Matches the 3D Porcelain Anime Robot Companion
+   ============================================================ */
+
+.iris-cute-bot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.iris-cute-bot-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* ── Floating Cyber Halo Animation ── */
+.iris-bot-halo {
+  transform-origin: 60px 15px;
+  animation: irisHaloFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes irisHaloFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateY(-2px) scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* ── Mecha Cat Ears Cute Wiggle on Hover ── */
+.iris-bot-ear--left {
+  transform-origin: 34px 35px;
+  transition: transform 0.3s ease;
+}
+
+.iris-bot-ear--right {
+  transform-origin: 86px 35px;
+  transition: transform 0.3s ease;
+}
+
+.iris-cute-bot:hover .iris-bot-ear--left {
+  transform: rotate(-4deg);
+}
+
+.iris-cute-bot:hover .iris-bot-ear--right {
+  transform: rotate(4deg);
+}
+
+/* ── Organic Anime Eye Blinking ── */
+.iris-bot-eye--left {
+  transform-origin: 41px 62px;
+  animation: irisEyeAnimeBlink 3.8s ease-in-out infinite;
+}
+
+.iris-bot-eye--right {
+  transform-origin: 79px 62px;
+  animation: irisEyeAnimeBlink 3.8s ease-in-out infinite;
+}
+
+@keyframes irisEyeAnimeBlink {
+  0%, 90%, 100% {
+    transform: scaleY(1);
+  }
+  93% {
+    transform: scaleY(0.06);
+  }
+  96% {
+    transform: scaleY(1);
+  }
+}
+
+/* ── Rosy Pink Cheeks Blush ── */
+.iris-blush-oval {
+  opacity: 0.65;
+  transition: opacity 0.3s ease, fill 0.3s ease;
+}
+
+.iris-cute-bot:hover .iris-blush-oval,
+.iris-cute-bot--happy .iris-blush-oval {
+  opacity: 0.95;
+  filter: drop-shadow(0 0 3px #ff6b8b);
+}
+
+/* ── Cute Smile ── */
+.iris-bot-mouth {
+  transition: transform 0.25s ease;
+}
+
+.iris-cute-bot:hover .iris-bot-mouth,
+.iris-cute-bot--happy .iris-bot-mouth {
+  transform: scale(1.08);
+  transform-origin: 60px 72px;
+}
+
+/* ── Floating Paws Levitation ── */
+.iris-bot-paw--left {
+  animation: irisPawFloatLeft 3s ease-in-out infinite;
+  transform-origin: 24px 95px;
+}
+
+.iris-bot-paw--right {
+  animation: irisPawFloatRight 3s ease-in-out infinite 0.3s;
+  transform-origin: 96px 95px;
+}
+
+@keyframes irisPawFloatLeft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes irisPawFloatRight {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}

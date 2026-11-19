@@ -131,13 +131,14 @@ export default function ThreeHeroCanvas() {
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
       if (isLight) {
         wireframeMat.color.set(0x0284c7);
-        wireframeMat.opacity = 0.52;
+        wireframeMat.opacity = 0.65;
         innerMat.color.set(0xbae6fd);
-        innerMat.emissive.set(0x38bdf8);
-        innerMat.emissiveIntensity = 0.65;
+        innerMat.emissive.set(0x0284c7);
+        innerMat.emissiveIntensity = 0.75;
         ringMat.color.set(0x0284c7);
-        ringMat.opacity = 0.55;
+        ringMat.opacity = 0.75;
         pointLight.color.set(0x0284c7);
+        particleMat.opacity = 0.85;
       } else {
         wireframeMat.color.set(0x60a5fa);
         wireframeMat.opacity = 0.28;
@@ -147,6 +148,7 @@ export default function ThreeHeroCanvas() {
         ringMat.color.set(0x22d3ee);
         ringMat.opacity = 0.35;
         pointLight.color.set(0x3b82f6);
+        particleMat.opacity = 0.6;
       }
     };
     updateThemeColors();

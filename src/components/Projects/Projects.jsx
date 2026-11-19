@@ -20,12 +20,12 @@ const desktopWaypoints = [
   { id: 3, x: 550, y: 1440, side: 'right' },
 ];
 
-// Mobile Waypoints (dedicated side highway corridor beside project cards)
+// Mobile Waypoints (curvy side highway corridor beside project cards)
 const mobileWaypoints = [
-  { id: 0, x: 66, y: 220, side: 'right' },
-  { id: 1, x: 78, y: 600, side: 'right' },
-  { id: 2, x: 56, y: 980, side: 'right' },
-  { id: 3, x: 76, y: 1360, side: 'right' },
+  { id: 0, x: 108, y: 250, side: 'right' },
+  { id: 1, x: 110, y: 725, side: 'right' },
+  { id: 2, x: 108, y: 1187, side: 'right' },
+  { id: 3, x: 110, y: 1648, side: 'right' },
 ];
 
 const desktopPathD = `M 500 0 
@@ -37,14 +37,21 @@ const desktopPathD = `M 500 0
   C 500 1840, 560 1930, 500 1980
   C 440 1930, 440 1840, 480 1760`;
 
-const mobilePathD = `M 66 0 
-  C 56 70, 66 140, 66 220 
-  C 66 380, 78 440, 78 600 
-  C 78 760, 56 820, 56 980 
-  C 56 1140, 76 1200, 76 1360 
-  C 76 1480, 66 1560, 66 1680
-  C 66 1770, 88 1850, 66 1910
-  C 44 1850, 44 1770, 66 1700`;
+const mobilePathD = `M 80 0 
+  C 80 70, 32 120, 32 170 
+  C 32 210, 80 215, 108 250 
+  C 130 280, 125 360, 85 430 
+  C 45 500, 28 570, 30 630 
+  C 32 680, 75 695, 110 725 
+  C 130 755, 125 835, 85 905 
+  C 45 975, 28 1045, 30 1100 
+  C 32 1145, 75 1160, 108 1187 
+  C 130 1217, 125 1297, 85 1367 
+  C 45 1437, 28 1507, 30 1560 
+  C 32 1605, 75 1620, 110 1648 
+  C 130 1680, 125 1740, 85 1800 
+  C 45 1860, 30 1910, 45 1970 
+  C 60 2020, 75 2050, 75 2050`;
 
 export default function Projects() {
   const sectionRef = useRef(null);
@@ -173,7 +180,7 @@ export default function Projects() {
         setIlluminations(newIlluminations);
 
         // ── 3. "COMING SOON" Reveal (after Project 4) ──
-        const comingSoonY = currentMobile ? 1400 : 1460;
+        const comingSoonY = currentMobile ? 1680 : 1460;
         if (pt.y < comingSoonY) {
           setComingSoonReveal(0);
         } else {
@@ -320,7 +327,7 @@ export default function Projects() {
                 const isSelected = activeProject === idx;
                 const illum = illuminations[idx] || 0;
                 const reveal = reveals[idx] || 0;
-                const targetX = isMobile ? 150 : (wp.side === 'left' ? 320 : 680);
+                const targetX = isMobile ? 210 : (wp.side === 'left' ? 320 : 680);
 
                 // Warm golden conduit illumination when headlights hit
                 const strokeColor =

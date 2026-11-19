@@ -29,11 +29,6 @@ function Footer() {
               © 2026 {personalInfo.fullName}
             </p>
 
-            {/* Center — Tagline */}
-            <p className="footer-tagline">
-              Built with passion &amp; curiosity
-            </p>
-
             {/* Right — Social Links */}
             <nav className="footer-social" aria-label="Social links">
               <a

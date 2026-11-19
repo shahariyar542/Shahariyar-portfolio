@@ -24,17 +24,6 @@
   white-space: nowrap;
 }
 
-/* ── Center Tagline ── */
-.footer-tagline {
-  font-family: var(--font-heading);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: var(--color-accent-primary);
-  text-align: center;
-  white-space: nowrap;
-}
-
 /* ── Social Links ── */
 .footer-social {
   display: flex;
@@ -91,10 +80,6 @@
     flex-direction: column;
     gap: var(--space-md);
     text-align: center;
-  }
-
-  .footer-tagline {
-    order: -1;
   }
 
   .footer-back-to-top {
