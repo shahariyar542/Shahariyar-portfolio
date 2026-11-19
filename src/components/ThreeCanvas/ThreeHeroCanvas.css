@@ -13,7 +13,7 @@
 }
 
 [data-theme="light"] .three-hero-container {
-  opacity: 0.22;
+  opacity: 0.45;
 }
 
 .three-hero-container canvas {
@@ -24,6 +24,6 @@
 
 @media (max-width: 768px) {
   .three-hero-container {
-    display: none !important;
+    opacity: 0.45;
   }
 }

@@ -41,14 +41,13 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
     );
     camera.position.set(0, 0, 11.5);
 
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !isMobile,
+      antialias: true,
       powerPreference: 'high-performance',
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
     const mainGroup = new THREE.Group();
@@ -414,7 +413,7 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
 
     // 11. Animation Loop
     let animId;
-    let lastTime = performance.now();
+    let clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
@@ -422,9 +421,7 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
       const state = stateRef.current;
       if (state.isVisible === false) return;
 
-      const now = performance.now();
-      const delta = Math.min((now - lastTime) / 1000, 0.1);
-      lastTime = now;
+      const delta = clock.getDelta();
 
       // Smooth progress interpolation towards target
       state.progress += (state.targetProgress - state.progress) * 0.08;
@@ -482,6 +479,7 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
       renderer.render(scene, camera);
     };
 
+    renderer.render(scene, camera);
     animate();
 
     // 12. Cleanup

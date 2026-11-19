@@ -6,13 +6,6 @@ export default function ThreeHeroCanvas() {
   const mountRef = useRef(null);
 
   useEffect(() => {
-    // Disable on mobile devices (< 768px):
-    // Completely eliminates heavy WebGL context on phones, frees GPU & memory,
-    // and keeps hero typography 100% visible and responsive!
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      return;
-    }
-
     const container = mountRef.current;
     if (!container) return;
 
@@ -29,14 +22,13 @@ export default function ThreeHeroCanvas() {
     );
     camera.position.z = 6.5;
 
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !isMobile,
+      antialias: true,
       powerPreference: 'high-performance',
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
     const group = new THREE.Group();
@@ -139,14 +131,14 @@ export default function ThreeHeroCanvas() {
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
       if (isLight) {
         wireframeMat.color.set(0x0284c7);
-        wireframeMat.opacity = 0.65;
-        innerMat.color.set(0xbae6fd);
+        wireframeMat.opacity = 0.42;
+        innerMat.color.set(0xdbeafe);
         innerMat.emissive.set(0x0284c7);
-        innerMat.emissiveIntensity = 0.75;
+        innerMat.emissiveIntensity = 0.45;
         ringMat.color.set(0x0284c7);
-        ringMat.opacity = 0.75;
+        ringMat.opacity = 0.45;
         pointLight.color.set(0x0284c7);
-        particleMat.opacity = 0.85;
+        particleMat.opacity = 0.7;
       } else {
         wireframeMat.color.set(0x60a5fa);
         wireframeMat.opacity = 0.28;
@@ -211,6 +203,7 @@ export default function ThreeHeroCanvas() {
       renderer.render(scene, camera);
     };
 
+    renderer.render(scene, camera);
     animate();
 
     // ── Cleanup ──
