@@ -79,7 +79,10 @@ export default function ExperienceCardHanging({
               }
         }
         style={{
-          transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transform: isHovered
+            ? `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
+            : undefined,
+          transition: isHovered ? 'none' : 'transform 0.4s ease-out',
         }}
       >
         {/* Top Dual Grommet Rings */}

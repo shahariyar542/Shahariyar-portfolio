@@ -165,26 +165,12 @@ export default function ThreeHeroCanvas() {
     const themeObserver = new MutationObserver(updateThemeColors);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-    // ── 6. Mobile Portrait Aspect Ratio & Dynamic Framing ──
+    // ── 6. Resize Handling (Full Grand 3D Shape across entire Hero on all screens) ──
     const handleResize = () => {
       if (!container) return;
       const width = container.clientWidth;
       const height = container.clientHeight;
-      const isMobileScreen = width < 768;
-
       camera.aspect = width / height;
-
-      if (isMobileScreen) {
-        // In mobile portrait, push camera back and scale down so crystal acts as a background halo behind photo
-        camera.position.z = 10.5;
-        group.scale.set(0.65, 0.65, 0.65);
-        group.position.set(0, 0.35, 0);
-      } else {
-        camera.position.z = 6.5;
-        group.scale.set(1.0, 1.0, 1.0);
-        group.position.set(0, 0, 0);
-      }
-
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     };

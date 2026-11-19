@@ -221,12 +221,15 @@ export default function Projects() {
         });
         setIlluminations(newIlluminations);
 
-        // ── 3. "COMING SOON" Reveal (after Project 4) ──
-        const comingSoonY = currentMobile ? 1480 : 1420;
-        if (pt.y < comingSoonY) {
+        // ── 3. "COMING SOON" Reveal (strictly AFTER car passes 4th project card) ──
+        const wp4 = currentWps[3];
+        const card4Y = wp4 ? wp4.y : (currentMobile ? 1611 : 1440);
+        // Only trigger once vehicle has physically passed the 4th project card
+        const startComingSoonY = card4Y + (currentMobile ? 35 : 45);
+        if (pt.y <= startComingSoonY) {
           setComingSoonReveal(0);
         } else {
-          const rev = Math.min(1, Math.max(0, (pt.y - comingSoonY) / 160));
+          const rev = Math.min(1, Math.max(0, (pt.y - startComingSoonY) / 140));
           setComingSoonReveal(rev);
         }
       }

@@ -15,13 +15,23 @@ export default function Experience() {
 
   const [progress, setProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [maxRevealedIndex, setMaxRevealedIndex] = useState(-1);
 
-  // Derive revealed states directly from current progress
+  // Keep track of revealed milestones - once revealed, they stay revealed (prevents double-trigger flicker)
+  useEffect(() => {
+    REVEAL_THRESHOLDS.forEach((thresh, idx) => {
+      if (progress >= thresh) {
+        setMaxRevealedIndex((prev) => Math.max(prev, idx));
+      }
+    });
+  }, [progress]);
+
+  // Derive revealed states: once revealed, card stays stable and never collapses/re-triggers
   const revealedStates = [
-    progress >= REVEAL_THRESHOLDS[0],
-    progress >= REVEAL_THRESHOLDS[1],
-    progress >= REVEAL_THRESHOLDS[2],
-    progress >= REVEAL_THRESHOLDS[3],
+    maxRevealedIndex >= 0 || progress >= REVEAL_THRESHOLDS[0],
+    maxRevealedIndex >= 1 || progress >= REVEAL_THRESHOLDS[1],
+    maxRevealedIndex >= 2 || progress >= REVEAL_THRESHOLDS[2],
+    maxRevealedIndex >= 3 || progress >= REVEAL_THRESHOLDS[3],
   ];
 
   // Sequential Storytelling Auto-Progression when in viewport
@@ -37,7 +47,8 @@ export default function Experience() {
       const elapsed = timestamp - startTime;
       const t = Math.min(1, elapsed / duration);
 
-      setProgress(t);
+      // Only advance forward monotonically; never pull progress backward
+      setProgress((prev) => Math.max(prev, t));
 
       if (t < 1) {
         animId = requestAnimationFrame(step);
@@ -60,7 +71,7 @@ export default function Experience() {
     const currentDist = windowHeight - rect.top;
     const scrollRatio = Math.max(0, Math.min(1, currentDist / totalDist));
 
-    // If user is actively scrolling, update progress accordingly
+    // If user is actively scrolling, advance progress smoothly
     if (scrollRatio > 0.05 && scrollRatio < 0.95) {
       setProgress((prev) => Math.max(prev, scrollRatio));
     }
@@ -83,6 +94,7 @@ export default function Experience() {
 
   // Replay Explorer Journey
   const handleReplay = () => {
+    setMaxRevealedIndex(-1);
     setProgress(0);
     setIsPlaying(false);
     setTimeout(() => {
