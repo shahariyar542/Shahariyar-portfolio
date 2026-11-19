@@ -344,11 +344,31 @@ footer,
 }
 
 [data-theme="light"] .hero-title {
-  color: #1E3A5F !important;
+  color: #0F172A !important;
+  font-weight: 600 !important;
+}
+
+[data-theme="light"] .hero-title-separator {
+  color: #64748B !important;
+  margin: 0 6px;
+  font-weight: 400;
+}
+
+[data-theme="light"] .hero-title-highlight {
+  font-family: var(--font-heading) !important;
+  color: #0066CC !important;
+  -webkit-text-fill-color: #0066CC !important;
+  background: none !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+  text-shadow: none !important;
+  display: inline-block;
+  padding: 0 2px;
 }
 
 [data-theme="light"] .hero-description {
-  color: #2B4C7E !important;
+  color: #1E293B !important;
+  font-weight: 500 !important;
 }
 
 [data-theme="light"] .hero-stat-card {

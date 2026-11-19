@@ -6,6 +6,13 @@ export default function ThreeHeroCanvas() {
   const mountRef = useRef(null);
 
   useEffect(() => {
+    // Disable on mobile devices (< 768px):
+    // Completely eliminates heavy WebGL context on phones, frees GPU & memory,
+    // and keeps hero typography 100% visible and responsive!
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return;
+    }
+
     const container = mountRef.current;
     if (!container) return;
 

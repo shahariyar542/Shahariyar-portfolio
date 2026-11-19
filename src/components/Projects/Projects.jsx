@@ -127,7 +127,19 @@ export default function Projects() {
       isMoving = true;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    let ticking = false;
+    const onScroll = () => {
+      isMoving = true;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     handleScroll();
 
     // 60fps Physical Lerp Loop (sleeps automatically when settled or offscreen)
@@ -218,7 +230,7 @@ export default function Projects() {
 
     return () => {
       sectionObserver.disconnect();
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(animId);
     };
   }, []);

@@ -41,13 +41,14 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
     );
     camera.position.set(0, 0, 11.5);
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !isMobile,
       powerPreference: 'high-performance',
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
     container.appendChild(renderer.domElement);
 
     const mainGroup = new THREE.Group();
