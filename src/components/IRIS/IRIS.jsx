@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { generateId } from '../../utils/helpers';
-import { buildGeminiSystemPrompt, isOffTopic, getOffTopicRefusal, detectLanguage } from '../../data/irisKnowledge';
+import { buildGeminiSystemPrompt } from '../../data/irisKnowledge';
 import { processIrisQuery } from '../../data/irisEngine';
 import IrisCuteBotAvatar from './IrisCuteBotAvatar';
 import './IRIS.css';
@@ -46,9 +46,11 @@ function playCuteAnimeChirp() {
 
 /**
  * Strips markdown, emojis, URLs, and asterisks for smooth human-like Text-To-Speech
+ * Guarantees that emojis and symbols are NEVER read aloud by the speech synthesizer.
  */
 function stripMarkdownForTTS(text) {
   if (!text) return '';
+
   return text
     // Replace markdown links [label](url) with just label
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
@@ -63,8 +65,13 @@ function stripMarkdownForTTS(text) {
     // Remove raw URLs
     .replace(/https?:\/\/\S+/g, '')
     // Remove list markers and markdown headers
-    .replace(/^[#*->•]\s+/gm, '')
-    // Normalize newlines to spaces
+    .replace(/^[#*->•·–—]\s+/gm, '')
+    // Strip all Unicode emojis cleanly
+    .replace(/\p{Extended_Pictographic}|\p{Emoji}/gu, '')
+    // Strip stray joining characters, variation selectors, bullets
+    .replace(/\u200D|\uFE0E|\uFE0F/g, '')
+    .replace(/[•·★☆]/g, '')
+    // Normalize newlines and spaces
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -95,17 +102,28 @@ function findTrueBengaliVoice(voices) {
 function findEnglishVoice(voices) {
   if (!voices || voices.length === 0) return null;
   return (
-    voices.find((v) =>
-      v.lang.startsWith('en') &&
-      (v.name.includes('Google US English') ||
-       v.name.includes('Natural') ||
-       v.name.includes('Samantha') ||
-       v.name.includes('Zira') ||
-       v.name.includes('Jenny') ||
-       v.name.includes('Aria') ||
-       v.name.includes('Female'))
-    ) ||
-    voices.find((v) => v.lang.startsWith('en')) ||
+    voices.find((v) => {
+      const name = (v.name || '').toLowerCase();
+      const lang = (v.lang || '').toLowerCase();
+      return (
+        lang.startsWith('en') &&
+        (name.includes('female') ||
+         name.includes('zira') ||
+         name.includes('samantha') ||
+         name.includes('jenny') ||
+         name.includes('aria') ||
+         name.includes('victoria') ||
+         name.includes('karen') ||
+         name.includes('natural') ||
+         name.includes('google us english'))
+      );
+    }) ||
+    voices.find((v) => {
+      const name = (v.name || '').toLowerCase();
+      const lang = (v.lang || '').toLowerCase();
+      return lang.startsWith('en') && !name.includes('david') && !name.includes('mark') && !name.includes('george');
+    }) ||
+    voices.find((v) => (v.lang || '').toLowerCase().startsWith('en')) ||
     null
   );
 }
@@ -190,15 +208,10 @@ const suggestedQuestions = [
   "তোমার CV দেখতে চাই",
 ];
 
-/* ── Gemini API Integration with Local Intelligence Fallback ── */
+/* ── Comprehensive AI Response Engine ── */
 async function getIrisResponse(userMessage, conversationHistory, preferredLang = null) {
-  const text = userMessage.trim();
-
-  // Strict local boundary check: always refuse off-topic immediately
-  if (isOffTopic(text)) {
-    const lang = preferredLang === 'bn-BD' ? 'bengali' : detectLanguage(text);
-    return getOffTopicRefusal(lang);
-  }
+  const text = (userMessage || '').trim();
+  if (!text) return '';
 
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
@@ -209,19 +222,19 @@ async function getIrisResponse(userMessage, conversationHistory, preferredLang =
   const systemPrompt = buildGeminiSystemPrompt();
   const userInstruction =
     preferredLang === 'bn-BD'
-      ? `[Important Instruction: Respond in fluent, natural Bengali script (বাংলা) so the voice engine can speak it]\n${text}`
+      ? `[Important Instruction: Respond in natural Bengali script (বাংলা) so the voice engine can speak in sweet Bengali]\n${text}`
       : text;
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents: [
             { role: 'user', parts: [{ text: systemPrompt }] },
-            { role: 'model', parts: [{ text: 'Understood! I am Iris, Shahariyar Khan Rashad’s personal AI portfolio assistant. I am ready to converse in Bengali, English, and Banglish while maintaining strict portfolio knowledge boundaries and providing clickable links.' }] },
+            { role: 'model', parts: [{ text: 'Understood! I am Iris, Shahariyar Khan Rashad’s personal AI portfolio assistant. I am ready to converse naturally in Bengali, English, and Banglish.' }] },
             ...conversationHistory.slice(-10).map((m) => ({
               role: m.sender === 'user' ? 'user' : 'model',
               parts: [{ text: m.text }],
@@ -229,7 +242,7 @@ async function getIrisResponse(userMessage, conversationHistory, preferredLang =
             { role: 'user', parts: [{ text: userInstruction }] },
           ],
           generationConfig: {
-            temperature: 0.65,
+            temperature: 0.7,
             maxOutputTokens: 380,
           },
         }),
@@ -246,8 +259,8 @@ async function getIrisResponse(userMessage, conversationHistory, preferredLang =
     }
 
     return processIrisQuery(text, conversationHistory, preferredLang);
-  } catch (err) {
-    console.warn('IRIS Gemini API error, falling back to local intelligence:', err);
+  } catch {
+    // Smooth fallback to our comprehensive semantic engine
     return processIrisQuery(text, conversationHistory, preferredLang);
   }
 }
@@ -487,8 +500,8 @@ export default function IRIS() {
         if (enVoice) {
           utterance.voice = enVoice;
         }
-        utterance.pitch = 1.1;
-        utterance.rate = 1.02;
+        utterance.pitch = 1.18; // Sweet, natural female assistant pitch
+        utterance.rate = 1.0;
 
         utterance.onstart = () => {
           setIsSpeaking(true);
