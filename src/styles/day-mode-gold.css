@@ -1,0 +1,1599 @@
+/* ============================================================
+   SHAHARIYAR.EXE — Day Mode (Soft Luxury Champagne Gold Liquid Glass)
+   Ultra-premium transparent Champagne Gold & Warm Amber Liquid Glass UI
+   VisionOS-inspired glass interfaces, realistic reflections,
+   dimensional 3D interactions, and high-contrast typography
+   ============================================================ */
+
+/* ── Smooth Theme Transitions ── */
+html,
+body,
+main,
+section,
+header,
+nav,
+article,
+footer,
+.glass-card,
+.exp-card,
+.role-card,
+.cert-card,
+.award-3d-card,
+.about-card-3d,
+.education-3d-card,
+.education-3d-stage,
+.research-active-3d-card,
+.skills-orbit-card,
+.project-roadway-card,
+.sh-glass-capsule,
+.nav-topbar,
+.nav-desktop-menu,
+.iris-chat {
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   1. ATMOSPHERIC CRYSTAL-BLUE ENVIRONMENT (DAY MODE)
+   ============================================================ */
+[data-theme="gold"] body {
+  background-color: #FAF7F0;
+  background-image: 
+    radial-gradient(circle 900px at 85% -5%, rgba(253, 230, 138, 0.85) 0%, transparent 68%),
+    radial-gradient(circle 750px at 8% 22%, rgba(253, 230, 138, 0.75) 0%, transparent 62%),
+    radial-gradient(circle 950px at 92% 52%, rgba(254, 240, 138, 0.65) 0%, transparent 68%),
+    radial-gradient(circle 800px at 12% 82%, rgba(186, 225, 255, 0.7) 0%, transparent 62%),
+    radial-gradient(circle 700px at 65% 42%, rgba(224, 242, 254, 0.75) 0%, transparent 58%),
+    linear-gradient(180deg, #FDFCF9 0%, #FAF6EE 25%, #FAF5EA 50%, #F6EEDC 75%, #FAF7F0 100%);
+  background-attachment: fixed;
+  color: var(--color-text-body);
+}
+
+/* Luminous Crystalline Grid Lattice */
+[data-theme="gold"] .cyber-bg-grid {
+  background-image: 
+    linear-gradient(to right, rgba(245, 158, 11, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 158, 11, 0.12) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, #000 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 50%, #000 65%, transparent 100%);
+}
+
+/* Vibrant Ambient Ice-Blue Light Wells */
+[data-theme="gold"] .cyber-glow-1 {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.48) 0%, rgba(217, 119, 6, 0.22) 42%, transparent 72%);
+  opacity: 0.7;
+  filter: blur(85px);
+}
+
+[data-theme="gold"] .cyber-glow-2 {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.42) 0%, rgba(217, 119, 6, 0.2) 48%, transparent 72%);
+  opacity: 0.65;
+  filter: blur(90px);
+}
+
+/* Translucent Frosted Glass Depth Layer */
+[data-theme="gold"] .section-dark {
+  background: linear-gradient(180deg, rgba(254, 243, 199, 0.38) 0%, rgba(255, 251, 235, 0.22) 50%, rgba(254, 243, 199, 0.38) 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.82) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.82) !important;
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 0 -1.5px 0 rgba(253, 230, 138, 0.35) !important;
+}
+
+/* ============================================================
+   2. UNIVERSAL ICE-BLUE LIQUID GLASS SYSTEM
+   ============================================================ */
+/* Core Liquid Glass Card Definition */
+[data-theme="gold"] .about-card-3d,
+[data-theme="gold"] .exp-card,
+[data-theme="gold"] .project-roadway-card,
+[data-theme="gold"] .research-active-3d-card,
+[data-theme="gold"] .role-card,
+[data-theme="gold"] .education-3d-card,
+[data-theme="gold"] .award-3d-card,
+[data-theme="gold"] .cert-card,
+[data-theme="gold"] .hero-stat-card,
+[data-theme="gold"] .contact-info-card {
+  position: relative;
+  /* Crystal Mirror Glass: Higher clarity, polished gloss reflection & golden refraction */
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.78) 0%, 
+    rgba(255, 251, 235, 0.45) 25%, 
+    rgba(254, 243, 199, 0.24) 65%, 
+    rgba(253, 230, 138, 0.15) 100%) !important;
+  backdrop-filter: blur(32px) saturate(210%) brightness(104%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(210%) brightness(104%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    0 20px 48px -10px rgba(180, 130, 40, 0.14),
+    0 6px 20px rgba(217, 119, 6, 0.06),
+    inset 0 2px 2.5px 0 #FFFFFF,
+    inset 0 0 16px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -2px 3px 0 rgba(245, 158, 11, 0.22) !important;
+  overflow: hidden;
+}
+
+/* Advanced Top Specular Glass Curvature Sweep */
+[data-theme="gold"] .about-card-3d::before,
+[data-theme="gold"] .exp-card::before,
+[data-theme="gold"] .project-roadway-card::before,
+[data-theme="gold"] .research-active-3d-card::before,
+[data-theme="gold"] .role-card::before,
+[data-theme="gold"] .education-3d-card::before,
+[data-theme="gold"] .award-3d-card::before,
+[data-theme="gold"] .cert-card::before,
+[data-theme="gold"] .hero-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 55%;
+  /* Diagonal Mirror Light Ray & Specular Glass Reflection */
+  background: linear-gradient(130deg, 
+    rgba(255, 255, 255, 0.85) 0%, 
+    rgba(255, 255, 255, 0.48) 22%, 
+    rgba(255, 255, 255, 0.12) 46%, 
+    transparent 68%) !important;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hover Elevation & Luminous Liquid Glass Highlight */
+[data-theme="gold"] .about-card-3d:hover,
+[data-theme="gold"] .exp-card:hover,
+[data-theme="gold"] .role-card:hover,
+[data-theme="gold"] .cert-card:hover,
+[data-theme="gold"] .project-roadway-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 251, 235, 0.6) 42%, rgba(253, 230, 138, 0.25) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 22px 50px -10px rgba(217, 119, 6, 0.22),
+              0 0 32px rgba(245, 158, 11, 0.28),
+              inset 0 2px 2px 0 #FFFFFF,
+              inset 0 -2px 3px 0 rgba(245, 158, 11, 0.35) !important;
+}
+
+/* Interactive Cursor-Following Sheen Enhancement */
+[data-theme="gold"] .about-card-sheen,
+[data-theme="gold"] .role-card-sheen,
+[data-theme="gold"] .education-3d-sheen,
+[data-theme="gold"] .award-3d-sheen {
+  mix-blend-mode: overlay;
+  opacity: 0.85 !important;
+}
+
+/* ============================================================
+   3. LIQUID GLASS NAVIGATION & THEME TOGGLE
+   ============================================================ */
+[data-theme="gold"] .nav-topbar {
+  background: transparent;
+}
+
+[data-theme="gold"] .nav-topbar--scrolled {
+  background: rgba(254, 243, 199, 0.38) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 8px 32px rgba(217, 119, 6, 0.12),
+              inset 0 -1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-theme="gold"] .nav-desktop-menu {
+  background: rgba(254, 243, 199, 0.42) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 30px rgba(217, 119, 6, 0.12),
+              inset 0 1.5px 1px 0 #FFFFFF,
+              inset 0 -1px 2px 0 rgba(245, 158, 11, 0.2) !important;
+}
+
+[data-theme="gold"] .nav-desktop-menu::before {
+  display: none !important;
+}
+
+[data-theme="gold"] .nav-desktop-link {
+  color: #382A17 !important;
+  font-weight: 500;
+}
+
+[data-theme="gold"] .nav-desktop-link:hover {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .nav-desktop-link--active {
+  color: #1C1307 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .nav-active-indicator {
+  background: rgba(217, 119, 6, 0.12) !important;
+  border: 1px solid rgba(217, 119, 6, 0.3) !important;
+  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-theme="gold"] .nav-hamburger-line {
+  background: #1C1307 !important;
+}
+
+[data-theme="gold"] .nav-overlay {
+  background: rgba(254, 243, 199, 0.88) !important;
+  backdrop-filter: blur(30px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(190%) !important;
+}
+
+[data-theme="gold"] .nav-overlay-link {
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .nav-overlay-link--active {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .nav-dot-btn {
+  background: rgba(60, 40, 15, 0.25) !important;
+}
+
+[data-theme="gold"] .nav-dot-btn--active {
+  background: #D97706 !important;
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.6) !important;
+}
+
+[data-theme="gold"] .nav-dot-tooltip {
+  background: rgba(254, 243, 199, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  color: #1C1307 !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 6px 20px rgba(180, 130, 40, 0.15) !important;
+}
+
+/* Liquid Glass Theme Toggle Button */
+[data-theme="gold"] .theme-toggle-btn {
+  background: rgba(254, 243, 199, 0.45) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.18),
+              inset 0 1.5px 1px 0 #FFFFFF,
+              inset 0 -1px 2px 0 rgba(245, 158, 11, 0.25) !important;
+}
+
+[data-theme="gold"] .theme-toggle-btn:hover {
+  background: rgba(255, 251, 235, 0.65) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 10px 30px rgba(217, 119, 6, 0.25),
+              0 0 20px rgba(245, 158, 11, 0.35),
+              inset 0 1.5px 1.5px 0 #FFFFFF !important;
+}
+
+/* ============================================================
+   4. LIQUID GLASS BUTTONS
+   ============================================================ */
+[data-theme="gold"] .btn-accent,
+[data-theme="gold"] .btn-primary,
+[data-theme="gold"] .btn-secondary,
+[data-theme="gold"] .project-action-btn,
+[data-theme="gold"] .contact-submit-btn,
+[data-theme="gold"] .cert-btn-primary,
+[data-theme="gold"] .cert-btn-secondary {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(253, 230, 138, 0.28) 100%) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 24px -4px rgba(217, 119, 6, 0.16),
+              inset 0 1.5px 1px #FFFFFF,
+              inset 0 -1px 2px rgba(245, 158, 11, 0.25) !important;
+  color: #1C1307 !important;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="gold"] .btn-accent:hover,
+[data-theme="gold"] .btn-primary:hover,
+[data-theme="gold"] .project-action-btn:hover,
+[data-theme="gold"] .contact-submit-btn:hover,
+[data-theme="gold"] .cert-btn-primary:hover,
+[data-theme="gold"] .cert-btn-secondary:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(253, 230, 138, 0.45) 100%) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 12px 32px -4px rgba(217, 119, 6, 0.28),
+              0 0 24px rgba(245, 158, 11, 0.35),
+              inset 0 1.5px 1.5px #FFFFFF !important;
+  color: #D97706 !important;
+}
+
+/* ============================================================
+   5. HERO SECTION (DAY MODE)
+   ============================================================ */
+[data-theme="gold"] .hero-identity-capsule {
+  background: rgba(254, 243, 199, 0.45) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.14),
+              inset 0 1px 1px #FFFFFF !important;
+}
+
+[data-theme="gold"] .hero-identity-text {
+  color: #1C1307 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .hero-badge {
+  background: rgba(255, 251, 235, 0.4) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.1) !important;
+}
+
+[data-theme="gold"] .hero-badge-text {
+  color: #B45309 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .hero-greeting {
+  background: rgba(254, 243, 199, 0.55) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.12),
+              inset 0 1px 1px #FFFFFF !important;
+}
+
+[data-theme="gold"] .hero-greeting-text {
+  color: #D97706 !important;
+  text-shadow: none !important;
+}
+
+[data-theme="gold"] .hero-greeting-icon {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .hero-name {
+  color: #1C1307 !important;
+  text-shadow: 0 2px 20px rgba(253, 230, 138, 0.8);
+}
+
+[data-theme="gold"] .hero-title {
+  color: #0F172A !important;
+  font-weight: 600 !important;
+}
+
+[data-theme="gold"] .hero-title-separator {
+  color: #64748B !important;
+  margin: 0 6px;
+  font-weight: 400;
+}
+
+[data-theme="gold"] .hero-title-highlight {
+  font-family: var(--font-heading) !important;
+  color: #B45309 !important;
+  -webkit-text-fill-color: #B45309 !important;
+  background: none !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+  text-shadow: none !important;
+  display: inline-block;
+  padding: 0 2px;
+}
+
+[data-theme="gold"] .hero-description {
+  color: #1E293B !important;
+  font-weight: 500 !important;
+}
+
+[data-theme="gold"] .hero-stat-card {
+  /* Liquid glass style applied from universal rules */
+}
+
+[data-theme="gold"] .hero-stat-value {
+  color: #1C1307 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .hero-stat-label {
+  color: #7E6543 !important;
+  font-weight: 500;
+}
+
+/* ============================================================
+   6. SECTION HEADERS IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .sh-glass-capsule {
+  background: rgba(254, 243, 199, 0.42) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 6px 22px rgba(217, 119, 6, 0.12),
+              inset 0 1.5px 1px #FFFFFF,
+              inset 0 -1px 2px rgba(245, 158, 11, 0.2) !important;
+}
+
+[data-theme="gold"] .sh-glass-capsule:hover {
+  background: rgba(255, 251, 235, 0.6) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 8px 28px rgba(217, 119, 6, 0.18), 0 0 20px rgba(245, 158, 11, 0.25) !important;
+}
+
+[data-theme="gold"] .sh-visual {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="gold"] .sh-badge-text {
+  color: #382A17 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .sh-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .sh-description {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .sh-ambient-refractor {
+  background: radial-gradient(circle, rgba(253, 230, 138, 0.6) 0%, transparent 70%) !important;
+}
+
+/* ============================================================
+   7. ABOUT ME IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .about-pullquote-text {
+  color: #1C1307 !important;
+  border-left-color: #D97706 !important;
+}
+
+[data-theme="gold"] .about-paragraph {
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .about-card-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .about-card-text {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .about-card-number {
+  color: rgba(60, 40, 15, 0.3) !important;
+}
+
+[data-theme="gold"] .about-card-icon {
+  background: rgba(255, 251, 235, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15) !important;
+}
+
+/* ============================================================
+   8. SKILLS & TECHNOLOGIES (3D CONTINUOUS ORBIT) IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .skills-orbit-viewport {
+  height: 560px !important;
+  overflow: visible !important;
+}
+
+/* Dedicated Absolute 3D Orbit Card Styling */
+[data-theme="gold"] .skills-orbit-card {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 288px !important;
+  margin-left: -144px !important;
+  margin-top: -160px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.84) 0%, rgba(254, 243, 199, 0.65) 45%, rgba(254, 243, 199, 0.4) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 0 16px 42px -8px rgba(180, 130, 40, 0.18),
+              0 4px 16px rgba(217, 119, 6, 0.08),
+              inset 0 1.5px 1.5px 0 #FFFFFF,
+              inset 0 -1.5px 2px 0 rgba(245, 158, 11, 0.25) !important;
+  overflow: hidden !important;
+}
+
+[data-theme="gold"] .skills-orbit-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.12) 45%, transparent 100%);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="gold"] .skills-orbit-card:hover,
+[data-theme="gold"] .skills-orbit-card--hovered {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 251, 235, 0.75) 45%, rgba(253, 230, 138, 0.45) 100%) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 24px 50px -10px rgba(217, 119, 6, 0.25),
+              0 0 35px rgba(245, 158, 11, 0.35),
+              inset 0 2px 2px 0 #FFFFFF !important;
+}
+
+/* Crystalline Orbit Path Ellipse */
+[data-theme="gold"] .skills-orbit-ellipse,
+[data-theme="gold"] .skills-orbit-ring {
+  border-color: rgba(245, 158, 11, 0.35) !important;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.15), inset 0 0 25px rgba(245, 158, 11, 0.15) !important;
+}
+
+[data-theme="gold"] .skills-card-icon-box {
+  background: rgba(254, 243, 199, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.12) !important;
+}
+
+[data-theme="gold"] .skills-card-glyph {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .skills-card-heading {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .skills-card-summary {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .skills-card-index {
+  color: #D97706 !important;
+  font-weight: 700;
+}
+
+/* Frosted Liquid Glass Skill Pills */
+[data-theme="gold"] .skills-pill-item {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(203, 213, 225, 0.85) !important;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.08) !important;
+}
+
+[data-theme="gold"] .skills-pill-item:hover {
+  background: #FFFFFF !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.18), 0 0 12px rgba(245, 158, 11, 0.25) !important;
+}
+
+[data-theme="gold"] .skills-pill-item--highlight {
+  background: rgba(255, 251, 235, 0.85) !important;
+  border-color: rgba(217, 119, 6, 0.45) !important;
+}
+
+[data-theme="gold"] .skills-pill-name {
+  color: #1C1307 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .skills-pill-level {
+  background: rgba(254, 243, 199, 0.85) !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  color: #D97706 !important;
+  font-weight: 700 !important;
+}
+
+/* Responsive Overrides to guarantee cards are 100% visible on all viewports */
+@media (max-width: 768px) {
+  [data-theme="gold"] .skills-orbit-viewport {
+    height: 520px !important;
+    overflow: visible !important;
+  }
+  [data-theme="gold"] .skills-orbit-card {
+    width: 268px !important;
+    margin-left: -134px !important;
+    margin-top: -150px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-theme="gold"] .skills-orbit-viewport {
+    height: 500px !important;
+    overflow: visible !important;
+  }
+  [data-theme="gold"] .skills-orbit-card {
+    width: 236px !important;
+    margin-left: -118px !important;
+    margin-top: -145px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  [data-theme="gold"] .skills-orbit-viewport {
+    height: 480px !important;
+    overflow: visible !important;
+  }
+  [data-theme="gold"] .skills-orbit-card {
+    width: 222px !important;
+    margin-left: -111px !important;
+    margin-top: -140px !important;
+  }
+}
+
+[data-theme="gold"] .skills-orbit-controls {
+  background: rgba(254, 243, 199, 0.45) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 26px rgba(217, 119, 6, 0.14) !important;
+}
+
+[data-theme="gold"] .orbit-nav-btn {
+  background: rgba(255, 251, 235, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .orbit-nav-btn:hover {
+  background: #FFFFFF !important;
+  color: #1C1307 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.4) !important;
+}
+
+[data-theme="gold"] .orbit-toggle-btn {
+  background: rgba(255, 251, 235, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .orbit-toggle-btn:hover {
+  background: #FFFFFF !important;
+  color: #1C1307 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.4) !important;
+}
+
+[data-theme="gold"] .orbit-dot .orbit-dot-fill {
+  background: rgba(60, 40, 15, 0.25) !important;
+}
+
+[data-theme="gold"] .orbit-dot--active .orbit-dot-fill {
+  background: #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.6) !important;
+}
+
+[data-theme="gold"] .orbit-drag-cue {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .skills-orbit-nucleus .nucleus-orb {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9) 0%, rgba(253, 230, 138, 0.6) 60%, rgba(245, 158, 11, 0.4) 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.35), inset 0 2px 2px #fff !important;
+}
+
+[data-theme="gold"] .nucleus-text {
+  color: #1C1307 !important;
+  font-weight: 700;
+}
+
+/* ============================================================
+   9. EXPERIENCE IN DAY MODE (3D CYBER-TREE & HANGING CARDS)
+   ============================================================ */
+/* Crystalline Tree Stage */
+[data-theme="gold"] .exp-pathway-label {
+  background: rgba(254, 243, 199, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  color: #D97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.12) !important;
+}
+
+[data-theme="gold"] .exp-branch-anchor-knot {
+  background: #D97706 !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 0 16px rgba(217, 119, 6, 0.6), 0 0 24px rgba(245, 158, 11, 0.4) !important;
+}
+
+[data-theme="gold"] .exp-hanging-cable-line {
+  background: linear-gradient(
+    180deg,
+    rgba(217, 119, 6, 0.85) 0%,
+    rgba(245, 158, 11, 0.55) 60%,
+    rgba(253, 230, 138, 0.35) 100%
+  ) !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3) !important;
+}
+
+[data-theme="gold"] .exp-tether-split-left,
+[data-theme="gold"] .exp-tether-split-right {
+  background: rgba(217, 119, 6, 0.65) !important;
+}
+
+[data-theme="gold"] .exp-card-grommet {
+  background: #FEF3C7 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 0 8px rgba(217, 119, 6, 0.5) !important;
+}
+
+/* Compact Crystal Blue Liquid Glass Card */
+[data-theme="gold"] .exp-compact-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(254, 243, 199, 0.62) 45%,
+    rgba(254, 243, 199, 0.35) 100%
+  ) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 16px 42px -8px rgba(180, 130, 40, 0.18),
+              0 4px 16px rgba(217, 119, 6, 0.08),
+              inset 0 1.5px 1.5px 0 #FFFFFF,
+              inset 0 -1.5px 2px 0 rgba(245, 158, 11, 0.25) !important;
+}
+
+[data-theme="gold"] .exp-compact-glass-card:hover,
+[data-theme="gold"] .exp-compact-card--hovered {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 251, 235, 0.75) 45%,
+    rgba(253, 230, 138, 0.4) 100%
+  ) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 24px 50px -10px rgba(217, 119, 6, 0.25),
+              0 0 32px rgba(245, 158, 11, 0.3),
+              inset 0 2px 2px 0 #FFFFFF !important;
+}
+
+[data-theme="gold"] .exp-compact-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .exp-org-badge {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .exp-period-pill {
+  background: rgba(254, 243, 199, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .exp-role-pill {
+  background: rgba(254, 243, 199, 0.65) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .exp-compact-desc {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .exp-tag-pill {
+  background: rgba(254, 243, 199, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .exp-compact-card:hover .exp-tag-pill {
+  background: #FFFFFF !important;
+  color: #1C1307 !important;
+}
+
+/* Storytelling HUD Controls in Day Mode */
+[data-theme="gold"] .exp-story-hud {
+  background: rgba(254, 243, 199, 0.5) !important;
+  backdrop-filter: blur(20px) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 26px rgba(217, 119, 6, 0.16) !important;
+}
+
+[data-theme="gold"] .exp-hud-btn {
+  background: rgba(255, 251, 235, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.9) !important;
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .exp-hud-btn:hover {
+  background: #FFFFFF !important;
+  color: #D97706 !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.4) !important;
+}
+
+[data-theme="gold"] .exp-hud-dot .exp-hud-dot-fill {
+  background: rgba(60, 40, 15, 0.3) !important;
+}
+
+[data-theme="gold"] .exp-hud-dot--active .exp-hud-dot-fill {
+  background: #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.6) !important;
+}
+
+[data-theme="gold"] .exp-hud-pulse {
+  background: #D97706 !important;
+  box-shadow: 0 0 8px #D97706 !important;
+}
+
+[data-theme="gold"] .exp-hud-status-text {
+  color: #5C4526 !important;
+}
+
+/* Backward-compatible legacy classes for smooth transitions */
+[data-theme="gold"] .exp-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(254, 243, 199, 0.6) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.9) !important;
+}
+[data-theme="gold"] .exp-title { color: #1C1307 !important; }
+[data-theme="gold"] .exp-role { color: #B45309 !important; }
+[data-theme="gold"] .exp-desc { color: #5C4526 !important; }
+[data-theme="gold"] .exp-org-tag { color: #7E6543 !important; }
+
+/* ============================================================
+   10. ENGINEERING SHOWCASE (PROJECTS ROADWAY) IN DAY MODE
+   ============================================================ */
+/* Crystalline Highway / Roadway Corridor */
+[data-theme="gold"] .projects-road-svg path {
+  stroke: rgba(245, 158, 11, 0.5) !important;
+}
+
+[data-theme="gold"] .projects-road-line {
+  stroke: rgba(217, 119, 6, 0.55) !important;
+}
+
+[data-theme="gold"] .road-dash-line {
+  stroke: rgba(217, 119, 6, 0.65) !important;
+}
+
+[data-theme="gold"] .car-headlight-beam {
+  fill: url(#carLightGradLight) !important;
+  opacity: 0.85;
+}
+
+[data-theme="gold"] .roadway-project-card,
+[data-theme="gold"] .project-roadway-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(253, 230, 138, 0.22) 42%, rgba(251, 191, 36, 0.14) 100%) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 14px 38px -8px rgba(180, 130, 40, 0.14),
+              0 4px 16px rgba(217, 119, 6, 0.08),
+              inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+              inset 0 -1.5px 2px 0 rgba(245, 158, 11, 0.25) !important;
+}
+
+[data-theme="gold"] .project-road-title,
+[data-theme="gold"] .project-card-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .project-road-description,
+[data-theme="gold"] .project-card-desc {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .project-road-tag,
+[data-theme="gold"] .project-tag {
+  background: rgba(254, 243, 199, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .project-road-index {
+  color: #D97706 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .project-road-category {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .road-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(253, 230, 138, 0.28) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.12), inset 0 1px 1px #FFFFFF !important;
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .road-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(253, 230, 138, 0.45) 100%) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.22), 0 0 16px rgba(245, 158, 11, 0.3) !important;
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .project-metric-pill {
+  background: rgba(254, 243, 199, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .metric-label {
+  color: #1C1307 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .coming-soon-portal {
+  background: rgba(254, 243, 199, 0.45) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 10px 30px rgba(217, 119, 6, 0.16) !important;
+}
+
+[data-theme="gold"] .coming-soon-title {
+  color: #1C1307 !important;
+  text-shadow: none;
+}
+
+/* ============================================================
+   11. RESEARCH & EXPLORATION (ORIGINAL 3D CARDS) IN DAY MODE
+   ============================================================ */
+/* 100% Preserved 3D interactive flipping & carousel mechanics */
+[data-theme="gold"] .research-active-3d-card {
+  /* Liquid glass style applied from universal rules */
+}
+
+[data-theme="gold"] .research-dynamic-aura {
+  opacity: 0.7 !important;
+  filter: blur(65px) !important;
+}
+
+[data-theme="gold"] .research-card-heading {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .research-card-body {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .research-domain-index {
+  color: #D97706 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .research-topic-tag {
+  background: rgba(254, 243, 199, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .research-card-iconbox {
+  background: rgba(255, 251, 235, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .research-status-cue {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .research-controls-wrap {
+  background: rgba(254, 243, 199, 0.45) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.14) !important;
+}
+
+[data-theme="gold"] .research-nav-arrow {
+  background: rgba(255, 251, 235, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .research-nav-arrow:hover {
+  background: #FFFFFF !important;
+  color: #1C1307 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.4) !important;
+}
+
+[data-theme="gold"] .indicator-dot-inner {
+  background: rgba(60, 40, 15, 0.3) !important;
+}
+
+[data-theme="gold"] .indicator-dot-inner--active {
+  background: #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.6) !important;
+}
+
+[data-theme="gold"] .research-tag-pill {
+  background: rgba(254, 243, 199, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .research-metric-box {
+  background: rgba(254, 243, 199, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .research-metric-num {
+  color: #1C1307 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .research-metric-lbl {
+  color: #7E6543 !important;
+}
+
+/* ============================================================
+   12. ROLES & RESPONSIBILITIES (3D PORTRAIT & FLOATING GLASS CARDS) IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .floating-role-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(254, 243, 199, 0.42) 50%, rgba(254, 243, 199, 0.3) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 16px 36px -10px rgba(217, 119, 6, 0.16),
+              0 0 0 1px rgba(253, 230, 138, 0.5) inset !important;
+}
+
+[data-theme="gold"] .floating-role-card:hover,
+[data-theme="gold"] .floating-role-card--targeted {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 251, 235, 0.65) 50%, rgba(253, 230, 138, 0.35) 100%) !important;
+  border-color: rgba(245, 158, 11, 0.8) !important;
+  box-shadow: 0 24px 48px -8px rgba(217, 119, 6, 0.25),
+              0 0 32px rgba(245, 158, 11, 0.25),
+              0 0 0 1px rgba(255, 255, 255, 0.9) inset !important;
+}
+
+[data-theme="gold"] .floating-card-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .floating-card-tagline {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .floating-card-item {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .floating-card-resp-title {
+  color: #7E6543 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .floating-card-badge {
+  background: rgba(254, 243, 199, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  color: #B45309 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .floating-card-icon-box {
+  background: rgba(255, 251, 235, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.15) !important;
+}
+
+[data-theme="gold"] .floating-card-bullet {
+  background: rgba(254, 243, 199, 0.8) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+
+[data-theme="gold"] .floating-card-expand-btn {
+  color: #D97706 !important;
+}
+
+/* 3D Cyber Terminal in Day Mode */
+[data-theme="gold"] .cyber-terminal-monitor {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(254, 243, 199, 0.6) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 28px 65px rgba(217, 119, 6, 0.22),
+              0 0 50px rgba(245, 158, 11, 0.4),
+              0 0 80px rgba(253, 230, 138, 0.3) !important;
+}
+
+[data-theme="gold"] .cyber-neon-tube {
+  border-color: #D97706 !important;
+  box-shadow: 0 0 20px #F59E0B,
+              0 0 40px rgba(245, 158, 11, 0.7),
+              inset 0 0 18px rgba(245, 158, 11, 0.5) !important;
+}
+
+[data-theme="gold"] .cyber-handle {
+  background: linear-gradient(180deg, #FDE68A 0%, #FEF3C7 50%, #FDE68A 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+[data-theme="gold"] .cyber-radial-glow {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(253, 230, 138, 0.2) 45%, transparent 70%) !important;
+}
+
+[data-theme="gold"] .cyber-hud-banner {
+  background: rgba(240, 249, 255, 0.92) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.16) !important;
+}
+
+[data-theme="gold"] .cyber-hud-text {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .cyber-hud-metrics {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .cyber-pedestal-neck,
+[data-theme="gold"] .cyber-pedestal-plate-upper,
+[data-theme="gold"] .cyber-pedestal-plate-lower {
+  background: linear-gradient(180deg, #FEF3C7 0%, #FDE68A 100%) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+[data-theme="gold"] .cyber-pedestal-glow {
+  background: linear-gradient(90deg, transparent, #D97706, transparent) !important;
+  filter: drop-shadow(0 0 10px #F59E0B) !important;
+}
+
+[data-theme="gold"] .cyber-tag-name {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .cyber-tag-role {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .optical-tether--active {
+  stroke: #D97706 !important;
+  filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.6)) !important;
+}
+
+/* ============================================================
+   13. EDUCATION IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .education-degree {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .education-institution {
+  color: #B45309 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .education-summary {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .education-detail-label {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .education-detail-value {
+  color: #1C1307 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .education-quote {
+  background: rgba(254, 243, 199, 0.45) !important;
+  border-left-color: #D97706 !important;
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .education-icon-box {
+  background: rgba(255, 251, 235, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.15) !important;
+}
+
+[data-theme="gold"] .education-degree-title {
+  color: #D97706 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .education-badge-pill {
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #B45309 !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .education-period-tag {
+  background: rgba(254, 243, 199, 0.6) !important;
+  color: #382A17 !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .education-editorial-quote {
+  color: #5C4526 !important;
+  border-left-color: #D97706 !important;
+}
+
+[data-theme="gold"] .education-switcher-bar {
+  background: rgba(254, 243, 199, 0.45) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.12) !important;
+}
+
+[data-theme="gold"] .education-switcher-tab {
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .education-switcher-tab--active {
+  color: #1C1307 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="gold"] .education-tab-indicator {
+  background: rgba(217, 119, 6, 0.12) !important;
+  border: 1px solid rgba(217, 119, 6, 0.3) !important;
+  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-theme="gold"] .education-dot-pill {
+  background: rgba(60, 40, 15, 0.25) !important;
+}
+
+[data-theme="gold"] .education-dot-pill--active {
+  background: #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.5) !important;
+}
+
+[data-theme="gold"] .education-3d-stage.edu-theme-blue {
+  border: 1px solid rgba(217, 119, 6, 0.55) !important;
+  box-shadow: 0 16px 44px -8px rgba(180, 130, 40, 0.22), 0 0 35px rgba(217, 119, 6, 0.32), inset 0 1.5px 1.5px #FFFFFF, inset 0 -1.5px 3px rgba(217, 119, 6, 0.2) !important;
+}
+
+[data-theme="gold"] .education-3d-stage.edu-theme-purple {
+  border: 1px solid rgba(147, 51, 234, 0.55) !important;
+  box-shadow: 0 16px 44px -8px rgba(147, 51, 234, 0.22), 0 0 35px rgba(168, 85, 247, 0.35), inset 0 1.5px 1.5px #FFFFFF, inset 0 -1.5px 3px rgba(147, 51, 234, 0.2) !important;
+}
+
+[data-theme="gold"] .education-3d-stage.edu-theme-emerald {
+  border: 1px solid rgba(5, 150, 105, 0.55) !important;
+  box-shadow: 0 16px 44px -8px rgba(5, 150, 105, 0.22), 0 0 35px rgba(16, 185, 129, 0.35), inset 0 1.5px 1.5px #FFFFFF, inset 0 -1.5px 3px rgba(5, 150, 105, 0.2) !important;
+}
+
+/* ============================================================
+   14. CERTIFICATES & RECOGNITION + MODAL IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .recognition-subheading {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .recognition-subheading-tag {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .award-3d-card {
+  border: 1px solid rgba(251, 191, 36, 0.55) !important;
+  box-shadow: 0 16px 42px -8px rgba(180, 130, 40, 0.16),
+              0 0 28px rgba(251, 191, 36, 0.18),
+              inset 0 1.5px 1.5px #FFFFFF,
+              inset 0 -1.5px 2px rgba(245, 158, 11, 0.25) !important;
+}
+
+[data-theme="gold"] .award-main-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .award-desc {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .award-detail-item {
+  background: rgba(254, 243, 199, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .award-detail-val {
+  color: #1C1307 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .award-detail-lbl {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .cert-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .cert-desc {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .cert-issuer {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .cert-issuer strong {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .cert-tag {
+  background: rgba(254, 243, 199, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #382A17 !important;
+}
+
+[data-theme="gold"] .cert-preview-wrap {
+  background: rgba(254, 243, 199, 0.35) !important;
+}
+
+/* Lightbox Modal (Crystal Frosted Backdrop & Liquid Glass Card) */
+[data-theme="gold"] .cert-modal-overlay {
+  background: rgba(185, 225, 255, 0.45) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+}
+
+[data-theme="gold"] .cert-modal-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(215, 240, 255, 0.65) 100%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 28px 65px -10px rgba(180, 130, 40, 0.28),
+              0 0 35px rgba(245, 158, 11, 0.3),
+              inset 0 1.5px 1.5px #FFFFFF !important;
+}
+
+[data-theme="gold"] .cert-modal-header {
+  background: rgba(255, 251, 235, 0.55) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .cert-modal-issuer {
+  color: #1C1307 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .cert-modal-media {
+  background: rgba(254, 243, 199, 0.35) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .cert-modal-title {
+  color: #1C1307 !important;
+}
+
+[data-theme="gold"] .cert-modal-desc {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .cert-meta-grid {
+  background: rgba(254, 243, 199, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .cert-meta-val {
+  color: #1C1307 !important;
+  font-weight: 600;
+}
+
+/* ============================================================
+   15. CONTACT IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .contact-input,
+[data-theme="gold"] .contact-textarea {
+  background: rgba(255, 251, 235, 0.45) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1C1307 !important;
+  box-shadow: inset 0 1.5px 3px rgba(180, 130, 40, 0.08),
+              inset 0 -1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-theme="gold"] .contact-input:focus,
+[data-theme="gold"] .contact-textarea:focus {
+  background: rgba(255, 251, 235, 0.7) !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.22),
+              0 0 20px rgba(245, 158, 11, 0.35),
+              inset 0 1px 1px #FFFFFF !important;
+}
+
+[data-theme="gold"] .contact-input::placeholder,
+[data-theme="gold"] .contact-textarea::placeholder {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .contact-label {
+  color: #382A17 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .contact-statement {
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .contact-social-btn {
+  background: rgba(254, 243, 199, 0.5) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #382A17 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.1) !important;
+}
+
+[data-theme="gold"] .contact-social-btn:hover {
+  background: rgba(255, 251, 235, 0.8) !important;
+  color: #D97706 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.2), 0 0 16px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* ============================================================
+   16. IRIS AI ASSISTANT (VISIONOS LIQUID GLASS) IN DAY MODE
+   ============================================================ */
+/* Floating Trigger Sphere */
+[data-theme="gold"] .iris-trigger-btn {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95) 0%, rgba(253, 230, 138, 0.65) 50%, rgba(245, 158, 11, 0.45) 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 10px 30px rgba(217, 119, 6, 0.3),
+              0 0 25px rgba(245, 158, 11, 0.4),
+              inset 0 2px 3px #FFFFFF !important;
+}
+
+/* VisionOS Liquid Glass Chat Drawer */
+[data-theme="gold"] .iris-chat {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(254, 243, 199, 0.45) 100%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 24px 60px rgba(180, 130, 40, 0.22),
+              0 0 35px rgba(245, 158, 11, 0.25),
+              inset 0 1.5px 1.5px #FFFFFF !important;
+}
+
+[data-theme="gold"] .iris-chat-header {
+  background: rgba(255, 251, 235, 0.5) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .iris-chat-name {
+  color: #1C1307 !important;
+  font-weight: 700;
+}
+
+[data-theme="gold"] .iris-chat-close {
+  color: #7E6543 !important;
+}
+
+[data-theme="gold"] .iris-chat-close:hover {
+  color: #1C1307 !important;
+}
+
+/* Translucent Glass Message Bubbles */
+[data-theme="gold"] .iris-message--iris .iris-message-bubble {
+  background: rgba(254, 243, 199, 0.55) !important;
+  backdrop-filter: blur(14px) !important;
+  color: #1C1307 !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.08) !important;
+}
+
+[data-theme="gold"] .iris-link {
+  color: #D97706 !important;
+  text-decoration-color: #D97706 !important;
+}
+
+[data-theme="gold"] .iris-link:hover {
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .iris-inline-code {
+  background: rgba(254, 243, 199, 0.85) !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+  color: #D97706 !important;
+}
+
+[data-theme="gold"] .iris-suggestion-chip {
+  background: rgba(254, 243, 199, 0.5) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #B45309 !important;
+  font-weight: 600;
+}
+
+[data-theme="gold"] .iris-suggestion-chip:hover {
+  background: rgba(255, 251, 235, 0.8) !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.2) !important;
+}
+
+[data-theme="gold"] .iris-chat-input {
+  background: rgba(255, 251, 235, 0.45) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-theme="gold"] .iris-input-box {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(253, 230, 138, 0.5) !important;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(217, 119, 6, 0.08) !important;
+}
+
+[data-theme="gold"] .iris-input-box:focus-within {
+  border-color: #D97706 !important;
+  box-shadow: 0 0 14px rgba(217, 119, 6, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="gold"] .iris-textarea {
+  color: #1C1307 !important;
+}
+
+/* ============================================================
+   17. FOOTER & CUSTOM CURSOR IN DAY MODE
+   ============================================================ */
+[data-theme="gold"] .footer {
+  background: linear-gradient(180deg, rgba(254, 243, 199, 0.45) 0%, rgba(255, 251, 235, 0.3) 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: inset 0 1.5px 0 #FFFFFF !important;
+  color: #5C4526 !important;
+}
+
+[data-theme="gold"] .footer-name {
+  color: #1C1307 !important;
+  font-weight: 700;
+}
+
+/* Liquid Ice-Blue Cursor */
+[data-theme="gold"] .cursor-dot {
+  background-color: #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.8), 0 0 20px rgba(245, 158, 11, 0.5) !important;
+}
+
+[data-theme="gold"] .cursor-ring {
+  border-color: rgba(217, 119, 6, 0.55) !important;
+  background: rgba(253, 230, 138, 0.12) !important;
+}
+
+[data-theme="gold"] .cursor-ring.cursor-ring--hover {
+  border-color: #D97706 !important;
+  background: rgba(245, 158, 11, 0.22) !important;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.4) !important;
+}
+
+
+/* ============================================================
+   18. ADVANCED MIRROR GLASS & SPECULAR PRISM REFLECTIONS
+   ============================================================ */
+[data-theme="gold"] .glass-card,
+[data-theme="gold"] .exp-compact-glass-card,
+[data-theme="gold"] .skills-orbit-card,
+[data-theme="gold"] .floating-role-card,
+[data-theme="gold"] .about-card-3d,
+[data-theme="gold"] .project-roadway-card,
+[data-theme="gold"] .research-active-3d-card,
+[data-theme="gold"] .education-flip-card,
+[data-theme="gold"] .education-3d-card,
+[data-theme="gold"] .award-3d-card,
+[data-theme="gold"] .cert-card,
+[data-theme="gold"] .contact-info-card {
+  box-shadow: 
+    0 18px 45px -10px rgba(180, 130, 40, 0.14),
+    0 6px 20px rgba(217, 119, 6, 0.06),
+    inset 0 2px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 0 18px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -2px 3px 0 rgba(245, 158, 11, 0.22) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+}
+
+[data-theme="gold"] .nav-desktop-menu {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 251, 235, 0.55) 50%, rgba(254, 243, 199, 0.35) 100%) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 10px 35px rgba(180, 130, 40, 0.12),
+              inset 0 2px 2px 0 #FFFFFF,
+              inset 0 0 14px 0 rgba(255, 255, 255, 0.6),
+              inset 0 -1px 2px 0 rgba(245, 158, 11, 0.2) !important;
+}
+
+[data-theme="gold"] .hero-identity-capsule,
+[data-theme="gold"] .sh-glass-capsule {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(254, 243, 199, 0.45) 100%) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 8px 25px rgba(180, 130, 40, 0.12),
+              inset 0 1.5px 2px #FFFFFF,
+              inset 0 0 12px rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="gold"] .iris-chat {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 251, 235, 0.7) 45%, rgba(254, 243, 199, 0.5) 100%) !important;
+  border: 1.5px solid #FFFFFF !important;
+  box-shadow: 0 28px 70px rgba(180, 130, 40, 0.2),
+              0 0 35px rgba(245, 158, 11, 0.2),
+              inset 0 2px 2.5px #FFFFFF,
+              inset 0 0 20px rgba(255, 255, 255, 0.7) !important;
+}

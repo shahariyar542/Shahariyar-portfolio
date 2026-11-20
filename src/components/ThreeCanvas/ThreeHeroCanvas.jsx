@@ -129,10 +129,25 @@ export default function ThreeHeroCanvas() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     // ── 5. Resize Handling ──
-    // ── 5. Theme Color Synchronization ──
+    // ── 5. Theme Color Synchronization (Supports 3 Modes: Dark, Ice-Blue, Gold) ──
     const updateThemeColors = () => {
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-      if (isLight) {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      if (currentTheme === 'gold') {
+        // Mode 3: Champagne Gold Mirror Theme
+        wireframeMat.color.set(0xd97706); // Warm golden amber wireframe
+        wireframeMat.opacity = 0.28;
+        innerMat.transparent = true;
+        innerMat.opacity = 0.24; // Translucent glowing golden crystal core
+        innerMat.color.set(0xfef3c7); // Warm champagne gold
+        innerMat.emissive.set(0xf59e0b); // Radiant sunlit gold glow
+        innerMat.emissiveIntensity = 0.35;
+        ringMat.color.set(0xd97706);
+        ringMat.opacity = 0.32;
+        pointLight.color.set(0xfbbf24);
+        pointLight.intensity = 1.4;
+        particleMat.opacity = 0.32;
+      } else if (currentTheme === 'light') {
+        // Mode 2: Crystal Ice-Blue Theme
         wireframeMat.color.set(0x0284c7);
         wireframeMat.opacity = 0.22;
         innerMat.transparent = true;
@@ -146,6 +161,7 @@ export default function ThreeHeroCanvas() {
         pointLight.intensity = 1.0;
         particleMat.opacity = 0.25;
       } else {
+        // Mode 1: Dark Cyber Theme
         wireframeMat.color.set(0x60a5fa);
         wireframeMat.opacity = 0.28;
         innerMat.transparent = false;

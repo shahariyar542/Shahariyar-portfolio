@@ -1,9 +1,12 @@
 /* ============================================================
-   SHAHARIYAR.EXE — Theme Toggle Button Styles
-   Extreme Top-Right Header Placement with Glass Finish
+   SHAHARIYAR.EXE — 3-Mode Theme Switcher
+   1. Cyber Dark (Night) 🌙
+   2. Crystal Ice-Blue Liquid Glass 💎
+   3. Champagne Gold Mirror Glass ✨
    ============================================================ */
 
 .theme-toggle-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,38 +26,53 @@
   cursor: pointer;
   padding: 0;
   overflow: hidden;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: all var(--duration-normal) var(--ease-out-quart);
 }
 
-/* Night Mode Style (Sun Icon visible) */
+/* ── Mode 1: Cyber Dark ── */
 .theme-toggle-btn--dark {
-  background: rgba(13, 21, 40, 0.72);
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  color: #FBBF24;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: rgba(13, 21, 40, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #38BDF8;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .theme-toggle-btn--dark:hover {
-  background: rgba(22, 36, 68, 0.9);
-  border-color: rgba(251, 191, 36, 0.5);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 16px rgba(251, 191, 36, 0.28);
+  background: rgba(22, 36, 68, 0.95);
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 18px rgba(56, 189, 248, 0.35);
   transform: translateY(-1px) scale(1.05);
 }
 
-/* Day Mode Style (Moon Icon visible) */
+/* ── Mode 2: Crystal Ice-Blue Glass ── */
 .theme-toggle-btn--light {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  color: #2563EB;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(220, 242, 255, 0.7) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  color: #0284C7;
+  box-shadow: 0 4px 18px rgba(2, 132, 199, 0.15), inset 0 1.5px 1.5px #FFFFFF;
 }
 
 .theme-toggle-btn--light:hover {
   background: #FFFFFF;
-  border-color: rgba(37, 99, 235, 0.5);
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12), 0 0 16px rgba(37, 99, 235, 0.2);
+  border-color: #38BDF8;
+  box-shadow: 0 6px 22px rgba(2, 132, 199, 0.25), 0 0 18px rgba(56, 189, 248, 0.4);
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* ── Mode 3: Champagne Gold Mirror Glass ── */
+.theme-toggle-btn--gold {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(254, 243, 199, 0.75) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  color: #D97706;
+  box-shadow: 0 4px 18px rgba(217, 119, 6, 0.18), inset 0 1.5px 1.5px #FFFFFF;
+}
+
+.theme-toggle-btn--gold:hover {
+  background: #FFFFFF;
+  border-color: #F59E0B;
+  box-shadow: 0 6px 22px rgba(217, 119, 6, 0.28), 0 0 18px rgba(245, 158, 11, 0.4);
   transform: translateY(-1px) scale(1.05);
 }
 
@@ -64,7 +82,7 @@
   left: 0;
   right: 0;
   height: 50%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
   border-radius: var(--radius-full) var(--radius-full) 0 0;
   pointer-events: none;
 }
@@ -83,12 +101,110 @@
   transition: transform var(--duration-fast);
 }
 
-.theme-toggle-btn:hover .theme-icon--sun {
-  transform: rotate(25deg);
+.theme-toggle-btn:hover .theme-icon--gold {
+  transform: rotate(30deg);
+}
+
+.theme-toggle-btn:hover .theme-icon--ice {
+  transform: scale(1.12);
 }
 
 .theme-toggle-btn:hover .theme-icon--moon {
   transform: rotate(-15deg);
+}
+
+/* ── Floating 3-Way Quick Selector Menu ── */
+.theme-quick-selector {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(13, 21, 40, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-full);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15);
+  z-index: 120;
+}
+
+/* Selector Light Theme Adaptation */
+[data-theme="light"] .theme-quick-selector {
+  background: rgba(235, 246, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 32px rgba(2, 132, 199, 0.15), inset 0 1px 1px #FFFFFF;
+}
+
+[data-theme="gold"] .theme-quick-selector {
+  background: rgba(255, 251, 235, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 32px rgba(217, 119, 6, 0.18), inset 0 1px 1px #FFFFFF;
+}
+
+.theme-pill-opt {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast) ease;
+}
+
+.theme-pill-opt:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-heading);
+}
+
+[data-theme="light"] .theme-pill-opt:hover {
+  background: rgba(2, 132, 199, 0.1);
+  color: #081A36;
+}
+
+[data-theme="gold"] .theme-pill-opt:hover {
+  background: rgba(217, 119, 6, 0.12);
+  color: #1C1307;
+}
+
+.theme-pill-opt--active {
+  background: rgba(56, 189, 248, 0.18) !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  color: #38BDF8 !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="light"] .theme-pill-opt--active {
+  background: rgba(2, 132, 199, 0.15) !important;
+  border-color: #0284C7 !important;
+  color: #0284C7 !important;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.2);
+}
+
+[data-theme="gold"] .theme-pill-opt--active {
+  background: rgba(217, 119, 6, 0.15) !important;
+  border-color: #D97706 !important;
+  color: #D97706 !important;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+}
+
+.theme-pill-glyph {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.theme-pill-text {
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 /* Mobile & Touch */
@@ -100,5 +216,15 @@
   .theme-icon {
     width: 18px;
     height: 18px;
+  }
+  .theme-quick-selector {
+    padding: 3px;
+    gap: 2px;
+  }
+  .theme-pill-opt {
+    padding: 4px 7px;
+  }
+  .theme-pill-text {
+    display: none; /* Icon-only on very narrow mobile */
   }
 }

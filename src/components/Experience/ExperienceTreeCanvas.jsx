@@ -346,11 +346,31 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
     dirLight.position.set(4, 6, 8);
     scene.add(dirLight);
 
-    // 9. Day / Night Theme Adaptation
+    // 9. Day / Night Theme Adaptation (Supports 3 Modes: Dark, Ice-Blue, Gold)
     const updateTheme = () => {
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-      if (isLight) {
-        // Crystal Ice-Blue Theme
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      if (currentTheme === 'gold') {
+        // Mode 3: Golden Champagne Mirror Theme
+        treeMat.color.set(0xfef3c7);
+        treeMat.emissive.set(0xd97706);
+        treeMat.emissiveIntensity = 0.35;
+        treeMat.roughness = 0.25;
+
+        energyVeinMat.color.set(0xd97706);
+        blossomMat.color.set(0xf59e0b);
+        visorMat.color.set(0xfbbf24);
+        charLight.color.set(0xf59e0b);
+        sporeMat.color.set(0xfbbf24);
+
+        charSuitMat.color.set(0xfaf5ee);
+        charSuitMat.emissive.set(0xf59e0b);
+        charSuitMat.emissiveIntensity = 0.3;
+
+        stoneMat.color.set(0xfef3c7);
+        stoneMat.emissive.set(0xd97706);
+        dirLight.color.set(0xf59e0b);
+      } else if (currentTheme === 'light') {
+        // Mode 2: Crystal Ice-Blue Theme
         treeMat.color.set(0xbae6fd);
         treeMat.emissive.set(0x0284c7);
         treeMat.emissiveIntensity = 0.35;
@@ -370,7 +390,7 @@ export default function ExperienceTreeCanvas({ progress = 0, isVisible = true })
         stoneMat.emissive.set(0x0284c7);
         dirLight.color.set(0x0284c7);
       } else {
-        // Dark Cyber Futuristic Theme
+        // Mode 1: Dark Cyber Futuristic Theme
         treeMat.color.set(0x0f1b36);
         treeMat.emissive.set(0x1e3a8a);
         treeMat.emissiveIntensity = 0.35;

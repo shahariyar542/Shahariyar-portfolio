@@ -458,6 +458,85 @@
   box-shadow: 0 0 10px #0284C7 !important;
 }
 
+/* ════════════════════════════════════════════════════════════
+   GOLD THEME: Interactive Profile Rings & Luxury Golden Orbit
+   High-Contrast Royal Topaz, Warm Amber & Champagne Specular
+   ════════════════════════════════════════════════════════════ */
+
+/* Ambient Warm Golden Radial Glow around avatar */
+[data-theme="gold"] .hero-profile-glow {
+  background: radial-gradient(
+    circle,
+    rgba(245, 158, 11, 0.42) 0%,
+    rgba(217, 119, 6, 0.22) 48%,
+    transparent 72%
+  ) !important;
+  filter: blur(28px) !important;
+}
+
+[data-theme="gold"] .hero-profile-glow-ambient {
+  background: radial-gradient(
+    circle,
+    rgba(253, 230, 138, 0.35) 0%,
+    rgba(245, 158, 11, 0.15) 55%,
+    transparent 75%
+  ) !important;
+  filter: blur(52px) !important;
+}
+
+/* Inner Spinning Luminous Golden Ring */
+[data-theme="gold"] .hero-profile-ring {
+  border: 2px solid rgba(217, 119, 6, 0.85) !important;
+  box-shadow: 
+    0 0 26px rgba(245, 158, 11, 0.5),
+    inset 0 0 16px rgba(217, 119, 6, 0.3) !important;
+}
+
+/* Outer Counter-Rotating Dashed Orbit Ring */
+[data-theme="gold"] .hero-profile-ring-outer {
+  border: 1.8px dashed rgba(217, 119, 6, 0.75) !important;
+  box-shadow: 
+    0 0 20px rgba(245, 158, 11, 0.35),
+    inset 0 0 16px rgba(217, 119, 6, 0.2) !important;
+}
+
+/* Circular Image Frame in Gold Mode */
+[data-theme="gold"] .hero-profile-frame {
+  border: 2.5px solid rgba(217, 119, 6, 0.95) !important;
+  background: #1C1307 !important;
+  box-shadow: 
+    0 0 38px rgba(245, 158, 11, 0.5),
+    0 0 18px rgba(217, 119, 6, 0.4),
+    0 18px 36px rgba(28, 19, 7, 0.25) !important;
+}
+
+[data-theme="gold"] .hero-profile-frame:hover {
+  border-color: #D97706 !important;
+  box-shadow: 
+    0 0 50px rgba(245, 158, 11, 0.65),
+    0 0 26px rgba(217, 119, 6, 0.55),
+    0 22px 42px rgba(28, 19, 7, 0.32) !important;
+}
+
+/* Orbit Satellite Bead & Node Markers in Gold Mode */
+[data-theme="gold"] .hero-profile-ring::before {
+  background: #D97706 !important;
+  border: 1.5px solid #FFFFFF !important;
+  box-shadow: 0 0 12px #D97706, 0 0 20px rgba(245, 158, 11, 0.9) !important;
+}
+
+[data-theme="gold"] .hero-profile-ring-outer::before {
+  border-color: rgba(217, 119, 6, 0.85) !important;
+  background: rgba(254, 243, 199, 0.85) !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.45) !important;
+}
+
+[data-theme="gold"] .hero-profile-ring-outer::after {
+  background: #F59E0B !important;
+  border: 1px solid #FFFFFF !important;
+  box-shadow: 0 0 12px #F59E0B !important;
+}
+
 .hero-profile-frame:hover {
   transform: scale(1.02);
   box-shadow: 

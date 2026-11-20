@@ -6,7 +6,7 @@ export function ThemeProvider({ children }) {
     if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem('shahariyar_theme');
-        if (saved === 'light' || saved === 'dark') return saved;
+        if (saved === 'light' || saved === 'dark' || saved === 'gold') return saved;
       } catch {
         // Fallback to default
       }
@@ -17,13 +17,8 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
-    if (theme === 'light') {
-      root.classList.add('theme-light');
-      root.classList.remove('theme-dark');
-    } else {
-      root.classList.add('theme-dark');
-      root.classList.remove('theme-light');
-    }
+    root.classList.remove('theme-dark', 'theme-light', 'theme-gold');
+    root.classList.add(`theme-${theme}`);
 
     try {
       localStorage.setItem('shahariyar_theme', theme);
@@ -32,12 +27,33 @@ export function ThemeProvider({ children }) {
     }
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  // Smoothly cycle through all 3 modes: Dark -> Crystal Ice-Blue -> Champagne Gold -> Dark
+  const cycleTheme = () => {
+    setTheme((prev) => {
+      if (prev === 'dark') return 'light';
+      if (prev === 'light') return 'gold';
+      return 'dark';
+    });
+  };
+
+  const selectTheme = (targetTheme) => {
+    if (['dark', 'light', 'gold'].includes(targetTheme)) {
+      setTheme(targetTheme);
+    }
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, isDark: theme === 'dark', toggleTheme }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        isDark: theme === 'dark',
+        isLight: theme === 'light',
+        isGold: theme === 'gold',
+        toggleTheme: cycleTheme,
+        cycleTheme,
+        selectTheme,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

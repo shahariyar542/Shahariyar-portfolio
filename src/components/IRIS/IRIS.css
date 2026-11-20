@@ -163,6 +163,81 @@
   to { opacity: 1; }
 }
 
+.iris-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.iris-voice-toggle-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast);
+}
+
+.iris-voice-toggle-btn:hover {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.iris-voice-toggle-btn--active {
+  color: #38bdf8;
+}
+
+.iris-status-dot--speaking {
+  background: #00e5ff;
+  box-shadow: 0 0 8px #00e5ff;
+  animation: iris-speaking-pulse 1s infinite alternate;
+}
+
+@keyframes iris-speaking-pulse {
+  from { opacity: 0.5; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1.3); }
+}
+
+.iris-status-speaking-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.iris-voice-wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+
+.iris-voice-wave span {
+  display: block;
+  width: 2px;
+  height: 4px;
+  background: #38bdf8;
+  border-radius: 2px;
+  animation: iris-wave-bar 0.9s ease-in-out infinite alternate;
+}
+
+.iris-voice-wave span:nth-child(1) { animation-delay: 0s; height: 6px; }
+.iris-voice-wave span:nth-child(2) { animation-delay: 0.18s; height: 12px; }
+.iris-voice-wave span:nth-child(3) { animation-delay: 0.36s; height: 8px; }
+.iris-voice-wave span:nth-child(4) { animation-delay: 0.54s; height: 10px; }
+
+@keyframes iris-wave-bar {
+  0% { transform: scaleY(0.4); opacity: 0.5; }
+  100% { transform: scaleY(1.3); opacity: 1; }
+}
+
 .iris-chat-close {
   background: transparent;
   border: none;
@@ -219,7 +294,62 @@
   color: var(--color-text-heading);
   border-bottom-left-radius: 3px;
   border: 1px solid var(--border-subtle);
+  position: relative;
+  padding-bottom: 1.85rem;
 }
+
+/* Audio Replay / Listen button on IRIS message bubble */
+.iris-msg-speak-btn {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 3px 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 0.65rem;
+  transition: all var(--duration-fast);
+}
+
+.iris-msg-speak-btn:hover {
+  background: rgba(56, 189, 248, 0.16);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: scale(1.06);
+}
+
+.iris-msg-speak-btn--speaking {
+  background: rgba(56, 189, 248, 0.22);
+  color: #38bdf8;
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.iris-msg-wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 10px;
+}
+
+.iris-msg-wave span {
+  display: block;
+  width: 2px;
+  height: 8px;
+  background: currentColor;
+  border-radius: 1px;
+  animation: iris-wave-bar 0.7s ease-in-out infinite alternate;
+}
+
+.iris-msg-wave span:nth-child(1) { animation-delay: 0s; }
+.iris-msg-wave span:nth-child(2) { animation-delay: 0.2s; }
+.iris-msg-wave span:nth-child(3) { animation-delay: 0.4s; }
 
 .iris-message--user .iris-message-bubble {
   background: var(--color-accent-electric);
@@ -407,6 +537,207 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* ── Voice Input & Audio Controls ── */
+.iris-input-box--listening {
+  border-color: rgba(239, 68, 68, 0.65) !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Language Switcher Pill (BN / EN) */
+.iris-lang-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  color: #38bdf8;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 7px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all var(--duration-fast);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  user-select: none;
+}
+
+.iris-lang-toggle-btn:hover {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Microphone Button */
+.iris-mic-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  color: #38bdf8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.iris-mic-btn:hover:not(:disabled) {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #FFFFFF;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.iris-mic-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.iris-mic-btn--listening {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border-color: #f87171 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.7) !important;
+  animation: iris-mic-glow 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes iris-mic-glow {
+  0% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.5); transform: scale(1); }
+  100% { box-shadow: 0 0 22px rgba(239, 68, 68, 0.9); transform: scale(1.06); }
+}
+
+.iris-mic-pulse {
+  position: absolute;
+  inset: -5px;
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(239, 68, 68, 0.65);
+  animation: iris-pulse 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Real-time Voice Feedback Banner */
+.iris-voice-feedback {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius-md);
+  color: #38bdf8;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0 0.85rem 0.45rem;
+  animation: iris-feedback-appear 0.22s ease-out;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@keyframes iris-feedback-appear {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.iris-voice-feedback-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: iris-thinking-anim 0.8s infinite alternate;
+}
+
+/* ── Light (Ice-Blue) Theme Overrides for Voice ── */
+[data-theme="light"] .iris-voice-toggle-btn {
+  color: #0369a1 !important;
+}
+[data-theme="light"] .iris-voice-toggle-btn:hover {
+  background: rgba(2, 132, 199, 0.12) !important;
+  color: #0284c7 !important;
+}
+[data-theme="light"] .iris-voice-toggle-btn--active {
+  color: #0284c7 !important;
+}
+[data-theme="light"] .iris-lang-toggle-btn {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border-color: rgba(2, 132, 199, 0.25) !important;
+  color: #0284c7 !important;
+}
+[data-theme="light"] .iris-lang-toggle-btn:hover {
+  background: rgba(2, 132, 199, 0.16) !important;
+  border-color: #0284c7 !important;
+}
+[data-theme="light"] .iris-mic-btn {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border-color: rgba(2, 132, 199, 0.25) !important;
+  color: #0284c7 !important;
+}
+[data-theme="light"] .iris-mic-btn:hover:not(:disabled) {
+  background: rgba(2, 132, 199, 0.18) !important;
+  border-color: #0284c7 !important;
+}
+[data-theme="light"] .iris-voice-feedback {
+  background: rgba(240, 249, 255, 0.95) !important;
+  border-color: rgba(2, 132, 199, 0.3) !important;
+  color: #0369a1 !important;
+}
+[data-theme="light"] .iris-msg-speak-btn {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border-color: rgba(2, 132, 199, 0.2) !important;
+  color: #0369a1 !important;
+}
+
+/* ── Gold Theme Overrides for Voice ── */
+[data-theme="gold"] .iris-voice-toggle-btn {
+  color: #7E6543 !important;
+}
+[data-theme="gold"] .iris-voice-toggle-btn:hover {
+  background: rgba(217, 119, 6, 0.14) !important;
+  color: #D97706 !important;
+}
+[data-theme="gold"] .iris-voice-toggle-btn--active {
+  color: #D97706 !important;
+}
+[data-theme="gold"] .iris-status-speaking-text {
+  color: #D97706 !important;
+}
+[data-theme="gold"] .iris-voice-wave span {
+  background: #D97706 !important;
+}
+[data-theme="gold"] .iris-lang-toggle-btn {
+  background: rgba(254, 243, 199, 0.65) !important;
+  border-color: rgba(217, 119, 6, 0.35) !important;
+  color: #B45309 !important;
+}
+[data-theme="gold"] .iris-lang-toggle-btn:hover {
+  background: rgba(254, 243, 199, 0.95) !important;
+  border-color: #D97706 !important;
+}
+[data-theme="gold"] .iris-mic-btn {
+  background: rgba(254, 243, 199, 0.65) !important;
+  border-color: rgba(217, 119, 6, 0.35) !important;
+  color: #D97706 !important;
+}
+[data-theme="gold"] .iris-mic-btn:hover:not(:disabled) {
+  background: rgba(254, 243, 199, 0.95) !important;
+  border-color: #D97706 !important;
+}
+[data-theme="gold"] .iris-voice-feedback {
+  background: rgba(255, 251, 235, 0.95) !important;
+  border-color: rgba(217, 119, 6, 0.35) !important;
+  color: #B45309 !important;
+}
+[data-theme="gold"] .iris-msg-speak-btn {
+  background: rgba(254, 243, 199, 0.65) !important;
+  border-color: rgba(217, 119, 6, 0.25) !important;
+  color: #B45309 !important;
 }
 
 /* ── Mobile ── */

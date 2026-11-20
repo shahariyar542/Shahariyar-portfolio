@@ -4,6 +4,72 @@ import { navItems, socialLinks } from '../../data/portfolio';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import './Navigation.css';
 
+/* ── Section SVG Icons ── */
+const NAV_ICONS = {
+  home: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 10.5L12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5v-6h-5v6H4.5A1.5 1.5 0 0 1 3 20V10.5z" />
+    </svg>
+  ),
+  about: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  ),
+  skills: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  ),
+  experience: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22V12m0 0L7 7m5 5l5-5M12 12V3" />
+      <circle cx="12" cy="3" r="1.5" />
+      <circle cx="7" cy="7" r="1.5" />
+      <circle cx="17" cy="7" r="1.5" />
+    </svg>
+  ),
+  projects: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
+    </svg>
+  ),
+  research: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="7" />
+      <line x1="21" y1="21" x2="16" y2="16" />
+      <path d="M11 7.5a3.5 3.5 0 0 0-3.5 3.5" />
+    </svg>
+  ),
+  roles: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    </svg>
+  ),
+  education: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+      <path d="M6 12v5c0 2 2.7 3.5 6 3.5s6-1.5 6-3.5v-5" />
+    </svg>
+  ),
+  recognition: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="8" r="5.5" />
+      <path d="M15 12.5L16.5 21l-4.5-2.5L7.5 21 9 12.5" />
+    </svg>
+  ),
+  contact: (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+    </svg>
+  ),
+};
+
 /* ── Animation Variants ── */
 const overlayVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -120,7 +186,7 @@ export default function Navigation() {
         role="banner"
       >
         <div className="nav-topbar-inner">
-          {/* Desktop Nav Links */}
+          {/* Desktop Nav Links with 3D Rotating Alphabets & Tailored Section Logos */}
           <nav className="nav-desktop-menu" aria-label="Main Navigation">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
@@ -130,8 +196,22 @@ export default function Navigation() {
                   className={`nav-desktop-link${isActive ? ' nav-desktop-link--active' : ''}`}
                   onClick={() => scrollTo(item.id)}
                   type="button"
+                  title={`Navigate to ${item.label}`}
                 >
-                  {item.label}
+                  <span className="nav-item-icon" aria-hidden="true">
+                    {NAV_ICONS[item.id]}
+                  </span>
+                  <span className="nav-item-text">
+                    {item.label.split('').map((char, charIdx) => (
+                      <span
+                        key={charIdx}
+                        className="nav-char"
+                        style={{ '--char-idx': charIdx }}
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </span>
                   {isActive && (
                     <motion.span
                       className="nav-active-indicator"
@@ -216,6 +296,9 @@ export default function Navigation() {
                     scrollTo(item.id);
                   }}
                 >
+                  <span className="nav-overlay-link-icon" aria-hidden="true">
+                    {NAV_ICONS[item.id]}
+                  </span>
                   <span className="nav-overlay-link-label">{item.label}</span>
                   {activeSection === item.id && <span className="nav-overlay-active-tag">Active</span>}
                 </motion.a>

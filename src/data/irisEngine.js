@@ -13,12 +13,21 @@ import {
  * 5. Contextual Follow-up Questions (Which one uses AI, Give me its GitHub link)
  * 6. Context-Aware Cute Refusals for Unrelated Questions (Math, Teaching, Trivia, Country names)
  */
-export function processIrisQuery(userMessage, conversationHistory = []) {
+export function processIrisQuery(userMessage, conversationHistory = [], preferredLang = null) {
   const text = (userMessage || '').trim();
   const rawQ = text.toLowerCase();
   // Strip punctuation for robust word boundary matching
   const q = rawQ.replace(/[?!.,;:()_~`'"[\]{}]/g, ' ').replace(/\s+/g, ' ').trim();
-  const lang = detectLanguage(text);
+  let lang = detectLanguage(text);
+
+  // If user selected Bengali voice mode, prefer Bengali script responses so TTS speaks fluent Bangla
+  if (preferredLang === 'bn-BD') {
+    if (lang === 'banglish' || /[\u0980-\u09FF]/.test(text) || /(somporke|shomporke|bolo|bolun|kemon|valo|bhalo|project|skill|education|cv|link|ke)/i.test(q)) {
+      lang = 'bengali';
+    }
+  } else if (preferredLang === 'en-US' && lang === 'banglish') {
+    lang = 'english';
+  }
 
   // Extract recent context from the last 3 messages
   const lastUserMessages = conversationHistory
