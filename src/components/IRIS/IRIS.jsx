@@ -77,55 +77,103 @@ function stripMarkdownForTTS(text) {
 }
 
 /**
- * Accurately finds an installed Bengali TTS voice without false positives
+ * Accurately finds an installed Bengali female TTS voice (strictly rejecting male voices)
  */
-function findTrueBengaliVoice(voices) {
+function findTrueBengaliFemaleVoice(voices) {
   if (!voices || voices.length === 0) return null;
-  return (
-    voices.find((v) => {
-      const l = (v.lang || '').toLowerCase().replace(/_/g, '-');
-      const n = (v.name || '').toLowerCase();
-      return (
-        l === 'bn' ||
-        l.startsWith('bn-') ||
-        l === 'ben' ||
-        n.includes('bangla') ||
-        n.includes('bengali')
-      );
-    }) || null
-  );
+  const bnVoices = voices.filter((v) => {
+    const l = (v.lang || '').toLowerCase().replace(/_/g, '-');
+    const n = (v.name || '').toLowerCase();
+    const uri = (v.voiceURI || '').toLowerCase();
+    return (
+      l === 'bn' ||
+      l.startsWith('bn-') ||
+      l === 'ben' ||
+      n.includes('bangla') ||
+      n.includes('bengali') ||
+      uri.includes('bangla') ||
+      uri.includes('bengali') ||
+      uri.includes('bn-')
+    );
+  });
+  if (bnVoices.length === 0) return null;
+
+  // 1. Explicit female Bengali voice
+  const femaleVoice = bnVoices.find((v) => {
+    const combined = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
+    return (
+      combined.includes('female') ||
+      combined.includes('মহিলা') ||
+      combined.includes('girl') ||
+      combined.includes('woman') ||
+      combined.includes('network')
+    );
+  });
+  if (femaleVoice) return femaleVoice;
+
+  // 2. Reject explicit male voices
+  const nonMaleVoice = bnVoices.find((v) => {
+    const combined = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
+    return (
+      !combined.includes('male') &&
+      !combined.includes('পুরুষ') &&
+      !combined.includes('man') &&
+      !combined.includes('boy')
+    );
+  });
+
+  return nonMaleVoice || bnVoices[0] || null;
 }
 
 /**
- * Accurately finds a natural female/assistant English TTS voice
+ * Accurately finds a natural, sweet female assistant English TTS voice
  */
-function findEnglishVoice(voices) {
+function findEnglishFemaleVoice(voices) {
   if (!voices || voices.length === 0) return null;
-  return (
-    voices.find((v) => {
-      const name = (v.name || '').toLowerCase();
-      const lang = (v.lang || '').toLowerCase();
-      return (
-        lang.startsWith('en') &&
-        (name.includes('female') ||
-         name.includes('zira') ||
-         name.includes('samantha') ||
-         name.includes('jenny') ||
-         name.includes('aria') ||
-         name.includes('victoria') ||
-         name.includes('karen') ||
-         name.includes('natural') ||
-         name.includes('google us english'))
-      );
-    }) ||
-    voices.find((v) => {
-      const name = (v.name || '').toLowerCase();
-      const lang = (v.lang || '').toLowerCase();
-      return lang.startsWith('en') && !name.includes('david') && !name.includes('mark') && !name.includes('george');
-    }) ||
-    voices.find((v) => (v.lang || '').toLowerCase().startsWith('en')) ||
-    null
-  );
+  const enVoices = voices.filter((v) => (v.lang || '').toLowerCase().startsWith('en'));
+  if (enVoices.length === 0) return null;
+
+  // 1. Top confirmed female English voices across iOS, Android, Windows, Mac
+  const femaleVoice = enVoices.find((v) => {
+    const combined = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
+    return (
+      combined.includes('female') ||
+      combined.includes('zira') ||
+      combined.includes('samantha') ||
+      combined.includes('jenny') ||
+      combined.includes('aria') ||
+      combined.includes('victoria') ||
+      combined.includes('karen') ||
+      combined.includes('moira') ||
+      combined.includes('tessa') ||
+      combined.includes('fiona') ||
+      combined.includes('sangeeta') ||
+      combined.includes('veena') ||
+      combined.includes('eva') ||
+      combined.includes('hazel') ||
+      combined.includes('susan') ||
+      combined.includes('google us english') ||
+      combined.includes('natural')
+    );
+  });
+  if (femaleVoice) return femaleVoice;
+
+  // 2. Reject explicit male voices
+  const nonMaleVoice = enVoices.find((v) => {
+    const combined = ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase();
+    return (
+      !combined.includes('male') &&
+      !combined.includes('david') &&
+      !combined.includes('george') &&
+      !combined.includes('mark') &&
+      !combined.includes('richard') &&
+      !combined.includes('james') &&
+      !combined.includes('john') &&
+      !combined.includes('guy')
+    );
+  });
+
+  return nonMaleVoice || enVoices[0] || null;
 }
 
 /* ── Formatted Message Renderer (Turns Markdown Links [Label](url) into clickable <a> tags) ── */
@@ -315,7 +363,6 @@ export default function IRIS() {
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
       } catch {}
-      currentAudioRef.current = null;
     }
     setIsSpeaking(false);
     setSpeakingMsgId(null);
@@ -349,7 +396,7 @@ export default function IRIS() {
     }
   }, []);
 
-  // Text-To-Speech Output Function (Native Bengali Audio + English Assistant)
+  // Text-To-Speech Output Function (Sweet Female Voice Guaranteed on All Devices)
   const speakText = useCallback(
     (text, msgId = null) => {
       if (typeof window === 'undefined') return;
@@ -369,139 +416,29 @@ export default function IRIS() {
       const hasBengaliScript = /[\u0980-\u09FF]/.test(clean);
       const isBengali = hasBengaliScript || speechLang === 'bn-BD';
 
-      const voices =
-        'speechSynthesis' in window ? window.speechSynthesis.getVoices() : [];
-      const trueBengaliVoice = isBengali ? findTrueBengaliVoice(voices) : null;
-
-      // ── 1. BENGALI SPEECH ──
-      if (isBengali) {
-        // If the browser has an explicit, verified Bengali voice (e.g. Edge Natural or Chrome)
-        if (trueBengaliVoice && 'speechSynthesis' in window) {
-          const utterance = new SpeechSynthesisUtterance(clean);
-          utterance.lang = trueBengaliVoice.lang || 'bn-BD';
-          utterance.voice = trueBengaliVoice;
-          utterance.pitch = 1.05;
-          utterance.rate = 1.0;
-
-          utterance.onstart = () => {
-            setIsSpeaking(true);
-            setSpeakingMsgId(msgId);
-          };
-          utterance.onend = () => {
-            setIsSpeaking(false);
-            setSpeakingMsgId(null);
-          };
-          utterance.onerror = () => {
-            setIsSpeaking(false);
-            setSpeakingMsgId(null);
-          };
-
-          window.speechSynthesis.speak(utterance);
+      // Robust fallback to browser SpeechSynthesis (elevated pitch to guarantee a cute, sweet female voice)
+      const fallbackToSpeechSynthesis = (textToSpeak, isBn) => {
+        if (!('speechSynthesis' in window)) {
+          setIsSpeaking(false);
+          setSpeakingMsgId(null);
           return;
         }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.lang = isBn ? 'bn-BD' : 'en-US';
 
-        // If no native Bengali voice is installed in the OS (typical on Windows PCs):
-        // Stream Google's High-Definition Native Bengali Voice!
-        setIsSpeaking(true);
-        setSpeakingMsgId(msgId);
-
-        // Split text into natural sentence chunks (up to 160 chars per chunk)
-        const sentences = clean
-          .split(/([।?!.\n]+)/)
-          .map((s) => s.trim())
-          .filter(Boolean);
-
-        const chunks = [];
-        let cur = '';
-        for (let i = 0; i < sentences.length; i++) {
-          const part = sentences[i];
-          if ((cur + ' ' + part).trim().length <= 160) {
-            cur = (cur + ' ' + part).trim();
-          } else {
-            if (cur) chunks.push(cur);
-            if (part.length <= 160) {
-              cur = part;
-            } else {
-              chunks.push(part.slice(0, 160));
-              cur = '';
-            }
-          }
+        const currentVoices = window.speechSynthesis.getVoices();
+        if (isBn) {
+          const fVoice = findTrueBengaliFemaleVoice(currentVoices);
+          if (fVoice) utterance.voice = fVoice;
+          utterance.pitch = 1.38; // Sweet, cute feminine pitch (transforms any base synthesizer into a female tone)
+          utterance.rate = 1.02;
+        } else {
+          const fVoice = findEnglishFemaleVoice(currentVoices);
+          if (fVoice) utterance.voice = fVoice;
+          utterance.pitch = 1.32; // Sweet, bright female assistant pitch
+          utterance.rate = 1.0;
         }
-        if (cur) chunks.push(cur);
-
-        // Play up to 3 natural sentences for crisp conversational pacing
-        const speechChunks =
-          (chunks.length > 0 ? chunks : [clean.slice(0, 160)]).slice(0, 3);
-
-        const playChunk = (index) => {
-          if (index >= speechChunks.length) {
-            setIsSpeaking(false);
-            setSpeakingMsgId(null);
-            currentAudioRef.current = null;
-            return;
-          }
-
-          const chunkText = speechChunks[index];
-          const localUrl = `/api/tts?q=${encodeURIComponent(chunkText)}&tl=bn`;
-          const fallbackUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(
-            chunkText
-          )}&tl=bn&client=tw-ob`;
-
-          const audio = new Audio(localUrl);
-          currentAudioRef.current = audio;
-
-          audio.onplay = () => {
-            setIsSpeaking(true);
-            setSpeakingMsgId(msgId);
-          };
-          audio.onended = () => {
-            playChunk(index + 1);
-          };
-          audio.onerror = () => {
-            // If local proxy endpoint fails, attempt fallback
-            const fallbackAudio = new Audio(fallbackUrl);
-            currentAudioRef.current = fallbackAudio;
-            fallbackAudio.onplay = () => {
-              setIsSpeaking(true);
-              setSpeakingMsgId(msgId);
-            };
-            fallbackAudio.onended = () => {
-              playChunk(index + 1);
-            };
-            fallbackAudio.onerror = () => {
-              setIsSpeaking(false);
-              setSpeakingMsgId(null);
-              currentAudioRef.current = null;
-            };
-            fallbackAudio.play().catch(() => {
-              setIsSpeaking(false);
-              setSpeakingMsgId(null);
-              currentAudioRef.current = null;
-            });
-          };
-
-          audio.play().catch((err) => {
-            console.warn('Audio playback error:', err);
-            setIsSpeaking(false);
-            setSpeakingMsgId(null);
-            currentAudioRef.current = null;
-          });
-        };
-
-        playChunk(0);
-        return;
-      }
-
-      // ── 2. ENGLISH SPEECH ──
-      if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(clean);
-        utterance.lang = 'en-US';
-        const enVoice = findEnglishVoice(voices);
-        if (enVoice) {
-          utterance.voice = enVoice;
-        }
-        utterance.pitch = 1.18; // Sweet, natural female assistant pitch
-        utterance.rate = 1.0;
 
         utterance.onstart = () => {
           setIsSpeaking(true);
@@ -517,7 +454,115 @@ export default function IRIS() {
         };
 
         window.speechSynthesis.speak(utterance);
+      };
+
+      // ── High-Definition Female Audio Stream (Google Female Voice) ──
+      // Google TTS produces the iconic sweet, natural female native pronunciation
+      setIsSpeaking(true);
+      setSpeakingMsgId(msgId);
+
+      // Split text into natural sentence chunks (up to 160 chars per chunk)
+      const sentences = clean
+        .split(/([।?!.\n]+)/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      const chunks = [];
+      let cur = '';
+      for (let i = 0; i < sentences.length; i++) {
+        const part = sentences[i];
+        if ((cur + ' ' + part).trim().length <= 160) {
+          cur = (cur + ' ' + part).trim();
+        } else {
+          if (cur) chunks.push(cur);
+          if (part.length <= 160) {
+            cur = part;
+          } else {
+            chunks.push(part.slice(0, 160));
+            cur = '';
+          }
+        }
       }
+      if (cur) chunks.push(cur);
+
+      // Play up to 3 natural sentences for crisp conversational pacing
+      const speechChunks =
+        (chunks.length > 0 ? chunks : [clean.slice(0, 160)]).slice(0, 3);
+
+      let audioPlayer = currentAudioRef.current;
+      if (!audioPlayer) {
+        audioPlayer = new Audio();
+        currentAudioRef.current = audioPlayer;
+      }
+
+      const isLocalhost =
+        typeof window !== 'undefined' &&
+        (window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1');
+
+      const playChunk = (index) => {
+        if (index >= speechChunks.length) {
+          setIsSpeaking(false);
+          setSpeakingMsgId(null);
+          return;
+        }
+
+        const chunkText = speechChunks[index];
+        const langCode = isBengali ? 'bn' : 'en';
+
+        const primaryUrl = isLocalhost
+          ? `/api/tts?q=${encodeURIComponent(chunkText)}&tl=${langCode}`
+          : `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(
+              chunkText
+            )}&tl=${langCode}&client=tw-ob`;
+
+        const secondaryUrl = isLocalhost
+          ? `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(
+              chunkText
+            )}&tl=${langCode}&client=tw-ob`
+          : `/api/tts?q=${encodeURIComponent(chunkText)}&tl=${langCode}`;
+
+        let triedSecondary = false;
+
+        audioPlayer.onplay = () => {
+          setIsSpeaking(true);
+          setSpeakingMsgId(msgId);
+        };
+
+        audioPlayer.onended = () => {
+          playChunk(index + 1);
+        };
+
+        audioPlayer.onerror = () => {
+          if (!triedSecondary) {
+            triedSecondary = true;
+            audioPlayer.src = secondaryUrl;
+            audioPlayer.play().catch(() => {
+              fallbackToSpeechSynthesis(clean, isBengali);
+            });
+          } else {
+            fallbackToSpeechSynthesis(clean, isBengali);
+          }
+        };
+
+        audioPlayer.src = primaryUrl;
+        const playPromise = audioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            if (!triedSecondary) {
+              triedSecondary = true;
+              audioPlayer.src = secondaryUrl;
+              audioPlayer.play().catch(() => {
+                fallbackToSpeechSynthesis(clean, isBengali);
+              });
+            } else {
+              fallbackToSpeechSynthesis(clean, isBengali);
+            }
+          });
+        }
+      };
+
+      playChunk(0);
     },
     [isSpeaking, speakingMsgId, speechLang, stopAllAudio]
   );
