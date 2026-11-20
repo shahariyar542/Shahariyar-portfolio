@@ -105,35 +105,35 @@ export function processIrisQuery(userMessage, conversationHistory = [], preferre
     if (lang === 'english') {
       return "I'm IRIS, Shahariyar Khan Rashad's personal AI portfolio assistant! 💙 I can help you explore his software projects (like the AI Smart Transit Tracker), technical skills (Python, Java, C++, AI/ML), DIU Software Engineering studies, and direct contact info or CV download link. Just ask me anything!";
     }
-    return "আমি IRIS (আইরিস), শাহারিয়ার খান রাশাদের পার্সোনাল এআই অ্যাসিস্ট্যান্ট! 💙 আমি তাঁর সফটওয়্যার প্রজেক্টস (যেমন স্মার্ট পাবলিক ট্রানজিট ট্র্যাকার), কোডিং স্কিলস (পাইথন, জাভা, সি++, এআই/এমএল), পড়াশোনা (DIU ব্যাচ ৪৪), এবং সিভি বা যোগাযোগের তথ্য সুন্দরভাবে জানিয়ে দিতে পারি। তুমি কী জানতে চাও বলো!";
+    return "আমি IRIS (আইরিস), শাহারিয়ার খান রাশেদের পার্সোনাল এআই অ্যাসিস্ট্যান্ট! 💙 আমি তাঁর সফটওয়্যার প্রজেক্টস (যেমন স্মার্ট পাবলিক ট্রানজিট ট্র্যাকার), কোডিং স্কিলস (পাইথন, জাভা, সি++, এআই/এমএল), পড়াশোনা (DIU ব্যাচ ৪৪), এবং সিভি বা যোগাযোগের তথ্য সুন্দরভাবে জানিয়ে দিতে পারি। তুমি কী জানতে চাও বলো!";
   }
 
   // =========================================================================
   // 3. WHO IS SHAHARIYAR? (BIOGRAPHY, IDENTITY, WHO IS HE)
   // =========================================================================
   if (
-    /\b(who is shahariyar|about shahariyar|tell me about him|shahariyar ke|shahariyar somporke|shahariyar shomporke|about him|introduce shahariyar|who is he|who is rashad|rashad ke|tell me about shahariyar|biography|profile|details|what does he do|what he does)\b/i.test(q) ||
-    (/(who|about|somporke|shomporke)/i.test(q) && /shahariyar/i.test(q)) ||
-    /(শাহারিয়ার কে|শাহরিয়ার কে|কে এই শাহারিয়ার|কে এই শাহরিয়ার|শাহারিয়ার সম্পর্কে|শাহরিয়ার সম্পর্কে|তার পরিচয়|তার পরিচয় দাও|কে সে|উনি কে|কাকে নিয়ে|পরিচয়|সে কি করে|উনি কি করেন|ওর কাজ কি|কি করে উনি)/.test(text)
+    /\b(who is shahariyar|about shahariyar|tell me about him|shahariyar ke|shahariyar somporke|shahariyar shomporke|about him|introduce shahariyar|who is he|who is rashad|rashad ke|tell me about shahariyar|biography|profile|details|what does he do|what he does|what is his name|his name)\b/i.test(q) ||
+    (/(who|about|somporke|shomporke|name)/i.test(q) && /(shahariyar|rashad|rashed)/i.test(q)) ||
+    /(শাহারিয়ার কে|শাহরিয়ার কে|কে এই শাহারিয়ার|কে এই শাহরিয়ার|শাহারিয়ার সম্পর্কে|শাহরিয়ার সম্পর্কে|তার পরিচয়|তার পরিচয় দাও|কে সে|উনি কে|কাকে নিয়ে|পরিচয়|সে কি করে|উনি কি করেন|ওর কাজ কি|কি করে উনি|তার নাম কি|তার নাম কী|নাম কি|নাম কী|রাশেদ)/.test(text)
   ) {
     if (lang === 'english') {
-      return "Shahariyar Khan Rashad is an Aspiring AI Engineer and Software Engineering undergraduate student at Daffodil International University (Batch 44), Bangladesh. 🌟 Deeply passionate about Artificial Intelligence, predictive machine learning models, and system architecture, he combines algorithmic logic with creative engineering to solve real-world problems!";
+      return "Shahariyar Khan Rashad is an Aspiring AI Engineer and Software Engineering undergraduate student at Daffodil International University (Batch 44), Dhaka, Bangladesh. 🌟 Deeply passionate about Artificial Intelligence, predictive machine learning models, and system architecture, he combines algorithmic logic with creative engineering to solve real-world problems!";
     }
-    return "শাহারিয়ার খান রাশাদ হলেন একজন উদীয়মান এআই ইঞ্জিনিয়ার (Aspiring AI Engineer) এবং ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির (DIU) সফটওয়্যার ইঞ্জিনিয়ারিং বিভাগের ৪৪তম ব্যাচের শিক্ষার্থী। 🌟 তিনি আর্টিফিশিয়াল ইন্টেলিজেন্স, মেশিন লার্নিং এবং বাস্তবমুখী সফটওয়্যার তৈরিতে কাজ করছেন। তাঁর লক্ষ্য হলো ডেটা ও কোডিং এর সমন্বয়ে বাস্তব সমস্যার উদ্ভাবনী সমাধান তৈরি করা!";
+    return "শাহারিয়ার খান রাশেদ হলেন একজন উদীয়মান এআই ইঞ্জিনিয়ার (Aspiring AI Engineer) এবং ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির (DIU) সফটওয়্যার ইঞ্জিনিয়ারিং বিভাগের ৪৪তম ব্যাচের শিক্ষার্থী। 🌟 তাঁর অবস্থান ঢাকা, বাংলাদেশ। তিনি আর্টিফিশিয়াল ইন্টেলিজেন্স, মেশিন লার্নিং এবং বাস্তবমুখী সফটওয়্যার তৈরিতে কাজ করছেন। তাঁর লক্ষ্য হলো ডেটা ও কোডিং এর সমন্বয়ে বাস্তব সমস্যার উদ্ভাবনী সমাধান তৈরি করা!";
   }
 
   // =========================================================================
   // 4. HOMETOWN, LOCATION, WHERE DOES HE LIVE?
   // =========================================================================
   if (
-    /\b(where does he live|where is he from|hometown|location|address|where from|origin|keshabpur|jashore|jessore|dhaka)\b/i.test(q) ||
-    /\b(kothay thake|bashay kothay|basa kothay|bari kothay|desher bari|thikana|desh)\b/i.test(q) ||
-    /(কোথায় থাকে|কোথায় বাস করে|বাসা কোথায়|বাড়ি কোথায়|দেশের বাড়ি কোথায়|ঠিকানা কি|ঠিকানা কী|কেশবপুর|যশোর|ঢাকা)/.test(text)
+    /\b(where does he live|where is he from|hometown|location|address|where from|origin|keshabpur|jashore|jessore|dhaka|live|city|country)\b/i.test(q) ||
+    /\b(kothay|thake|bashay|basa|bari|desher|thikana|desh|location)\b/i.test(q) ||
+    /(কোথায়|কোথায়|থাকে|বাসা|বাড়ি|বাড়ি|ঠিকানা|অবস্থান|লোকেশন|কেশবপুর|যশোর|ঢাকা)/.test(text)
   ) {
     if (lang === 'english') {
-      return "Shahariyar is originally from Keshabpur, Jashore, Bangladesh. Currently, he resides in Dhaka, pursuing his B.Sc. in Software Engineering at Daffodil International University.";
+      return "Shahariyar's location is Dhaka, Bangladesh (originally from Keshabpur, Jashore). Currently, he resides in Dhaka, pursuing his B.Sc. in Software Engineering at Daffodil International University.";
     }
-    return "শাহারিয়ারের দেশের বাড়ি কেশবপুর, যশোর, বাংলাদেশে। বর্তমানে তিনি ঢাকায় অবস্থান করছেন এবং ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটিতে (DIU) সফটওয়্যার ইঞ্জিনিয়ারিং নিয়ে পড়াশোনা করছেন।";
+    return "শাহারিয়ারের বর্তমান অবস্থান ঢাকা, বাংলাদেশ (তাঁর দেশের বাড়ি কেশবপুর, যশোর)। বর্তমানে তিনি ঢাকায় অবস্থান করছেন এবং ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটিতে (DIU) সফটওয়্যার ইঞ্জিনিয়ারিং নিয়ে পড়াশোনা করছেন।";
   }
 
   // =========================================================================
@@ -277,13 +277,13 @@ export function processIrisQuery(userMessage, conversationHistory = [], preferre
   // 12. CERTIFICATES & ONLINE COURSES
   // =========================================================================
   if (
-    /\b(certificates?|certif|courses?|saylor|intellipaat|credentials?)\b/i.test(q) ||
-    /(সার্টিফিকেট|সনদ|কোর্স|সার্টিফিকেশন)/.test(text)
+    /\b(certificates?|certif|courses?|saylor|intellipaat|credentials?|art of living|aol|career planning|roadmap|seminar)\b/i.test(q) ||
+    /(সার্টিফিকেট|সনদ|কোর্স|সার্টিফিকেশন|আর্ট অব লিভিং|আর্ট অফ লিভিং|সেমিনার|রোডম্যাপ)/.test(text)
   ) {
     if (lang === 'english') {
-      return `Shahariyar's verified professional certificates:\n\n• 📜 **CS301: Computer Architecture** — Saylor Academy (Grade: 93.75%, ID: 3160446853SR)\n• 📜 **Free SQL Certification Course** — Intellipaat Academy (ID: 31679-619-332486)`;
+      return `Shahariyar's verified professional certificates:\n\n• 📜 **Day Long Seminar On Career Planning Roadmap** — Daffodil International University & Art of Living (DIU Dept. of SWE & Bengal Group, April 16, 2026)\n• 📜 **CS301: Computer Architecture** — Saylor Academy (Grade: 93.75%, ID: 3160446853SR)\n• 📜 **Free SQL Certification Course** — Intellipaat Academy (ID: 31679-619-332486)`;
     }
-    return `শাহারিয়ারের ভেরিফাইড প্রফেশনাল সার্টিফিকেটসমূহ:\n\n• 📜 **CS301: Computer Architecture** — Saylor Academy (গ্রেড: ৯৩.৭৫%, আইডি: 3160446853SR)\n• 📜 **Free SQL Certification Course** — Intellipaat Academy (আইডি: 31679-619-332486)`;
+    return `শাহারিয়ারের ভেরিফাইড প্রফেশনাল সার্টিফিকেটসমূহ:\n\n• 📜 **Day Long Seminar On Career Planning Roadmap** — Daffodil International University & Art of Living (DIU Dept. of SWE ও বেঙ্গল গ্রুপ, ১৬ এপ্রিল ২০২৬)\n• 📜 **CS301: Computer Architecture** — Saylor Academy (গ্রেড: ৯৩.৭৫%, আইডি: 3160446853SR)\n• 📜 **Free SQL Certification Course** — Intellipaat Academy (আইডি: 31679-619-332486)`;
   }
 
   // =========================================================================
@@ -307,5 +307,5 @@ export function processIrisQuery(userMessage, conversationHistory = [], preferre
     return "I'm IRIS, Shahariyar Khan Rashad's personal AI portfolio companion! 💙 You can explore his:\n\n• 💻 **Projects**: AI Smart Transit Tracker, IRIS AI, 3D Portfolio.\n• 🐍 **Skills**: Python, Java, C++, AI/ML, MySQL, React.\n• 🎓 **Education**: DIU Software Engineering (Batch 44).\n• 📄 **CV & Contact**: Direct email, LinkedIn, GitHub, and verified CV download.\n\nWhat would you like to explore?";
   }
 
-  return "আমি IRIS, শাহারিয়ার খান রাশাদের পার্সোনাল এআই অ্যাসিস্ট্যান্ট! 💙 তুমি শাহারিয়ারের:\n\n• 💻 **প্রজেক্টস**: এআই স্মার্ট ট্রানজিট ট্র্যাকার, আইরিস এআই, ৩D পোর্টফোলিও।\n• 🐍 **স্কিলস**: পাইথন, জাভা, সি++, মেশিন লার্নিং, মাইএসকিউএল ও ওয়েব টেকনোলজি।\n• 🎓 **পড়াশোনা**: ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটি (ব্যাচ ৪৪)।\n• 📄 **সিভি ও যোগাযোগ**: সরাসরি ইমেইল, লিংকডইন, গিটহাব ও সিভি ডাউনলোড লিংক।\n\nএই বিষয়গুলোর যেকোনো কিছু সম্পর্কে জানতে চাইলে আমাকে নির্দ্বিধায় বলো!";
+  return "আমি IRIS, শাহারিয়ার খান রাশেদের পার্সোনাল এআই অ্যাসিস্ট্যান্ট! 💙 তুমি শাহারিয়ারের:\n\n• 💻 **প্রজেক্টস**: এআই স্মার্ট ট্রানজিট ট্র্যাকার, আইরিস এআই, ৩D পোর্টফোলিও।\n• 🐍 **স্কিলস**: পাইথন, জাভা, সি++, মেশিন লার্নিং, মাইএসকিউএল ও ওয়েব টেকনোলজি।\n• 🎓 **পড়াশোনা**: ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটি (ব্যাচ ৪৪)।\n• 📄 **সিভি ও যোগাযোগ**: সরাসরি ইমেইল, লিংকডইন, গিটহাব ও সিভি ডাউনলোড লিংক।\n\nএই বিষয়গুলোর যেকোনো কিছু সম্পর্কে জানতে চাইলে আমাকে নির্দ্বিধায় বলো!";
 }

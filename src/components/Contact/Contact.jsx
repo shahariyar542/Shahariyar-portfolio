@@ -175,6 +175,15 @@ export default function Contact() {
               Have a project in mind, want to collaborate, or just want to say hello?
             </p>
 
+            {/* Location */}
+            <div className="contact-location-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <span>{personalInfo.location}</span>
+            </div>
+
             {/* Email with copy */}
             <div className="contact-email-row">
               <a href={`mailto:${personalInfo.email}`} className="contact-email-link">

@@ -12,8 +12,8 @@ export const portfolioFacts = {
     university: 'Daffodil International University',
     department: 'Software Engineering',
     batch: 44,
-    location: 'Bangladesh',
-    bio: 'Shahariyar Khan Rashad is an Aspiring AI Engineer and Software Engineering undergraduate student at Daffodil International University (Batch 44), Bangladesh. He is deeply passionate about Artificial Intelligence, machine learning models, and building scalable software solutions that address real-world problems.',
+    location: 'Dhaka, Bangladesh',
+    bio: 'Shahariyar Khan Rashad is an Aspiring AI Engineer and Software Engineering undergraduate student at Daffodil International University (Batch 44), Dhaka, Bangladesh. He is deeply passionate about Artificial Intelligence, machine learning models, and building scalable software solutions that address real-world problems.',
     mindset: 'Approaches engineering problems with creative thinking and a desire to build practical, unconventional solutions combining algorithmic rigor and intelligent automation.',
   },
 
@@ -155,6 +155,12 @@ export const portfolioFacts = {
   ],
 
   certificates: [
+    {
+      title: 'Day Long Seminar On Career Planning Roadmap',
+      organization: 'Daffodil International University & Art of Living',
+      date: 'April 16, 2026',
+      id: 'DIU-AOL-SWE-2026',
+    },
     {
       title: 'CS301: Computer Architecture',
       organization: 'Saylor Academy',

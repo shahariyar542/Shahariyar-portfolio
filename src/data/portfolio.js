@@ -11,7 +11,7 @@ export const personalInfo = {
   university: 'Daffodil International University',
   department: 'Software Engineering',
   batch: 44,
-  location: 'Bangladesh',
+  location: 'Dhaka, Bangladesh',
   email: 'khanshahariyar28@gmail.com',
   phone: '01602292216', // configurable, not displayed by default
   showPhone: false,
@@ -305,6 +305,22 @@ export const rolesData = [
 
 export const certificatesData = [
   {
+    id: 'cert-aol',
+    title: 'Career Planning Roadmap Seminar',
+    organization: 'Daffodil International University & Art of Living',
+    issuerSub: 'Dept. of Software Engineering (DIU) & Bengal Group',
+    recipient: 'Shahariyar Khan Rashad',
+    issueDate: 'April 16, 2026',
+    certificateId: 'DIU-AOL-SWE-2026',
+    image: '/certificates/diu-art-of-living-career-roadmap.jpg',
+    pdfPath: '/certificates/diu-art-of-living-career-roadmap.jpg',
+    verificationUrl: 'https://daffodilvarsity.edu.bd',
+    category: 'Leadership & Career Roadmap',
+    badge: 'Art of Living & SWE (DIU)',
+    description: 'Awarded for active engagement and contribution to the Day Long Seminar on Career Planning Roadmap organized by Daffodil International University (Dept. of SWE) in collaboration with the Art of Living program and keynote from Bengal Group.',
+    skillsLearned: ['Career Strategy', 'Art of Living', 'Professional Mindset', 'Team Leadership'],
+  },
+  {
     id: 'cert-sql',
     title: 'Free SQL Certification Course',
     organization: 'Intellipaat Academy',
@@ -421,13 +437,13 @@ export const irisKnowledge = {
     university: 'Daffodil International University',
     department: 'Software Engineering',
     batch: 44,
-    location: 'Bangladesh',
+    location: 'Dhaka, Bangladesh',
   },
   about: "Shahariyar Khan Rashad is a Software Engineering student at Daffodil International University (Batch 44) with a deep passion for Artificial Intelligence. Prior to university, he achieved GPA 5.00 in both SSC (Keshabpur Govt Pilot Higher Secondary School) and HSC (Keshabpur Govt College) in Science.",
   education: "Education: 1) B.Sc. in Software Engineering at Daffodil International University (Batch 44, 2023 — Present); 2) Higher Secondary Certificate (HSC) from Keshabpur Govt College, Science Division (GPA 5.00 / 5.00); 3) Secondary School Certificate (SSC) from Keshabpur Govt Pilot Higher Secondary School, Science Division (GPA 5.00 / 5.00).",
   experience: "Experience spans Software Development & Engineering (academic foundations in Java, C++, Python, MySQL), AI & Machine Learning Exploration (IRIS, Gemini API, predictive models), Systems Research & Innovation (Smart Public Transport Tracking, Poultry Security System), and Science & Technology Achievement (Regional Champion at National Science Week).",
   roles: "Multidimensional roles: Software Engineering Student (foundations, DSA, OOP, databases), Project Contributor & Builder (interactive apps, clean architecture, Git), Research Enthusiast (AI literature, system concepts), and AI Technology Explorer (LLMs, prompt engineering, agentic workflows).",
-  certificates: "Verified Certifications: 1) CS301: Computer Architecture from Saylor Academy (Grade: 93.75%, ID: 3160446853SR); 2) Free SQL Certification Course from Intellipaat Academy (ID: 31679-619-332486). Verified Award: National Science Week Regional Champion (1st Place).",
+  certificates: "Verified Certifications: 1) Day Long Seminar on Career Planning Roadmap from Daffodil International University & Art of Living (April 16, 2026); 2) CS301: Computer Architecture from Saylor Academy (Grade: 93.75%, ID: 3160446853SR); 3) Free SQL Certification Course from Intellipaat Academy (ID: 31679-619-332486). Verified Award: National Science Week Regional Champion (1st Place).",
   projects: [
     "Smart Public Transport Tracking and Demand Prediction System (In Development) — Real-time tracking and demand pattern forecasting.",
     "IRIS — AI Companion (In Development) — Intelligent conversational assistant powered by Google Gemini.",
